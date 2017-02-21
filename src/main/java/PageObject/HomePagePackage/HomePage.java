@@ -28,7 +28,7 @@ public class HomePage {
 
     //PageElements
     static private By WelcomeField = By.id("Welcome");
-    //static private By MenusOnHomePage = By.xpath("//td[@id='DirectMenus']/ul/li/a");
+    static private By MenusOnHomePagesss = By.xpath("//td[@id='DirectMenus']/ul/li/a");
 
 
 
