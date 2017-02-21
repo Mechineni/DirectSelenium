@@ -359,4 +359,17 @@ public class DataDriven {
 		Sheet TestCasesheet = TestCaseBook.getSheet(TestDataSheet);
 		return TestCasesheet;
 	}
+    public static String SearchColumnText(String Parameter) throws BiffException, IOException, WriteException {
+        obr.repository(driver);
+        String TestDataValue = null;
+        TestCaseBook = Workbook.getWorkbook(new File(obr.obj.getProperty("testData3")));
+        Sheet TestCasesheet = TestCaseBook.getSheet(TestDataSheet);
+        int totalNoOfColumns = TestCasesheet.getColumns();
+        for (int col = 0; col < totalNoOfColumns; col++) {
+            if(TestCasesheet.getCell(col,0).getContents().contentEquals(Parameter)){
+                TestDataValue = TestCasesheet.getCell(col,1).getContents();
+            }
+        }
+        return TestDataValue;
+    }
 }

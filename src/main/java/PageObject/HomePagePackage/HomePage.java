@@ -98,7 +98,6 @@ public class HomePage {
         }
     }
     public static void CheckAllTheLinks(WebDriver driver) throws InterruptedException, IOException, WriteException {
-
         String[] Menu01 ={"Create Quote","Create Quote - GAP & IAP","Revision Requested","Document Search","Opportunity Ref.Management"};
         String[] Menu02 ={"Document Search","View Shipment Status Details","Upload Purchase Order","BT Service Requests"};
         String[] Menu03 ={"Buyers>Create","Sales Team Admin>Upload Set Sales Team=Upload History>Find Sales Team Member>AUDIT","News>Create","DD Active>Create","Client Associations>Create"};
@@ -122,8 +121,8 @@ public class HomePage {
         MenuMenuListArray.add("Site Admin");
         MenuMenuListArray.add("Global Admin");
         MenuMenuListArray.add("Reports");
-        Thread.sleep(10000);
-        for(int NoOfMenu=0;NoOfMenu<=3;NoOfMenu++ ) {
+        Thread.sleep(15000);
+        for(int NoOfMenu=0;NoOfMenu<=6;NoOfMenu++ ) {
             StepLable("Verifying links on '"+MenuMenuListArray.get(NoOfMenu)+" ' Menu");
             ArrayList<String> ElementsName = new ArrayList<String>();
             int NoOfStrings = Menus.get(NoOfMenu).length;

@@ -5,7 +5,8 @@
         <classes>
             <class name="LocalTestCases.LandingPageTC">
             <methods>
-                <include name="SC_001"/>
+                <!--<include name="SC_001"/>-->
+                <include name="SC_002"/>
             </methods>
             </class>
         </classes>

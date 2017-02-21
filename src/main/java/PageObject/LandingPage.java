@@ -45,10 +45,10 @@ public class LandingPage {
         obje.repository(driver);
         if(VerifyLandingPageAssert(driver)==true) {
             ExpectedLable("Provide User name in Email id field");
-            sendInputData(driver,EmailIdField).sendKeys(TestDataSheet().getCell(3,1).getContents());
+            sendInputData(driver,EmailIdField).sendKeys(SearchColumnText("UserName"));
             ActualLable("User name entered successfully, Email id is : "+obje.obj.getProperty("email"),"Pass");
             ExpectedLable("Provide Password in Password field");
-            sendInputData(driver,PasswordField).sendKeys(TestDataSheet().getCell(4,1).getContents());
+            sendInputData(driver,PasswordField).sendKeys(SearchColumnText("passWord"));
             ActualLable("Password entered successfully, Password is : " +obje.obj.getProperty("password"),"Pass");
             waitForOneSec();
             ExpectedLable("Now Click on Login button");
