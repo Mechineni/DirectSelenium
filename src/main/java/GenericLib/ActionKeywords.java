@@ -16,18 +16,18 @@ import java.util.List;
 public class ActionKeywords {
     private static WebDriver driver;
     public static void navigateTo(WebDriver driver,String url){
-            driver.navigate().to(url);
+        driver.navigate().to(url);
     }
     public static void clickOnElement(WebDriver driver,By object) {
         driver.findElement(object).click();
     }
     public static Select selectDropDown(WebDriver driver,By object){
-            Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
+        Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
         return dropdown;
     }
     public static WebElement sendInputData(WebDriver driver,By object){
         WebElement elementNam = driver.findElement(object);
-            return elementNam;
+        return elementNam;
     }
     public static Select selectDropDownFromMultipleElements(WebDriver driver,By object,int i){
         Select dropdown = new Select(driver.findElements(object).get(i));//WebDriver driver,
@@ -68,5 +68,9 @@ public class ActionKeywords {
         Actions action = new Actions(driver);
         WebElement we = driver.findElement(object1);
         action.moveToElement(we).build().perform();
+    }
+    public static WebElement GetElement(WebDriver driver,By object) {
+        WebElement element = driver.findElement(object);
+        return element;
     }
 }

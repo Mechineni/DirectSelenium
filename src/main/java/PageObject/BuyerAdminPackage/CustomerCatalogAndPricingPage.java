@@ -28,6 +28,9 @@ public class CustomerCatalogAndPricingPage {
     static private By UnAssignLink=By.xpath("//input[@name='UNASSIGN'][@type='SUBMIT']");
     static private By UpdateCatalogAndPricing=By.xpath("//input[@name='UPDATE'][@type='SUBMIT']");
     static private By CostFactorsLink=By.xpath("//a[contains(text(),'COST FACTORS')]");
+    static private By ZeroPrizeLineItems =By.xpath("//input[@name='ZeroPrice'][@type='CHECKBOX']");
+    static private By ZeroPrizeLineItemsTextBox =By.xpath("//input[@name='ZeroPriceValue'][@type='TEXT']");
+    static private By ExpediteByCustomer =By.xpath("//input[@name='BCExp'][@type='CHECKBOX']");
 
 
     static private By CatalogUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[2]/select/parent::td/preceding-sibling::td");
@@ -54,6 +57,14 @@ public class CustomerCatalogAndPricingPage {
     static private By ManufacturerRuleUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[7]/a[contains(text(),'Manufacturer')]");
     static private By CategoryRuleUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[7]/a[contains(text(),'Category')]");
 
+    static private By CatalogInCostFactors=By.xpath("//td[2][@class='ListAltRow1']/input/parent::td");
+    static private By RegionConfigurationCheckBox=By.id("UseRegion");
+    static private By UpdateCostFactorsButton=By.xpath("//input[@type='submit'][@value='Update']");
+    static private By ProductRuleUnderCostFactors=By.xpath("//a[contains(text(),'Product')]");
+    static private By FamilyRuleUnderCostFactors=By.xpath("//a[contains(text(),'Family')]");
+    static private By NCMRuleUnderCostFactors=By.xpath("//a[contains(text(),'NCM')]");
+    static private By ManufacturerRuleUnderCostFactors=By.xpath("//a[contains(text(),'Category')]");
+    static private By CategoryRuleUnderCostFactors=By.xpath("//a[contains(text(),'Manufacturer')]");
 
 
     public static void AssignCatalogsToBuyer(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
@@ -112,76 +123,95 @@ public class CustomerCatalogAndPricingPage {
             ExpectedLable("Verify Catalog name is available under Price Scheme ");
             String CatName = SearchColumnText("catalogName1");
             for (int i = 0; i <= NoOfAvaiCat - 1; i++) {
-                String ExpectedCatName=GetMultipleElementList(driver, CatalogUnderPriceScheme).get(i).getText();
+                String ExpectedCatName = GetMultipleElementList(driver, CatalogUnderPriceScheme).get(i).getText();
                 if (ExpectedCatName.contentEquals(CatName)) {
                     statusOfCatalog = true;
                     indexOfCatelog = i;
-                    ActualLable(CatName+" Catalog is available under Price Scheme", "Pass");
+                    ActualLable(CatName + " Catalog is available under Price Scheme", "Pass");
                     break;
                 }
-            }if(statusOfCatalog == false){ActualLable(CatName+" Catalog is not available under Price Scheme", "Fail");}
-            if(statusOfCatalog == true){
+            }
+            if (statusOfCatalog == false) {   ActualLable(CatName + " Catalog is not available under Price Scheme", "Fail"); }
+            if (statusOfCatalog == true) {
                 //setting price type and price value
-                ExpectedLable("Select Price type as ' "+SearchColumnText("priceType")+" ' given in the test data ");
-                if(SizeOfTheElement(driver, PriceTypeUnderPriceScheme) > 0){
-                    selectDropDownFromMultipleElements(driver,PriceTypeUnderPriceScheme,indexOfCatelog).selectByVisibleText(SearchColumnText("priceType"));
-                    ActualLable("Price type is provided as given test data", "Pass");}
-                ExpectedLable("Set Price discount value as ' "+SearchColumnText("priceSchemaValue")+" ' given in the test data ");
-                if(SizeOfTheElement(driver, PriceValueUnderPriceScheme) > 0){
+                ExpectedLable("Select Price type as ' " + SearchColumnText("priceType") + " ' given in the test data ");
+                if (SizeOfTheElement(driver, PriceTypeUnderPriceScheme) > 0) {
+                    selectDropDownFromMultipleElements(driver, PriceTypeUnderPriceScheme, indexOfCatelog).selectByVisibleText(SearchColumnText("priceType"));
+                    ActualLable("Price type is provided as given test data", "Pass");
+                }
+                ExpectedLable("Set Price discount value as ' " + SearchColumnText("priceSchemaValue") + " ' given in the test data ");
+                if (SizeOfTheElement(driver, PriceValueUnderPriceScheme) > 0) {
                     GetMultipleElementList(driver, PriceValueUnderPriceScheme).get(indexOfCatelog).clear();
                     GetMultipleElementList(driver, PriceValueUnderPriceScheme).get(indexOfCatelog).sendKeys(SearchColumnText("priceSchemaValue"));
-                    ActualLable("Price discount value is provided as given test data", "Pass");}
+                    ActualLable("Price discount value is provided as given test data", "Pass");
+                }
                 //Checking ' Expedite value ' is provided or not if yes provide % of expedite value
                 ExpectedLable("Check that ' Expedite value ' is provided or not if yes provide % of expedite value");
-                if(SizeOfTheElement(driver, ExpediteOptionUnderPriceScheme) > 0){
-                    if(SearchColumnText("expediteValue").contentEquals("Yes")){
-                        clickOnElement(driver,ExpediteOptionUnderPriceScheme);
+                if (SizeOfTheElement(driver, ExpediteOptionUnderPriceScheme) > 0) {
+                    if (SearchColumnText("expediteValue").contentEquals("Yes")) {
+                        clickOnElement(driver, ExpediteOptionUnderPriceScheme);
                         GetMultipleElementList(driver, ExpediteValueUnderPriceScheme).get(indexOfCatelog).clear();
                         GetMultipleElementList(driver, ExpediteValueUnderPriceScheme).get(indexOfCatelog).sendKeys(SearchColumnText("expediteValue"));
-                        ActualLable("Expedite value is given as ' "+SearchColumnText("expediteValue"), "Pass");
-                    }else{ActualLable("Expedite value is not selected ", "Pass");}  }
+                        ActualLable("Expedite value is given as ' " + SearchColumnText("expediteValue"), "Pass");
+                    } else {  ActualLable("Expedite value is not selected ", "Pass"); }
+                }
 
-                ExpectedLable("Select Round price type as ' "+SearchColumnText("Round Price")+" ' given in the test data ");
-                if(SizeOfTheElement(driver, RoundPriceUnderPriceScheme) > 0){
-                    selectDropDownFromMultipleElements(driver,RoundPriceUnderPriceScheme,indexOfCatelog).selectByVisibleText(SearchColumnText("Round Price"));
-                    ActualLable("Round price type is provided as given test data", "Pass");}
-                ExpectedLable("Check that ' Product Rule ' is applied or not ?");
-                if(SearchColumnText("Product Rule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, ProductRuleUnderPriceScheme) > 0){
-                        ActualLable("' Product Rule ' is applied", "Pass");
-                        clickOnElementFromMultipleElements(driver,ProductRuleUnderPriceScheme,indexOfCatelog);}
-                    else{ActualLable("Product rule link is not available ","Fail");}}
-                else{ActualLable("' Product Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Family Rule ' is applied or not ?");
-                if(SearchColumnText("Family Rule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, FamilyRuleUnderPriceScheme) > 0){
-                        clickOnElementFromMultipleElements(driver,FamilyRuleUnderPriceScheme,indexOfCatelog);}
-                    else{ActualLable("Family rule link is not available ","Pass");}}
-                else{ActualLable("' Family Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Discount Code Rule ' is applied or not ?");
-                if(SearchColumnText("Discount Code Rule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, DiscountCodeRuleUnderPriceScheme) > 0){
-                        clickOnElementFromMultipleElements(driver,DiscountCodeRuleUnderPriceScheme,indexOfCatelog);}
-                    else{ActualLable("Discount code rule link is not available ","Fail");}}
-                else{ActualLable("' Discount Code Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Manufacture Rule ' is applied or not ?");
-                if(SearchColumnText("Manufacture Rule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, ManufacturerRuleUnderPriceScheme) > 0){
-                        clickOnElementFromMultipleElements(driver,ManufacturerRuleUnderPriceScheme,indexOfCatelog);}
-                    else{ActualLable("Manufacture rule link is not available ","Fail");}}
-                else{ActualLable("' Manufacture Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Category Rule ' is applied or not ?");
-                if(SearchColumnText("Category Rule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, CategoryRuleUnderPriceScheme) > 0){
-                        clickOnElementFromMultipleElements(driver,ProductRuleUnderPriceScheme,indexOfCatelog);}
-                    else{ActualLable("Category rule link is not available ","Fail");}}
-                else{ActualLable("' Category Rule ' is not applied", "Pass");}
+                ExpectedLable("Select Round price type as ' " + SearchColumnText("Round Price") + " ' given in the test data ");
+                if (SizeOfTheElement(driver, RoundPriceUnderPriceScheme) > 0) {
+                    selectDropDownFromMultipleElements(driver, RoundPriceUnderPriceScheme, indexOfCatelog).selectByVisibleText(SearchColumnText("Round Price"));
+                    ActualLable("Round price type is provided as given test data", "Pass");
+                }
+                String[]  RulesTexts = {"Product Rule Under Price Scheme", "Family Rule Under Price Scheme","Discount Type Rule Under Price Scheme","Manufacturer Rule Under Price Scheme","Category Rule Under Price Scheme"};
+                By[] RulesXpaths = {ProductRuleUnderPriceScheme, FamilyRuleUnderPriceScheme,DiscountCodeRuleUnderPriceScheme,ManufacturerRuleUnderPriceScheme,CategoryRuleUnderPriceScheme};
+                String[]  ourCostProductRule = {"Product Rule","Family Rule","Discount Code Rule","Manufacture Rule","Category Rule"};
+                for (int i = 0; i <= 4; i++) {
+                    String ExpectedStatusOfRule =SearchColumnText(ourCostProductRule[i]);
+                    ExpectedLable("Check that ' "+RulesTexts[i]+" ' is applied or not ?");
+                    if (ExpectedStatusOfRule.contentEquals("Yes")) {
+                        if (SizeOfTheElement(driver, RulesXpaths[i]) > 0) {
+                            ActualLable("' "+RulesTexts[i]+" ' is applied", "Pass");
+                            clickOnElementFromMultipleElements(driver, RulesXpaths[i], indexOfCatelog);
+                        } else {   ActualLable(""+RulesTexts[i]+" link is not available ", "Fail");     }
+                    } else {  ActualLable(" Our Cost ' "+RulesTexts[i]+" ' is not applied", "Pass");   }
+                }
             }
-
+            String ZeroPriceLineItems = SearchColumnText("zeroPriceOption");
+            String enableExpediteOption = SearchColumnText("enableExpediteOption");
+            String[] ExtraOptions = {ZeroPriceLineItems, enableExpediteOption};
+            By[] ExtraOptionsXpath = {ZeroPrizeLineItems, ExpediteByCustomer};
+            String[] ExtraOptionsText = {"Zero Price Line Items", "enable Expedite Option"};
+            for (int i = 0; i <= 1; i++) {
+                ExpectedLable("Check that ' "+ExtraOptionsText[i]+" ' settings check box need to select or not ?");
+                if (ExtraOptions[i].contentEquals("No")) {
+                    ActualLable("No need to select ' "+ExtraOptionsText[i]+" ' settings check box as per TestData  ", "Pass");
+                    ExpectedLable("Check that ' "+ExtraOptionsText[i]+" ' settings check box is selected or not ?");
+                    if (GetElement(driver, ExtraOptionsXpath[i]).isSelected()) {
+                        ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is already selected", "Pass");
+                        ExpectedLable("Now un select the check box for ' "+ExtraOptionsText[i]+" '");
+                        clickOnElement(driver, ExtraOptionsXpath[i]);
+                        ActualLable("Successfully un selected the check box for ' "+ExtraOptionsText[i]+" '", "Pass");
+                    } else {
+                        ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is not selected", "Pass");
+                    }
+                }else if(ExtraOptions[i].contentEquals("Yes")){
+                    ActualLable(" ' "+ExtraOptionsText[i]+" ' settings check box need to select as per test data ", "Pass");
+                    ExpectedLable("Check that ' "+ExtraOptionsText[i]+" ' settings check box is selected or not ?");
+                    if (GetElement(driver, ExtraOptionsXpath[i]).isSelected()) {
+                        ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is already selected", "Pass");
+                    } else {
+                        ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is not selected", "Pass");
+                        ExpectedLable("Now select the check box for ' "+ExtraOptionsText[i]+" '");
+                        clickOnElement(driver, ExtraOptionsXpath[i]);
+                        ActualLable("Successfully selected the check box for ' "+ExtraOptionsText[i]+" '", "Pass");
+                    }
+                    if (i == 0) {
+                        ExpectedLable("Enter Value in  ' "+ExtraOptionsText[i]+" ' blank");
+                        GetElement(driver, ZeroPrizeLineItemsTextBox).clear();
+                        sendInputData(driver, ZeroPrizeLineItemsTextBox).sendKeys(SearchColumnText("zeroPriceOptionValue"));
+                        ActualLable("Successfully entered value in to  ' "+ExtraOptionsText[i]+" ' blank", "Pass");
+                    }
+                }
+            }
         }
     }
     public static void SetValuesToOurCost(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
@@ -219,45 +249,21 @@ public class CustomerCatalogAndPricingPage {
                     GetMultipleElementList(driver, ExpediteValueUnderOurCost).get(indexOfCatelog).sendKeys(SearchColumnText("ourCostExpediteValue"));
                     ActualLable("Our Cost Expedite value is given as ' "+SearchColumnText("ourCostExpediteValue"), "Pass");
                 }
-
-                ExpectedLable("Check that ' Product Rule ' is applied or not ?");
-                if(SearchColumnText("ourCostProductRule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, ProductRuleUnderOurCost) > 0){
-                        ActualLable("' Product Rule ' is applied", "Pass");
-                        clickOnElementFromMultipleElements(driver,ProductRuleUnderOurCost,indexOfCatelog);}
-                    else{ActualLable("Our Cost Product rule link is not available ","Fail");}}
-                else{ActualLable(" Our Cost ' Product Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Family Rule ' is applied or not ?");
-                if(SearchColumnText("ourCostFamilyRule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, FamilyRuleUnderOurCost) > 0){
-                        clickOnElementFromMultipleElements(driver,FamilyRuleUnderOurCost,indexOfCatelog);}
-                    else{ActualLable("Our Cost Family rule link is not available ","Pass");}}
-                else{ActualLable("Our Cost ' Family Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Discount Code Rule ' is applied or not ?");
-                if(SearchColumnText("ourCostDiscountCodeRule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, DiscountTypeRuleUnderOurCost) > 0){
-                        clickOnElementFromMultipleElements(driver,DiscountTypeRuleUnderOurCost,indexOfCatelog);}
-                    else{ActualLable("Our Cost Discount code rule link is not available ","Fail");}}
-                else{ActualLable("Our Cost ' Discount Code Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Manufacture Rule ' is applied or not ?");
-                if(SearchColumnText("ourCostManufactureRule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, ManufacturerRuleUnderOurCost) > 0){
-                        clickOnElementFromMultipleElements(driver,ManufacturerRuleUnderOurCost,indexOfCatelog);}
-                    else{ActualLable("Our Cost Manufacture rule link is not available ","Fail");}}
-                else{ActualLable("Our Cost ' Manufacture Rule ' is not applied", "Pass");}
-
-                ExpectedLable("Check that ' Category Rule ' is applied or not ?");
-                if(SearchColumnText("ourCostCategoryRule").contentEquals("Yes")){
-                    if(SizeOfTheElement(driver, CategoryRuleUnderOurCost) > 0){
-                        clickOnElementFromMultipleElements(driver,CategoryRuleUnderOurCost,indexOfCatelog);}
-                    else{ActualLable("Our Cost Category rule link is not available ","Fail");}}
-                else{ActualLable("Our Cost ' Category Rule ' is not applied", "Pass");}
+                String[]  RulesTexts = {"Product Rule Under Our Cost", "Family Rule Under Our Cost","Discount Type Rule Under Our Cost","Manufacturer Rule Under Our Cost","Category Rule Under Our Cost"};
+                By[] RulesXpaths = {ProductRuleUnderOurCost, FamilyRuleUnderOurCost,DiscountTypeRuleUnderOurCost,ManufacturerRuleUnderOurCost,CategoryRuleUnderOurCost};
+                String[]  ourCostProductRule = {"ourCostProductRule","ourCostFamilyRule","ourCostDiscountCodeRule","ourCostManufactureRule","ourCostCategoryRule"};
+                for (int i = 0; i <= 4; i++) {
+                    String ExpectedStatusOfRule =SearchColumnText(ourCostProductRule[i]);
+                    ExpectedLable("Check that ' "+RulesTexts[i]+" ' is applied or not ?");
+                    if (ExpectedStatusOfRule.contentEquals("Yes")) {
+                        if (SizeOfTheElement(driver, RulesXpaths[i]) > 0) {
+                            ActualLable("' "+RulesTexts[i]+" ' is applied", "Pass");
+                            clickOnElementFromMultipleElements(driver, RulesXpaths[i], indexOfCatelog);
+                        } else {   ActualLable(""+RulesTexts[i]+" link is not available ", "Fail");     }
+                    } else {  ActualLable(" ' "+RulesTexts[i]+" ' is not applied", "Pass");   }
+                }
             }
-
-        }
+        }else{ActualLable("Catalogs not found in Out cast section", "Fail");}
     }
     public static boolean UpdateCustomerCatalogsAndPricing(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException{
         boolean updateDetails =false;
@@ -269,19 +275,106 @@ public class CustomerCatalogAndPricingPage {
             clickOnElement(driver,UpdateCatalogAndPricing);
             updateDetails=true;
             ActualLable(" Successfully clicked on update button for Customer catalog and pricing page", "Pass");
+            SetCostFactors(driver);
         }else {  ActualLable(" Update button is not available on Customer catalog and pricing page", "Fail");    }
         return updateDetails;
     }
     public static void SetCostFactors(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException{
         StepLable("Set values to Cost Factores ");
+        ExpectedLable("Click on Cost Factors link and check Assert for Cost Factors page");
         if (SizeOfTheElement(driver, CostFactorsLink) > 0) {
             clickOnElement(driver, CostFactorsLink);
             Thread.sleep(1000);
             String PageTitle = GetPageTitle(driver);
             if(PageTitle.contentEquals("Cost Factors")){
-                ActualLable("successfully verified Assert for Cost Factors Page ","Pass");
+                ActualLable("successfully clicked on Cost Factors and verified Assert for Cost Factors Page ","Pass");
+                boolean RegionSelectStatus = false;
+                if (SizeOfTheElement(driver, CatalogInCostFactors) > 0) {
+                    int NoOfAvaiCat = SizeOfTheElement(driver, CatalogInCostFactors);
+                    String RegionConfig = SearchColumnText("useRegionConfigOption");
+                    ExpectedLable("Verify ' Region Configuration ' settings for ' cost factors ' need to select or not ?");
+                    if(RegionConfig.contentEquals("No")){
+                        ActualLable("No need of ' Region Configuration ' settings for ' cost factors ' ","Pass");
+                        ExpectedLable("Check that ' Region Configuration ' settings check box is selected or not ?");
+                        if(GetElement(driver,RegionConfigurationCheckBox).isSelected()){
+                            ActualLable("' Region Configuration ' settings check box is selected","Pass");
+                            ExpectedLable("Now un select the check box for ' Region Configuration '");
+                            clickOnElement(driver,RegionConfigurationCheckBox);
+                            ActualLable("Successfully un selected the check box for ' Region Configuration '","Pass");
+                            ExpectedLable("Now Click on Update ");
+                            clickOnElement(driver,UpdateCostFactorsButton);
+                            ActualLable("Successfully clicked on update button","Pass");
+                            Thread.sleep(1000);
+                            RegionSelectStatus=true;
+                        }else{
+                            ActualLable("' Region Configuration ' settings check box is not selected","Pass");
+                            RegionSelectStatus=true;
+                        }
+                    }else{ActualLable(" ' Region Configuration ' settings for ' cost factors ' need to select","Pass");
+                        ExpectedLable("Check that ' Region Configuration ' settings check box is selected or not ?");
+                        if(GetElement(driver,RegionConfigurationCheckBox).isSelected()){
+                            ActualLable("' Region Configuration ' settings check box is already selected","Pass");
+                            RegionSelectStatus=false;
+                        }else{
+                            ActualLable("' Region Configuration ' settings check box is not selected","Pass");
+                            ExpectedLable("Now select the check box for ' Region Configuration '");
+                            clickOnElement(driver,RegionConfigurationCheckBox);
+                            ActualLable("Successfully selected the check box for ' Region Configuration '","Pass");
+                            ExpectedLable("Now Click on Update ");
+                            clickOnElement(driver,UpdateCostFactorsButton);
+                            ActualLable("Successfully clicked on update button","Pass");
+                            Thread.sleep(1000);
+                            RegionSelectStatus=false;
+                        }
+                    }
+                    if(RegionSelectStatus==true){
+                        int indexOfCatelog = 0;
+                        boolean statusOfCatalog = false;
+                        ExpectedLable("Verify Catalog name is available under Our Cost Scheme ");
+                        String CatName = SearchColumnText("catalogName");
+                        for (int i = 0; i <= NoOfAvaiCat - 1; i++) {
+                            String ExpectedCatName = GetMultipleElementList(driver, CatalogInCostFactors).get(i).getText();
+                            if (ExpectedCatName.contentEquals(CatName)) {
+                                statusOfCatalog = true;
+                                indexOfCatelog = i;
+                                ActualLable(CatName + " Catalog is available", "Pass");
+                                break;
+                            }
+                        }
+                        if (statusOfCatalog == false) {  ActualLable(CatName + " Catalog is not available under Our Cost Scheme", "Fail");   }
+                        if(statusOfCatalog == true){
+                            String[] CostFactors ={"Cost Factor1","Cost Factor2","Cost Factor3","Cost Factor4","Cost Factor5","Surcharge"};
+                            String[] CostFactorsInTestData ={"costFactorValue1","costFactorValue2","costFactorValue3","costFactorValue4","costFactorValue5","costFactorSurcharge"};
+                            for(int i=3;i<=8;i++) {
+                                By CatalogInCostFactors = By.xpath("//td["+i+"][@class='ListAltRow1']/input/parent::td/input");
+                                String StringInExcel = SearchColumnText(CostFactorsInTestData[i-3]);
+                                ExpectedLable("Set ' "+CostFactors[i-3]+" ' value as ' "+StringInExcel+" ' given in the test data ");
+                                if(GetMultipleElementList(driver, CatalogInCostFactors).get(indexOfCatelog).isEnabled()){
+                                    GetMultipleElementList(driver, CatalogInCostFactors).get(indexOfCatelog).clear();
+                                    GetMultipleElementList(driver, CatalogInCostFactors).get(indexOfCatelog).sendKeys(StringInExcel);
+                                    ActualLable("' "+CostFactors[i-3]+" ' value is successfully entered", "Pass");
+                                }else{ActualLable("' "+CostFactors[i-3]+" ' element is not enabled", "Fail");}
+                            }
+                            String[]  RulesTexts = {"Product Rule Under Cost Factors", "Family Rule Under Cost Factors","Discount Type Rule Under Cost Factors","Manufacturer Rule Under Cost Factors","Category Rule Under Cost Factors"};
+                            By[] RulesXpaths = {ProductRuleUnderCostFactors, FamilyRuleUnderCostFactors,NCMRuleUnderCostFactors,ManufacturerRuleUnderCostFactors,CategoryRuleUnderCostFactors};
+                            String[]  ourCostProductRule = {"CostFactorsProductRule","CostFactorsFamilyRule","CostFactorsDiscountCodeRule","CostFactorsManufactureRule","CostFactorsCategoryRule"};
+                            for (int i = 0; i <= 4; i++) {
+                                String ExpectedStatusOfRule =SearchColumnText(ourCostProductRule[i]);
+                                ExpectedLable("Check that ' "+RulesTexts[i]+" ' is applied or not ?");
+                                if (ExpectedStatusOfRule.contentEquals("Yes")) {
+                                    if (SizeOfTheElement(driver, RulesXpaths[i]) > 0) {
+                                        ActualLable("' "+RulesTexts[i]+" ' is applied", "Pass");
+                                        clickOnElementFromMultipleElements(driver, RulesXpaths[i], indexOfCatelog);
+                                    } else {   ActualLable(""+RulesTexts[i]+" link is not available ", "Fail");     }
+                                } else {  ActualLable(" ' "+RulesTexts[i]+" ' is not applied", "Pass");   }
+                            }
+                            ExpectedLable("Now Click on Update ");
+                            clickOnElement(driver,UpdateCostFactorsButton);
+                            ActualLable("Successfully clicked on update button","Pass");
+                        }
+                    }
+                }else{ActualLable("Catalogs not found in Cost Factors page", "Fail");}
             }else{ActualLable(" Assert verification failed for Cost Factors Page ","Fail");}
-        }
-
+        }else{ActualLable(" Cost Factores link is not available on buyer details page","Fail");}
     }
 }
