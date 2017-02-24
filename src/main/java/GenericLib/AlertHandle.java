@@ -2,35 +2,43 @@ package GenericLib;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 public class AlertHandle {
 
 
 	Browser brow = new Browser();
-    static Logger log = Logger.getLogger("Alert Handle page");
+	static Logger log = Logger.getLogger("Alert Handle page");
 
-	public static void acceptAlert(WebDriver driver){
-
-		Alert alt=driver.switchTo().alert();
-		log.info(alt.getText());
-		alt.accept();
+	public static boolean acceptAlert(WebDriver driver){
+		try {
+			Alert alt = driver.switchTo().alert();
+			alt.accept();
+			return true;
+		}catch (NoAlertPresentException Ex)
+		{ return false;	}
 	}
 
 	//dismiss alert
-	public void dismissAlert(WebDriver driver){
+	public static boolean dismissAlert(WebDriver driver){
 
-
+		try {
 		Alert alt=driver.switchTo().alert();
-		log.info(alt.getText());
 		alt.dismiss();
+			return true;
+		}catch (NoAlertPresentException Ex)
+		{ return false; }
 	}
 
 	//Get Text from the perticuler Page
-	public void getText(WebDriver driver){
+	public static boolean getText(WebDriver driver){
+		try {
 		Alert alt=driver.switchTo().alert();
-		log.info(alt.getText());
 		alt.getText();
+			return true;
+		}catch (NoAlertPresentException Ex)
+		{ return false; }
 	}
 
 }
