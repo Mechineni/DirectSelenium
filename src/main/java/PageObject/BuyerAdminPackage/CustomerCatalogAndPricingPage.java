@@ -27,6 +27,7 @@ public class CustomerCatalogAndPricingPage {
     static private By AssignLink=By.xpath("//input[@name='ASSIGN'][@type='SUBMIT']");
     static private By UnAssignLink=By.xpath("//input[@name='UNASSIGN'][@type='SUBMIT']");
     static private By UpdateCatalogAndPricing=By.xpath("//input[@name='UPDATE'][@type='SUBMIT']");
+    static private By CostFactorsLink=By.xpath("//a[contains(text(),'COST FACTORS')]");
 
 
     static private By CatalogUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[2]/select/parent::td/preceding-sibling::td");
@@ -271,5 +272,16 @@ public class CustomerCatalogAndPricingPage {
         }else {  ActualLable(" Update button is not available on Customer catalog and pricing page", "Fail");    }
         return updateDetails;
     }
+    public static void SetCostFactors(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException{
+        StepLable("Set values to Cost Factores ");
+        if (SizeOfTheElement(driver, CostFactorsLink) > 0) {
+            clickOnElement(driver, CostFactorsLink);
+            Thread.sleep(1000);
+            String PageTitle = GetPageTitle(driver);
+            if(PageTitle.contentEquals("Cost Factors")){
+                ActualLable("successfully verified Assert for Cost Factors Page ","Pass");
+            }else{ActualLable(" Assert verification failed for Cost Factors Page ","Fail");}
+        }
 
+    }
 }
