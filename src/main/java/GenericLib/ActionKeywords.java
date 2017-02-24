@@ -29,6 +29,13 @@ public class ActionKeywords {
         WebElement elementNam = driver.findElement(object);
             return elementNam;
     }
+    public static Select selectDropDownFromMultipleElements(WebDriver driver,By object,int i){
+        Select dropdown = new Select(driver.findElements(object).get(i));//WebDriver driver,
+        return dropdown;
+    }
+    public static void clickOnElementFromMultipleElements(WebDriver driver,By object,int i) {
+        driver.findElements(object).get(i).click();
+    }
     public static void waitForOneSec() throws InterruptedException  {   Thread.sleep(1000);   }
     public static void waitForTwoSec() throws InterruptedException  {   Thread.sleep(2000);   }
     public static void waitForThreeSec() throws InterruptedException{   Thread.sleep(3000);   }

@@ -47,7 +47,7 @@ public class BuyersPage {
         return Status;
     }
 
-    public static void VerifyBuyerSearch(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
+    public static void ClickOnBuyerDetails(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
         waitForTwoSec();
         clickOnElement(driver,BuyerAdminLink);
         waitForTwoSec();
@@ -69,8 +69,8 @@ public class BuyersPage {
                         GetMultipleElementList(driver, EditBuyerDetails).get(i).click();
                         break;
                     }
-                    if (status == false) {  ActualLable(" Buyer search not returned required results ", "Fail");  }
                 }
+                if (status == false) {  ActualLable(" Buyer search not returned required results ", "Fail");  }
             } else {   ActualLable(" Buyer search not returned required results ", "Fail");  }
         }
     }

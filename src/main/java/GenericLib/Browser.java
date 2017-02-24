@@ -69,7 +69,6 @@ public class Browser {
 	}
 	@AfterClass
 	public void Close() throws IOException, WriteException {
-		//Broexcel.closedoc();
 		driver.quit();
 	}
 

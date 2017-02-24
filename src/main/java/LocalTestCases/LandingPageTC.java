@@ -4,6 +4,7 @@ import GenericLib.Browser;
 import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
 import PageObject.BuyerAdminPackage.BuyersPage;
+import PageObject.BuyerAdminPackage.CustomerCatalogAndPricingPage;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LandingPage;
 import jxl.read.biff.BiffException;
@@ -49,8 +50,8 @@ public class LandingPageTC extends Browser {
                 LandingPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                BuyersPage.VerifyBuyerSearch(driver);
-
+                BuyersPage.ClickOnBuyerDetails(driver);
+                CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
