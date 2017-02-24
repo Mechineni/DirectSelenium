@@ -53,8 +53,8 @@ public class LandingPageTC extends Browser {
                 Thread.sleep(5000);
                 //BuyersPage.ClickOnBuyerDetails(driver);
                 //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
-                CreateQuotePage.CreateQuote(driver);
-                CreateQuotePage.AddProductsToQuote(driver);
+                //CreateQuotePage.CreateQuote(driver);
+                CreateQuotePage.SubmitQuote(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
