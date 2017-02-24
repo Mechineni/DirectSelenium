@@ -7,6 +7,7 @@ import PageObject.BuyerAdminPackage.BuyersPage;
 import PageObject.BuyerAdminPackage.CustomerCatalogAndPricingPage;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LandingPage;
+import PageObject.QuotesPackage.CreateQuotePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.log4j.Logger;
@@ -50,8 +51,10 @@ public class LandingPageTC extends Browser {
                 LandingPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                BuyersPage.ClickOnBuyerDetails(driver);
-                CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
+                //BuyersPage.ClickOnBuyerDetails(driver);
+                //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
+                CreateQuotePage.CreateQuote(driver);
+                CreateQuotePage.AddProductsToQuote(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }

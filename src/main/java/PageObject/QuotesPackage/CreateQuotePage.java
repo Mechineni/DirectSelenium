@@ -40,6 +40,7 @@ public class CreateQuotePage {
     static private By ProductNarrowSearch = By.id("NarrowKeyword");
     static private By ProductNarrowSearchButton = By.xpath("//tr[6]/td/input[@class='SubmitButton']");
     static private By ConfigureButton = By.xpath("//tr[6]/td/input[@class='SubmitButton']");
+    static private By DetailsButton = By.xpath("//td/input[@value='Details']");
     static private By DoneButton = By.id("Done");
     static private By AddToCartButton = By.id("ADDCART");
 
@@ -134,7 +135,7 @@ public class CreateQuotePage {
         }else {
             ActualLable("Opened new quote", "Pass");
             clickOnElement(driver, CatalogOnQuotePage);
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             String CatalogPageTitle = GetPageTitle(driver);
             ExpectedLable("Verify that catalogs page opened or not?");
             if (CatalogPageTitle.contentEquals("Catalogs")) {
@@ -162,6 +163,7 @@ public class CreateQuotePage {
                         sendInputData(driver, ProductNarrowSearch).sendKeys(SearchColumnText("mfrPart"));
                         clickOnElement(driver, ProductNarrowSearchButton);
                         waitForFiveSec();
+                        if (AlertHandle.acceptAlert(driver));
                         ExpectedLable("Verify product search results?");
                         if (SizeOfTheElement(driver, ConfigureButton) > 0) {
                             ActualLable("product narrow search displayed requested details", "Pass");
@@ -169,13 +171,16 @@ public class CreateQuotePage {
                             waitForFiveSec();
                             clickOnElement(driver, DoneButton);
                             waitForFiveSec();
-                            clickOnElement(driver, AddToCartButton);
+                        }else if(SizeOfTheElement(driver, DetailsButton) > 0) {
+                            clickOnElement(driver, DetailsButton);
                             waitForFiveSec();
-                            ExpectedLable("Verify product added to quote or not?");
-                            if (SizeOfTheElement(driver, ItemsListActiveQuote) > 0) {
-                                ActualLable("Product added to quote successfully", "Pass");
-                            }else {ActualLable("Product not added to quote", "Fail");}
                         }else{{ActualLable("No product search results displayed", "Fail");}}
+                        clickOnElement(driver, AddToCartButton);
+                        waitForFiveSec();
+                        ExpectedLable("Verify product added to quote or not?");
+                        if (SizeOfTheElement(driver, ItemsListActiveQuote) > 0) {
+                            ActualLable("Product added to quote successfully", "Pass");
+                        }else {ActualLable("Product not added to quote", "Fail");}
                     }else {ActualLable("Error in opening product narrow search section", "Fail");}
                 }
             } else {
