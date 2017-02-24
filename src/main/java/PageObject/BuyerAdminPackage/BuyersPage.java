@@ -67,6 +67,12 @@ public class BuyersPage {
                         ActualLable("successfully searched provided buyer ", "Pass");
                         status = true;
                         GetMultipleElementList(driver, EditBuyerDetails).get(i).click();
+                        waitForTwoSec();
+                        ExpectedLable("Verify that Buyer details update page opened successfully or not?");
+                        String PageTitle = GetPageTitle(driver);
+                        if (PageTitle.contentEquals("Update")){ ActualLable("Buyer details update page opened successfully ","Pass");
+                        }else { ActualLable(" Assert verification failed for Buyers details update Page ", "Fail");
+                        }
                         break;
                     }
                 }
