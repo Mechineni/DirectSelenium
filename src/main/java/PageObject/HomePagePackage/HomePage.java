@@ -34,7 +34,7 @@ public class HomePage {
 
 
     public static void VerifyHomePageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
-        ExpectedLable("Verify that Home ia opened or not ?");
+        ExpectedLable("Verify that Home opened or not ?");
         if(SizeOfTheElement(driver,WelcomeField)>0) {
             String PageTitle = GetPageTitle(driver);
             if(PageTitle.contentEquals("Home")){
