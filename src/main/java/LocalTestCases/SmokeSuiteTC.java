@@ -5,7 +5,7 @@ import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
-import PageObject.ActiveQuotePackage.CreateQuotePage;
+import PageObject.QuotesPackage.CreateQuotePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.log4j.Logger;

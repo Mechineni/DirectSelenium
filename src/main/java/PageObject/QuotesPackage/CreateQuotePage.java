@@ -1,4 +1,4 @@
-package PageObject.ActiveQuotePackage;
+package PageObject.QuotesPackage;
 
 import GenericLib.AlertHandle;
 import GenericLib.ObjectRepository;
