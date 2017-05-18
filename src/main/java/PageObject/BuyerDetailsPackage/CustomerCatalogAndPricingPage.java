@@ -1,4 +1,4 @@
-package PageObject.BuyerAdminPackage;
+package PageObject.BuyerDetailsPackage;
 
 import GenericLib.ObjectRepository;
 import jxl.read.biff.BiffException;

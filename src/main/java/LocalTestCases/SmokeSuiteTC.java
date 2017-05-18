@@ -3,11 +3,9 @@ package LocalTestCases;
 import GenericLib.Browser;
 import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
-import PageObject.BuyerAdminPackage.BuyersPage;
-import PageObject.BuyerAdminPackage.CustomerCatalogAndPricingPage;
 import PageObject.HomePagePackage.HomePage;
-import PageObject.LandingPage;
-import PageObject.QuotesPackage.CreateQuotePage;
+import PageObject.LogInPage;
+import PageObject.ActiveQuotePackage.CreateQuotePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.log4j.Logger;
@@ -22,7 +20,7 @@ import static GenericLib.DataDriven.ActualLable;
 /**
  * Created by t.mirasipally on 14-Feb-17.
  */
-public class LandingPageTC extends Browser {
+public class SmokeSuiteTC extends Browser {
 
     ObjectRepository ob = new ObjectRepository();
     static Logger log = Logger.getLogger("Testing Cases");
@@ -37,7 +35,7 @@ public class LandingPageTC extends Browser {
     public void SC_001() throws IOException, InterruptedException, WriteException, BiffException {
         try {
             if (DataDriven.CheckingFlag("SC_001")==true) {
-                LandingPage.LogInFunctionality(driver);
+                LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 HomePage.CheckAllTheLinks(driver);
             }
@@ -48,10 +46,10 @@ public class LandingPageTC extends Browser {
     public void SC_002() throws IOException, InterruptedException, WriteException, BiffException {
         try {
             if (DataDriven.CheckingFlag("SC_002")==true) {
-                LandingPage.LogInFunctionality(driver);
+                LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                //BuyersPage.ClickOnBuyerDetails(driver);
+                //BuyerUpdatePage.ClickOnBuyerDetails(driver);
                 //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
                 //CreateQuotePage.CreateQuote(driver);
                 CreateQuotePage.SubmitQuote(driver);

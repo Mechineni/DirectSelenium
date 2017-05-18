@@ -1,4 +1,4 @@
-package PageObject.SiteAdminPackage;
+package PageObject.SalesPeoplePackage;
 
 import GenericLib.ObjectRepository;
 import jxl.write.WriteException;

@@ -1,4 +1,4 @@
-package PageObject.BuyerAdminPackage;
+package PageObject.BuyerDetailsPackage;
 
 import GenericLib.ObjectRepository;
 import jxl.read.biff.BiffException;
@@ -16,7 +16,7 @@ import static GenericLib.DataDriven.SearchColumnText;
 /**
  * Created by t.mirasipally on 15-Feb-17.
  */
-public class BuyersPage {
+public class BuyerUpdatePage {
 
     static private ObjectRepository obje = new ObjectRepository();
     static private WebDriver driver;

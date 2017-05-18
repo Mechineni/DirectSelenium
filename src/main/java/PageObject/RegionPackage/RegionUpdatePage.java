@@ -1,4 +1,4 @@
-package PageObject.SiteAdminPackage;
+package PageObject.RegionPackage;
 
 import GenericLib.ObjectRepository;
 import jxl.write.WriteException;
@@ -15,7 +15,7 @@ import static GenericLib.DataDriven.ExpectedLable;
 /**
  * Created by t.mirasipally on 15-Feb-17.
  */
-public class RegionsPage {
+public class RegionUpdatePage {
 
     static private ObjectRepository obje = new ObjectRepository();
     static private WebDriver driver;
