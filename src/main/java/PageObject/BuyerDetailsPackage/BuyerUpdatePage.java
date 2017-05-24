@@ -48,9 +48,9 @@ public class BuyerUpdatePage {
     }
 
     public static void ClickOnBuyerDetails(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
-        waitForTwoSec();
+        Thread.sleep(2000);
         clickOnElement(driver,BuyerAdminLink);
-        waitForTwoSec();
+        Thread.sleep(2000);
         clickOnElement(driver,BuyerLink);
         if(VerifyBuyersPageAssert(driver)==true) {
             ExpectedLable("Provide Buyer name in Buyer's Name field");
@@ -67,7 +67,7 @@ public class BuyerUpdatePage {
                         ActualLable("successfully searched provided buyer ", "Pass");
                         status = true;
                         GetMultipleElementList(driver, EditBuyerDetails).get(i).click();
-                        waitForTwoSec();
+                        Thread.sleep(2000);
                         ExpectedLable("Verify that Buyer details update page opened successfully or not?");
                         String PageTitle = GetPageTitle(driver);
                         if (PageTitle.contentEquals("Update")){ ActualLable("Buyer details update page opened successfully ","Pass");

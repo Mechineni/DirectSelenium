@@ -40,6 +40,7 @@ public class Browser {
 		}
 
 		else if (browser.equalsIgnoreCase("Chrome")) {
+
 			System.setProperty("webdriver.chrome.driver","lib/chromedriver.exe");
 			driver = new ChromeDriver();
 		}

@@ -6,6 +6,7 @@ import GenericLib.ObjectRepository;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
 import PageObject.QuotesPackage.CreateQuotePage;
+import PageObject.RegionPackage.RegionUpdatePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.apache.log4j.Logger;
@@ -53,6 +54,19 @@ public class SmokeSuiteTC extends Browser {
                 //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
                 //CreateQuotePage.CreateQuote(driver);
                 CreateQuotePage.SubmitQuote(driver);
+            }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
+    }
+    @Test
+    public void SC_003() throws IOException, InterruptedException, WriteException, BiffException {
+        try {
+            if (DataDriven.CheckingFlag("SC_003")==true) {
+                LogInPage.LogInFunctionality(driver);
+                HomePage.VerifyHomePageAssert(driver);
+                Thread.sleep(5000);
+                RegionUpdatePage.SearchAndClickOnRegion(driver);
+                //CreateQuotePage.SubmitQuote(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }

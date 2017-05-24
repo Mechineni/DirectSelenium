@@ -80,7 +80,7 @@ public class CreateQuotePage {
         if (SizeOfTheElement(driver, CreateQuoteLink) > 0) {
             ActualLable("Create Quote link available ", "Pass");
             clickOnElement(driver, CreateQuoteLink);
-            waitForTwoSec();
+            Thread.sleep(2000);
             ExpectedLable("Verify that Create Quote page opened or not ?");
             if (SizeOfTheElement(driver, BuyerName) > 0) {
                 ActualLable("Create Quote link available ", "Pass");
@@ -173,18 +173,18 @@ public class CreateQuotePage {
                 }
                 if (status == true) {
                     ExpectedLable("Verify that Required catalog narrow search section opened or not?");
-                    waitForFiveSec();
+                    Thread.sleep(5000);
                     if (SizeOfTheElement(driver, ProductNarrowSearch) > 0) {
                         ActualLable("product narrow search section opened successfully", "Pass");
                         sendInputData(driver, ProductNarrowSearch).sendKeys(SearchColumnText("mfrPart"));
                         clickOnElement(driver, ProductNarrowSearchButton);
-                        waitForFiveSec();
+                        Thread.sleep(5000);
                         AlertHandle.acceptAlert(driver);
                         ExpectedLable("Verify product search results?");
                         if (SizeOfTheElement(driver, ConfigureButton) > 0) {
                             ActualLable("product narrow search displayed requested details", "Pass");
                             clickOnElement(driver, ConfigureButton);
-                            waitForFiveSec();
+                            Thread.sleep(5000);
                             AlertHandle.acceptAlert(driver);
                             clickOnElement(driver, DoneButton);
                             Thread.sleep(40000);
@@ -194,10 +194,10 @@ public class CreateQuotePage {
                             clickOnElement(driver, DetailsButton);
                             Thread.sleep(20000);
                             AlertHandle.acceptAlert(driver);
-                            waitForFiveSec();
+                            Thread.sleep(5000);
                             clickOnElement(driver, AddToCartButton);
                         }else{{ActualLable("No product search results displayed", "Fail");}}
-                        waitForFiveSec();
+                        Thread.sleep(5000);
                         ExpectedLable("Verify product added to quote or not?");
                         if (SizeOfTheElement(driver, ItemsListActiveQuote) > 0) {
                             ActualLable("Product added to quote successfully", "Pass");

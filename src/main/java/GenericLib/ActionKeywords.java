@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,10 +34,6 @@ public class ActionKeywords {
     public static void clickOnElementFromMultipleElements(WebDriver driver,By object,int i) {
         driver.findElements(object).get(i).click();
     }
-    public static void waitForOneSec() throws InterruptedException  {   Thread.sleep(1000);   }
-    public static void waitForTwoSec() throws InterruptedException  {   Thread.sleep(2000);   }
-    public static void waitForThreeSec() throws InterruptedException{   Thread.sleep(3000);   }
-    public static void waitForFiveSec() throws InterruptedException {   Thread.sleep(5000);   }
 
     public static List<WebElement> GetMultipleElementList(WebDriver driver,By object){
         List<WebElement> NoOfElements = driver.findElements(object);

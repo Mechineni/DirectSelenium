@@ -46,9 +46,9 @@ public class LogInPage {
             sendInputData(driver,EmailIdField).sendKeys(SearchColumnText("UserName"));
             ActualLable("User name entered successfully, Email id is : "+obje.obj.getProperty("email"),"Pass");
             ExpectedLable("Provide Password in Password field");
-            sendInputData(driver,PasswordField).sendKeys(SearchColumnText("passWord"));
+            sendInputData(driver,PasswordField).sendKeys(SearchColumnText("PassWord"));
             ActualLable("Password entered successfully, Password is : " +obje.obj.getProperty("password"),"Pass");
-            waitForOneSec();
+            Thread.sleep(1000);
             ExpectedLable("Now Click on Login button");
             clickOnElement(driver,LogInButton);
             ActualLable("Successfully clicked on Log in button","Pass");

@@ -20,12 +20,14 @@ public class CustomerCatalogAndPricingPage {
     static private WebDriver driver;
 
     //PageElements
+    //Assign catalog section
     static private By BuyerDetailsUpdateAssert=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
     static private By CustomerCatalogAndPricingLink=By.xpath("//a[contains(text(),'Customer Catalogs and Pricing')]");
     static private By AvailableCatalogs=By.xpath("//tr/td[1]/select/option");
     static private By AssignedCatalogs=By.xpath("//tr[5]/td[3]/select/option");
     static private By AssignLink=By.xpath("//input[@name='ASSIGN'][@type='SUBMIT']");
     static private By UnAssignLink=By.xpath("//input[@name='UNASSIGN'][@type='SUBMIT']");
+
     static private By UpdateCatalogAndPricing=By.xpath("//input[@name='UPDATE'][@type='SUBMIT']");
     static private By CostFactorsLink=By.xpath("//a[contains(text(),'COST FACTORS')]");
     static private By ZeroPrizeLineItems =By.xpath("//input[@name='ZeroPrice'][@type='CHECKBOX']");
@@ -284,6 +286,7 @@ public class CustomerCatalogAndPricingPage {
         ExpectedLable("Click on Cost Factors link and check Assert for Cost Factors page");
         if (SizeOfTheElement(driver, CostFactorsLink) > 0) {
             clickOnElement(driver, CostFactorsLink);
+
             Thread.sleep(1000);
             String PageTitle = GetPageTitle(driver);
             if(PageTitle.contentEquals("Cost Factors")){
