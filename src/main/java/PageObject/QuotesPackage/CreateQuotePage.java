@@ -58,7 +58,7 @@ public class CreateQuotePage {
     static private By QuoteNumberAssert = By.xpath("//input[@name='txtQNAME'][@type='TEXT']");
     static private By ShopperAssert = By.xpath("//select[@name='cbToRole2']");
     static private By SubmitRouteDocumentAssert = By.xpath("//input[@id='SUBMIT1'][@type='SUBMIT']");
-    static private By FinalizeButton = By.xpath("//input[@id='SUBMIT1'][@type='SUBMIT']");
+    static private By FinalizeButton = By.xpath("//input[@id='SUBMIT5'][@type='SUBMIT']");
 
 
 
@@ -215,6 +215,7 @@ public class CreateQuotePage {
         if(SizeOfTheElement(driver,QuoteSubmitButton)>0) {
             ActualLable("quote is ready to submit ","Pass");
             clickOnElementFromMultipleElements(driver,QuoteSubmitButton,1);
+            Thread.sleep(10000);
             ExpectedLable("Verify that User gets navigated to route document page or not?");
             String RouteDocumentPageTitle = GetPageTitle(driver);
             if (RouteDocumentPageTitle.contentEquals("Step 1: Route Document")) {
@@ -226,11 +227,12 @@ public class CreateQuotePage {
                 sendInputData(driver, QuoteNumberAssert).sendKeys(Quote_Number);
                 selectDropDown(driver,ShopperAssert).selectByVisibleText(SearchColumnText("Shopper"));
                 clickOnElement(driver,SubmitRouteDocumentAssert);
+                Thread.sleep(5000);
                 ExpectedLable("Verify that User gets navigated to review and finalize page or not?");
                 String ReviewAndFinalizePageTitle = GetPageTitle(driver);
                 if (ReviewAndFinalizePageTitle.contentEquals("Step 2: Review and Finalize")) {
                     ActualLable("Review and finalize page opened successfully ", "Pass");
-                    clickOnElement(driver,FinalizeButton);
+                    clickOnElementFromMultipleElements(driver,FinalizeButton,1);
                     ExpectedLable("Verify that quote submitted successfully or not?");
                     String ConfirmationPageTitle = GetPageTitle(driver);
                     if (ConfirmationPageTitle.contentEquals("Step 3: Confirmation")) {
