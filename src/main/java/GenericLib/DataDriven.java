@@ -150,56 +150,8 @@ public class DataDriven {
 	public static int numberForColumn;
 
 	public static void ReportEvent(String Result,String ExpText,String ActText)throws IOException, WriteException{
-
-		numberForColumn= DataDriven();
-		wsheet = wbook.getSheet("ResultSheet");
-		//wsheet.addCell(new Label(1 , DataDriven() , resu, CellFormat()));
-		wsheet.addCell(new Label(1 , numberForColumn , ExpText, CellFormat()));
-		String numberAsString = Integer.toString(counting);
-		//wsheet.addCell(new Label(0 , DataDriven4() , numberAsString,CellFormat1()));
-		wsheet.addCell(new Label(0 , numberForColumn , numberAsString,CellFormat1()));
-		counting++;
-		wsheet.addCell(new Label(2 , numberForColumn , ActText,CellFormat()));
-		if(Result=="Fail"){
-			WritableCellFormat cellFormat = null;
-			WritableFont cellFont = null;
-			cellFont = new WritableFont(WritableFont.ARIAL, 9);
-			cellFormat = new WritableCellFormat(cellFont);
-			cellFormat.setWrap(true);
-			cellFormat.setBorder(Border.ALL, BorderLineStyle.THIN);
-			cellFormat.setAlignment(Alignment.CENTRE);
-			cellFormat.setBackground(Colour.RED);
-			//int num = DataDriven2();
-			int num = numberForColumn;
-			String folderName = ObjectRepository.DateSt();
-			Browser.screenshots();
-			//WritableHyperlink hlk =new WritableHyperlink(3 , num ,new File("D:\\Projects_Idea\\WebShopNewProject\\ResultReports\\"+folderName+"\\"+ScID+"-"+TimeConstatnt()+"-screen-"+SCcount+".jpeg"));
-			WritableHyperlink hlk =new WritableHyperlink(3 , num ,new File(obr.obj.getProperty("CreateWorkBookPath")+"//"+folderName+"//"+ScID+"-"+TimeConstatnt()+"-screen-"+SCcount+".jpeg"));
-			wsheet.addHyperlink(hlk);
-			//wsheet.addCell(new Label(3 , DataDriven2() , result,cellFormat));
-			wsheet.addCell(new Label(3 , num , Result,cellFormat));
-			sResult = true;
-			SCcount++;
-		}
-		else if(Result=="Pass"){
-			WritableCellFormat cellFormat = null;
-			WritableFont cellFont = null;
-			cellFont = new WritableFont(WritableFont.ARIAL, 9);
-			cellFormat = new WritableCellFormat(cellFont);
-			cellFormat.setWrap(true);
-			cellFormat.setBorder(Border.ALL, BorderLineStyle.THIN);
-			cellFormat.setAlignment(Alignment.CENTRE);
-			cellFormat.setBackground(Colour.GREEN);
-			//wsheet.addCell(new Label(3 , DataDriven2() , result,cellFormat));
-			wsheet.addCell(new Label(3 , numberForColumn , Result,cellFormat));
-		}
-		else{
-			//wsheet.addCell(new Label(3 , DataDriven2() , result,CellFormat1()));
-			wsheet.addCell(new Label(3 , numberForColumn , Result,CellFormat1()));
-		}
-
-		wsheet.addCell(new Label(4 , numberForColumn , ObjectRepository.TimeSt(),CellFormat1()));
-
+		ExpectedLable(ExpText);
+		ActualLable(ActText,Result);
 	}
 
 	public static void ExpectedLable(String resu) throws IOException, WriteException {
