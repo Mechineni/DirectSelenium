@@ -6,6 +6,7 @@ import GenericLib.ObjectRepository;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
 import PageObject.QuotesPackage.CreateQuotePage;
+import PageObject.RegionPackage.RegionApprovalWorkflowPage;
 import PageObject.RegionPackage.RegionUpdatePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
@@ -17,6 +18,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import static GenericLib.DataDriven.ActualLable;
+import static GenericLib.DataDriven.ReportEvent;
 
 /**
  * Created by t.mirasipally on 14-Feb-17.
@@ -66,10 +68,11 @@ public class SmokeSuiteTC extends Browser {
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
                 RegionUpdatePage.SearchAndClickOnRegion(driver);
-                //CreateQuotePage.SubmitQuote(driver);
+                RegionUpdatePage.NavigateToApprovalWorkflowPage(driver);
+                RegionApprovalWorkflowPage.AssignSalesOfcWF(driver);
             }
-        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
-        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }
     }
 
 
