@@ -3,9 +3,9 @@ package LocalTestCases;
 import GenericLib.Browser;
 import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
+import PageObject.BuyerDetailsPackage.BuyerUpdatePage;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
-import PageObject.QuotesPackage.CreateQuotePage;
 import PageObject.RegionPackage.RegionUpdatePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
@@ -50,10 +50,10 @@ public class SmokeSuiteTC extends Browser {
                 LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                //BuyerUpdatePage.ClickOnBuyerDetails(driver);
+                BuyerUpdatePage.BuyerSearch(driver);
                 //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
-                //CreateQuotePage.CreateQuote(driver);
-                CreateQuotePage.SubmitQuote(driver);
+                //CreateQuotePage.CreateQuote(drive
+                //CreateQuotePage.SubmitQuote(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }

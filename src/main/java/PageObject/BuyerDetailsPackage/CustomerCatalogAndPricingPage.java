@@ -23,18 +23,17 @@ public class CustomerCatalogAndPricingPage {
     //Assign catalog section
     static private By BuyerDetailsUpdateAssert=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
     static private By CustomerCatalogAndPricingLink=By.xpath("//a[contains(text(),'Customer Catalogs and Pricing')]");
-    static private By AvailableCatalogs=By.xpath("//tr/td[1]/select/option");
-    static private By AssignedCatalogs=By.xpath("//tr[5]/td[3]/select/option");
-    static private By AssignLink=By.xpath("//input[@name='ASSIGN'][@type='SUBMIT']");
-    static private By UnAssignLink=By.xpath("//input[@name='UNASSIGN'][@type='SUBMIT']");
+    static private By AvailableCatalogsLbx=By.xpath("//tr/td[1]/select/option");
+    static private By AssignedCatalogsLbx=By.xpath("//tr[5]/td[3]/select/option");
+    static private By AssignBtn=By.xpath("//input[@name='ASSIGN'][@type='SUBMIT']");
+    static private By UnAssignBtn=By.xpath("//input[@name='UNASSIGN'][@type='SUBMIT']");
 
     static private By UpdateCatalogAndPricing=By.xpath("//input[@name='UPDATE'][@type='SUBMIT']");
-    static private By CostFactorsLink=By.xpath("//a[contains(text(),'COST FACTORS')]");
     static private By ZeroPrizeLineItems =By.xpath("//input[@name='ZeroPrice'][@type='CHECKBOX']");
     static private By ZeroPrizeLineItemsTextBox =By.xpath("//input[@name='ZeroPriceValue'][@type='TEXT']");
     static private By ExpediteByCustomer =By.xpath("//input[@name='BCExp'][@type='CHECKBOX']");
 
-
+    //---Sell Price Scheme Section
     static private By CatalogUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[2]/select/parent::td/preceding-sibling::td");
     static private By PriceTypeUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[2]/select");
     static private By PriceValueUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[3]/input");
@@ -47,7 +46,7 @@ public class CustomerCatalogAndPricingPage {
     static private By DiscountCodeRuleUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[9]/a[contains(text(),'Discount Code')]");
     static private By ManufacturerRuleUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[9]/a[contains(text(),'Manufacturer')]");
     static private By CategoryRuleUnderPriceScheme=By.xpath("//b[contains(text(),'PRICE SCHEME')]/parent::td/parent::tr/following-sibling::tr/td[9]/a[contains(text(),'Category')]");
-
+    //--- Our Cost section
     static private By CatalogUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[1]/input/parent::td");
     static private By CostTypeUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[2]/select");
     static private By DiscountValueUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[3]/input");
@@ -58,7 +57,8 @@ public class CustomerCatalogAndPricingPage {
     static private By DiscountTypeRuleUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[7]/a[contains(text(),'Discount Code')]");
     static private By ManufacturerRuleUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[7]/a[contains(text(),'Manufacturer')]");
     static private By CategoryRuleUnderOurCost=By.xpath("//b[contains(text(),'OUR COST')]/parent::td/parent::tr/following-sibling::tr/td/table/tbody/tr/td[7]/a[contains(text(),'Category')]");
-
+    //---Cost factor page
+    static private By CostFactorsLink=By.xpath("//a[contains(text(),'COST FACTORS')]");
     static private By CatalogInCostFactors=By.xpath("//td[2][@class='ListAltRow1']/input/parent::td");
     static private By RegionConfigurationCheckBox=By.id("UseRegion");
     static private By UpdateCostFactorsButton=By.xpath("//input[@type='submit'][@value='Update']");
@@ -70,50 +70,55 @@ public class CustomerCatalogAndPricingPage {
 
 
     public static void AssignCatalogsToBuyer(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
-        StepLable("Verifying Catalog details for the buyer");
-        ExpectedLable("Verify that Customer Catalog And Pricing Link is available on Buyer details page or not ?");
+        StepLable("Verify and Assign Catalog for the buyer under Customer and Catalog Pricing page");
+
         if(SizeOfTheElement(driver,CustomerCatalogAndPricingLink)>0) {
-            ActualLable("Customer Catalog And Pricing Link is available on Buyer details page", "Pass");
-            ExpectedLable("Click on Customer Catalog And Pricing Link on Buyer details page");
+            ReportEvent("Pass","Verify existance of Customer Catalog And Pricing Link","Customer Catalog And Pricing Link is available on Buyer details page");
+            //---Click on Customer Catalog And Pricing Link
             clickOnElement(driver, CustomerCatalogAndPricingLink);
-            ActualLable("Successfully clicked on Customer Catalog And Pricing Link on Buyer details page", "Pass");
-            ExpectedLable("Verify that Customer Catalog and Pricing page opened successfully or not?");
+            //---Verify that Customer Catalog and Pricing page opened
             String CustomerCatalogPageTitle = GetPageTitle(driver);
             if (CustomerCatalogPageTitle.contentEquals("Customer Catalogs and Pricing")) {
-                ActualLable("Customer Catalog and Pricing page opened successfully ", "Pass");
-                ExpectedLable("Verify that required catalog available or not?");
+                ReportEvent("Pass","Verify that Customer Catalog and Pricing page opened","Customer Catalog and Pricing page opened successfully ");
+                //--- Get the Catalog Name from test data sheet
                 String catalogName1=SearchColumnText("catalogName1");
                 By AvailableCatalog=By.xpath("//tr/td[1]/select/option[contains(text(),'"+catalogName1+"')]");
                 By AssignedCatalog=By.xpath("//tr[5]/td[3]/select/option[contains(text(),'"+catalogName1+"')]");
-                if (SizeOfTheElement(driver, AssignedCatalogs) > 0) {
-                    boolean status = false;
+                boolean Status = false;
+                if (SizeOfTheElement(driver, AssignedCatalogsLbx) > 0) {
+                    //---Unassign the required catalog from assigned catalogs list
                     if (SizeOfTheElement(driver, AssignedCatalog) > 0) {
                         String ExpCatName = GetElementText(driver, AssignedCatalog);
                         if (ExpCatName.contentEquals(catalogName1)) {
-                            ActualLable("Required catalog is already assigned ", "Pass");
-                            status = true;
-                            ExpectedLable("Removing Catalog From assigned Catalog");
+                            ReportEvent("Pass","Verify that required catalog available or not?","Required catalog is already assigned ");
                             clickOnElement(driver, AssignedCatalog);
-                            Thread.sleep(1000);
-                            clickOnElement(driver, UnAssignLink);
-                            ActualLable("Successfully Removed Assigned Catelog", "Pass");
-                            status = false;
+                            clickOnElement(driver, UnAssignBtn);
+                            Thread.sleep(2000);
+                            ExpCatName = GetElementText(driver, AvailableCatalog);
+                            if (ExpCatName.contentEquals(catalogName1)){
+                                ReportEvent("Pass","Removing Catalog From assigned Catalog","Successfully Removed Assigned Catelog");
+                            }
                         }
                     }
-                    if(status==false){
-                        ActualLable("Catalog is not assigned, Now add catalog to the buyer", "Pass");
-                        ExpectedLable("Now try to assign Assign the Catalog to buyer");
-                        String ExpectedCateName =GetElementText(driver,AvailableCatalog);
-                        if (ExpectedCateName.contentEquals(catalogName1)) {
-                            clickOnElement(driver, AvailableCatalog);
-                            clickOnElement(driver, AssignLink);
-                            status=true;
-                            ActualLable("mentioned Catalog is assigned to buyer successfully", "Pass");
-                            Thread.sleep(5000);
-                        }else{ActualLable("mentioned Catalog not found ", "Fail"); }
-                    }
-                } else {  ActualLable(" catalog block is not available", "Fail");    }
-            } else { ActualLable(" Assert verification failed for Customer Catalog and Pricing Page ", "Fail");    }
+                    //--- Now Assign the required catalog to the assigned catalog list
+                    String ExpectedCateName =GetElementText(driver,AvailableCatalog);
+                    if (ExpectedCateName.contentEquals(catalogName1)) {
+                        clickOnElement(driver, AvailableCatalog);
+                        clickOnElement(driver, AssignBtn);
+                        String ExpCatName = GetElementText(driver, AssignedCatalog);
+                        if (ExpCatName.contentEquals(catalogName1)){
+                            ReportEvent("Pass","Verify that catalog '"+catalogName1+"'  is assigned","Mentioned Catalog '"+catalogName1+"' is assigned to buyer successfully");
+                            Status = true;
+                        }
+                        Thread.sleep(5000);
+                    }else{ActualLable("mentioned Catalog not found ", "Fail"); }
+
+                } else {
+                    ReportEvent("Fail", "Verify Catalog list box existence", "catalog block is not available");
+                }
+            } else {
+                ReportEvent("Fail", "Verify that Customer Catalog and Pricing page opened", "Customer Catalog and Pricing page not opened");
+            }
         }
     }
     public static void SetValuesToPriceScheme(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
