@@ -19,13 +19,14 @@ public class RegionUpdatePage {
     static private ObjectRepository obje = new ObjectRepository();
     static private WebDriver driver;
     //PageElements
-    //---Find Region and Click on EDIT button
     static private By RegionsAssert= By.xpath("//tr/td[@class='ListHeader']/b");
     static private By SiteAdminLink=By.xpath("//ul[@id='cssmenu1']/li[5]/a[contains(text(),'Site Admin')]");
     static private By RegionLink=By.xpath("//ul[@id='cssmenu1']/li[5]/ul/li[5]/a[contains(text(),'Regions')]");
     static private By RegionsListPage=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[2]");
-    static private By RegionEditBtn=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
-    //---Edit manufacturer list on region update page
+    static private By EditRegionDetails=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
+    static private By ApprovalWorkflowLink=By.xpath("//a[contains(text(),'Approval Workflow')]");
+
+
 
 
     public static boolean VerifyRegionsPageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
@@ -45,7 +46,6 @@ public class RegionUpdatePage {
     }
 
     public static boolean SearchAndClickOnRegion(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
-        StepLable("Search for the region and click on EDIT button");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
         clickOnElement(driver,SiteAdminLink);
@@ -55,10 +55,10 @@ public class RegionUpdatePage {
         if(VerifyRegionsPageAssert(driver)==true) {
             int NoOfResult = SizeOfTheElement(driver, RegionsListPage);
             for (int i = 0; i <= NoOfResult-1; i++) {
-                //---If Required region name found, click on edit button
+
                 if (GetMultipleElementList(driver,RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
-                    ReportEvent("Pass","Searching for Region:- "+SearchColumnText("RegionName"), " Region '"+SearchColumnText("RegionName")+"' found in the list");
-                    GetMultipleElementList(driver,RegionEditBtn).get(i-1).click();
+                    //---Required region name found, click on edit button
+                    GetMultipleElementList(driver,EditRegionDetails).get(i-1).click();
                     Thread.sleep(2000);
                     String PageTitle = GetPageTitle(driver);
                     if (PageTitle.contentEquals("Update")){
@@ -69,6 +69,24 @@ public class RegionUpdatePage {
                     }
                     break;
                 }
+            }
+        }
+        return Status;
+    }
+
+
+    public static boolean NavigateToApprovalWorkflowPage(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        boolean Status = false;
+        if (SizeOfTheElement(driver,ApprovalWorkflowLink) > 0) {
+            //Click on Approval workflow link
+            clickOnElement(driver, ApprovalWorkflowLink);
+            Thread.sleep(2000);
+            String PageTitle = GetPageTitle(driver);
+            if (PageTitle.contentEquals("Approval Workflow")){
+                Status = true;
+                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+            }else {
+                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
             }
         }
         return Status;
