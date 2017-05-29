@@ -45,7 +45,7 @@ public class RegionUpdatePage {
         return Status;
     }
 
-    public static boolean SearchAndClickOnRegion(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+    public static boolean RegionSearchAndEdit(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
         clickOnElement(driver,SiteAdminLink);
@@ -75,7 +75,7 @@ public class RegionUpdatePage {
     }
 
 
-    public static boolean NavigateToApprovalWorkflowPage(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+    public static boolean ClickOnApprovalWorkflowLink(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         boolean Status = false;
         if (SizeOfTheElement(driver,ApprovalWorkflowLink) > 0) {
             //Click on Approval workflow link
