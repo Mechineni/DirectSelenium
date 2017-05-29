@@ -4,9 +4,9 @@ import GenericLib.Browser;
 import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
 import PageObject.BuyerDetailsPackage.BuyerUpdatePage;
+import PageObject.BuyerDetailsPackage.CustomerCatalogAndPricingPage;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
-import PageObject.QuotesPackage.CreateQuotePage;
 import PageObject.RegionPackage.RegionApprovalWorkflowPage;
 import PageObject.RegionPackage.RegionUpdatePage;
 import jxl.read.biff.BiffException;
@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static GenericLib.DataDriven.ActualLable;
 import static GenericLib.DataDriven.ReportEvent;
 
 /**
@@ -43,8 +42,8 @@ public class SmokeSuiteTC extends Browser {
                 HomePage.VerifyHomePageAssert(driver);
                 HomePage.CheckAllTheLinks(driver);
             }
-        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
-        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ReportEvent("Fail","Exception Found",error); }
     }
     @Test
     public void SC_002() throws IOException, InterruptedException, WriteException, BiffException {
@@ -53,13 +52,14 @@ public class SmokeSuiteTC extends Browser {
                 LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                //BuyerUpdatePage.ClickOnBuyerDetails(driver);
-                //CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
+                BuyerUpdatePage.BuyerSearchAndEdit(driver);
+                BuyerUpdatePage.ClickOnCustomerCatalogAndPricingLink(driver);
+                CustomerCatalogAndPricingPage.AssignCatalogsToBuyer(driver);
                 //CreateQuotePage.CreateQuote(driver);
-                CreateQuotePage.SubmitQuote(driver);
+                //CreateQuotePage.SubmitQuote(driver);
             }
-        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ActualLable(error,"Fail");}
-        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ActualLable(error,"Fail"); }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ReportEvent("Fail","Exception Found",error); }
     }
     @Test
     public void SC_003() throws IOException, InterruptedException, WriteException, BiffException {

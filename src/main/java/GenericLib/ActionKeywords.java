@@ -16,9 +16,11 @@ public class ActionKeywords {
     public static void navigateTo(WebDriver driver,String url){
         driver.navigate().to(url);
     }
+
     public static void clickOnElement(WebDriver driver,By object) {
         driver.findElement(object).click();
     }
+
     public static Select selectDropDown(WebDriver driver,By object){
         Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
         return dropdown;
