@@ -106,13 +106,44 @@ public class RegionApprovalWorkflowPage {
     }
 
     public static void CreateAndUpdateRoutingRole(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
-        //Click on Workflow Rules link
+        //Click on Routing roles link
         clickOnElement(driver,RoutingRolesLink);
         Thread.sleep(1000);
         String PageTitle = GetPageTitle(driver);
         if (PageTitle.contentEquals("Routing Roles")) {
             ReportEvent("Pass","Verify that Routing Roles page is opened or not ?","Assert- Routing Roles Page is opened successfully");
             clickOnElement(driver,RoutingRoleCreateLink);
+            Thread.sleep(1000);
+            String CreatePageTitle = GetPageTitle(driver);
+            if (CreatePageTitle.contentEquals("Create")) {
+                ReportEvent("Pass","Verify that Routing Roles create page is opened or not ?","Assert- Routing Roles create Page is opened successfully");
+                sendInputData(driver, RoutingRoleNameTxt).sendKeys(SearchColumnText("RoutingRoleName"));
+                clickOnElement(driver,RoutingRoleCreateBtn);
+            } else {
+                ReportEvent("Fail","Verify that Routing Roles create page is opened or not ?","Assert- Routing Roles create Page is not opened ");
+            }
+            clickOnElement(driver,RoutingRoleUpdateBtn);
+            //Routing role update page
+            By RoutingRole=By.xpath("//td[contains(text(),'"+SearchColumnText("RoutingRoleName")+"')]");
+            if (SizeOfTheElement(driver, RoutingRole)> 0){
+                ReportEvent("Pass","Verify that Routing Role created successfully or not","Routing Role created successfully");
+            }else {
+                ReportEvent("Fail","Verify that Routing Role created successfully or not","Routing Role not created");
+            }
+
+        } else {
+            ReportEvent("Fail","Verify that Routing Roles page is opened or not ?","Assert- Routing Roles Page is not opened ");
+        }
+    }
+
+    public static void CreateAndUpdateWorkFlow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        //Click on Workflow rules link
+        clickOnElement(driver,WorkflowRulesLink);
+        Thread.sleep(1000);
+        String PageTitle = GetPageTitle(driver);
+        if (PageTitle.contentEquals("Workflow Rules")) {
+            ReportEvent("Pass","Verify that Workflow rules page is opened or not ?","Assert- Workflow rules Page is opened successfully");
+            clickOnElement(driver,WorkflowRulesCreateLink);
             Thread.sleep(1000);
             String CreatePageTitle = GetPageTitle(driver);
             if (CreatePageTitle.contentEquals("Create")) {
@@ -132,12 +163,12 @@ public class RegionApprovalWorkflowPage {
             }
 
         } else {
-            ReportEvent("Fail","Verify that Routing Roles page is opened or not ?","Assert- Routing Roles Page is not opened ");
+            ReportEvent("Fail","Verify that Workflow rules page is opened or not ?","Assert- Workflow rules Page is not opened ");
         }
     }
 
-    public static void CreateAndUpdateWorkFlow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
-        //Click on Routing Roles link
+    public static void UpdateWorkFlowAddRules(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        //Click on Workflow rules link
         clickOnElement(driver,WorkflowRulesLink);
         Thread.sleep(1000);
         String PageTitle = GetPageTitle(driver);
@@ -147,20 +178,21 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(1000);
             String CreatePageTitle = GetPageTitle(driver);
             if (CreatePageTitle.contentEquals("Create")) {
-                ReportEvent("Pass","Verify that Routing Roles create page is opened or not ?","Assert- Routing Roles create Page is opened successfully");
-                sendInputData(driver, RoutingRoleNameTxt).sendKeys(SearchColumnText("RoutingRoleName"));
-                clickOnElement(driver,RoutingRoleCreateBtn);
+                ReportEvent("Pass","Verify that Workflow rule create page is opened or not ?","Assert- Workflow rule create Page is opened successfully");
+                sendInputData(driver, WorkflowRuleCreateTxt).sendKeys(SearchColumnText("WFCreateName"));
+                selectDropDown(driver, CurrencyDrpd).selectByVisibleText(SearchColumnText("Currency"));
+                clickOnElement(driver,WorkFlowRuleCreateBtn);
             } else {
-                ReportEvent("Fail","Verify that Routing Roles create page is opened or not ?","Assert- Routing Roles create Page is not opened ");
+                ReportEvent("Fail","Verify that Workflow rule create page is opened or not ?","Assert- Workflow rule create Page is not opened ");
             }
-            clickOnElement(driver,RoutingRoleUpdateBtn);
-            //Routing role update page
-            By RoutingRole=By.xpath("//td[contains(text(),'"+SearchColumnText("RoutingRoleName")+"')]");
-            if (SizeOfTheElement(driver, RoutingRole)> 0){
-                ReportEvent("Pass","Verify that Routing Role created successfully or not","Routing Role created successfully");
+            //Workflow rules list page
+            By WorkflowRuleVerify=By.xpath("//td[contains(text()'"+SearchColumnText("WFCreateName")+"')]");
+            if (SizeOfTheElement(driver, WorkflowRuleVerify)> 0){
+                ReportEvent("Pass","Verify that Workflow rule created successfully or not","Workflow rule created successfully");
             }else {
-                ReportEvent("Fail","Verify that Routing Role created successfully or not","Routing Role not created");
+                ReportEvent("Fail","Verify that Workflow rule created successfully or not","Workflow rule not created");
             }
+
         } else {
             ReportEvent("Fail","Verify that Workflow rules page is opened or not ?","Assert- Workflow rules Page is not opened ");
         }
