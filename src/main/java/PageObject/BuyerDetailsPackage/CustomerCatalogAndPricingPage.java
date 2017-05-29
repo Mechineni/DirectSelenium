@@ -22,7 +22,6 @@ public class CustomerCatalogAndPricingPage {
     //PageElements
     //Assign catalog section
     static private By BuyerDetailsUpdateAssert=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
-    static private By CustomerCatalogAndPricingLink=By.xpath("//a[contains(text(),'Customer Catalogs and Pricing')]");
     static private By AvailableCatalogsLbx=By.xpath("//tr/td[1]/select/option");
     static private By AssignedCatalogsLbx=By.xpath("//tr[5]/td[3]/select/option");
     static private By AssignBtn=By.xpath("//input[@name='ASSIGN'][@type='SUBMIT']");
@@ -69,58 +68,50 @@ public class CustomerCatalogAndPricingPage {
     static private By CategoryRuleUnderCostFactors=By.xpath("//a[contains(text(),'Manufacturer')]");
 
 
-    public static void AssignCatalogsToBuyer(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
-        StepLable("Verify and Assign Catalog for the buyer under Customer and Catalog Pricing page");
 
-        if(SizeOfTheElement(driver,CustomerCatalogAndPricingLink)>0) {
-            ReportEvent("Pass","Verify existance of Customer Catalog And Pricing Link","Customer Catalog And Pricing Link is available on Buyer details page");
-            //---Click on Customer Catalog And Pricing Link
-            clickOnElement(driver, CustomerCatalogAndPricingLink);
-            //---Verify that Customer Catalog and Pricing page opened
-            String CustomerCatalogPageTitle = GetPageTitle(driver);
-            if (CustomerCatalogPageTitle.contentEquals("Customer Catalogs and Pricing")) {
-                ReportEvent("Pass","Verify that Customer Catalog and Pricing page opened","Customer Catalog and Pricing page opened successfully ");
-                //--- Get the Catalog Name from test data sheet
-                String catalogName1=SearchColumnText("catalogName1");
-                By AvailableCatalog=By.xpath("//tr/td[1]/select/option[contains(text(),'"+catalogName1+"')]");
-                By AssignedCatalog=By.xpath("//tr[5]/td[3]/select/option[contains(text(),'"+catalogName1+"')]");
-                boolean Status = false;
-                if (SizeOfTheElement(driver, AssignedCatalogsLbx) > 0) {
-                    //---Unassign the required catalog from assigned catalogs list
-                    if (SizeOfTheElement(driver, AssignedCatalog) > 0) {
-                        String ExpCatName = GetElementText(driver, AssignedCatalog);
+    public static void AssignCatalogsToBuyer(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Assign Catalog for the buyer under Customer and Catalog Pricing page");
+            //--- Get the Catalog Name from test data sheet
+            String catalogName1 = SearchColumnText("catalogName1");
+            By AvailableCatalog = By.xpath("//tr/td[1]/select/option[contains(text(),'" + catalogName1 + "')]");
+            By AssignedCatalog = By.xpath("//tr[5]/td[3]/select/option[contains(text(),'" + catalogName1 + "')]");
+            boolean Status = false;
+            if (SizeOfTheElement(driver, AssignedCatalogsLbx) > 0) {
+                //---Unassign the required catalog from assigned catalogs list
+                if (SizeOfTheElement(driver, AssignedCatalog) > 0) {
+                    String ExpCatName = GetElementText(driver, AssignedCatalog);
+                    if (ExpCatName.contentEquals(catalogName1)) {
+                        ReportEvent("Pass", "Verify that required catalog available or not?", "Required catalog is already assigned ");
+                        clickOnElement(driver, AssignedCatalog);
+                        clickOnElement(driver, UnAssignBtn);
+                        Thread.sleep(2000);
+                        ExpCatName = GetElementText(driver, AvailableCatalog);
                         if (ExpCatName.contentEquals(catalogName1)) {
-                            ReportEvent("Pass","Verify that required catalog available or not?","Required catalog is already assigned ");
-                            clickOnElement(driver, AssignedCatalog);
-                            clickOnElement(driver, UnAssignBtn);
-                            Thread.sleep(2000);
-                            ExpCatName = GetElementText(driver, AvailableCatalog);
-                            if (ExpCatName.contentEquals(catalogName1)){
-                                ReportEvent("Pass","Removing Catalog From assigned Catalog","Successfully Removed Assigned Catelog");
-                            }
+                            ReportEvent("Pass", "Removing Catalog From assigned Catalog", "Successfully Removed Assigned Catelog");
                         }
                     }
-                    //--- Now Assign the required catalog to the assigned catalog list
-                    String ExpectedCateName =GetElementText(driver,AvailableCatalog);
-                    if (ExpectedCateName.contentEquals(catalogName1)) {
-                        clickOnElement(driver, AvailableCatalog);
-                        clickOnElement(driver, AssignBtn);
-                        String ExpCatName = GetElementText(driver, AssignedCatalog);
-                        if (ExpCatName.contentEquals(catalogName1)){
-                            ReportEvent("Pass","Verify that catalog '"+catalogName1+"'  is assigned","Mentioned Catalog '"+catalogName1+"' is assigned to buyer successfully");
-                            Status = true;
-                        }
-                        Thread.sleep(5000);
-                    }else{ActualLable("mentioned Catalog not found ", "Fail"); }
-
-                } else {
-                    ReportEvent("Fail", "Verify Catalog list box existence", "catalog block is not available");
                 }
+                //--- Now Assign the required catalog to the assigned catalog list
+                String ExpectedCateName = GetElementText(driver, AvailableCatalog);
+                if (ExpectedCateName.contentEquals(catalogName1)) {
+                    clickOnElement(driver, AvailableCatalog);
+                    clickOnElement(driver, AssignBtn);
+                    String ExpCatName = GetElementText(driver, AssignedCatalog);
+                    if (ExpCatName.contentEquals(catalogName1)) {
+                        ReportEvent("Pass", "Verify that catalog '" + catalogName1 + "'  is assigned", "Mentioned Catalog '" + catalogName1 + "' is assigned to buyer successfully");
+                        Status = true;
+                    }
+                    Thread.sleep(5000);
+                } else {
+                    ActualLable("mentioned Catalog not found ", "Fail");
+                }
+
             } else {
-                ReportEvent("Fail", "Verify that Customer Catalog and Pricing page opened", "Customer Catalog and Pricing page not opened");
+                ReportEvent("Fail", "Verify Catalog list box existence", "catalog block is not available");
             }
-        }
     }
+
+
     public static void SetValuesToPriceScheme(WebDriver driver)throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Set values to catalog for the Price scheme");
         if (SizeOfTheElement(driver, CatalogUnderPriceScheme) > 0) {
