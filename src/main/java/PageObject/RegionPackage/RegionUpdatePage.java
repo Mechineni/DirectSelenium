@@ -23,7 +23,7 @@ public class RegionUpdatePage {
     static private By SiteAdminLink=By.xpath("//ul[@id='cssmenu1']/li[5]/a[contains(text(),'Site Admin')]");
     static private By RegionLink=By.xpath("//ul[@id='cssmenu1']/li[5]/ul/li[5]/a[contains(text(),'Regions')]");
     static private By RegionsListPage=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[2]");
-    static private By EditRegionDetails=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
+    static private By RegionEditBtn=By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[1]");
     static private By ApprovalWorkflowLink=By.xpath("//a[contains(text(),'Approval Workflow')]");
 
 
@@ -58,7 +58,7 @@ public class RegionUpdatePage {
 
                 if (GetMultipleElementList(driver,RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
                     //---Required region name found, click on edit button
-                    GetMultipleElementList(driver,EditRegionDetails).get(i-1).click();
+                    GetMultipleElementList(driver,RegionEditBtn).get(i-1).click();
                     Thread.sleep(2000);
                     String PageTitle = GetPageTitle(driver);
                     if (PageTitle.contentEquals("Update")){
