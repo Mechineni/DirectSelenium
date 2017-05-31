@@ -55,6 +55,11 @@ public class SmokeSuiteTC extends Browser {
                 BuyerUpdatePage.BuyerSearchAndEdit(driver);
                 BuyerUpdatePage.ClickOnCustomerCatalogAndPricingLink(driver);
                 CustomerCatalogAndPricingPage.AssignCatalogsToBuyer(driver);
+                CustomerCatalogAndPricingPage.SetValuesToPriceScheme(driver);
+                CustomerCatalogAndPricingPage.SetZeroPriceAndExpediteBYCustomerOption(driver);
+                CustomerCatalogAndPricingPage.SetValuesToOurCost(driver);
+                CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
+                CustomerCatalogAndPricingPage.SetCostFactors(driver);
                 //CreateQuotePage.CreateQuote(driver);
                 //CreateQuotePage.SubmitQuote(driver);
             }

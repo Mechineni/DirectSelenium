@@ -5,12 +5,10 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
 import static GenericLib.ActionKeywords.*;
-import static GenericLib.ActionKeywords.clickOnElement;
 import static GenericLib.DataDriven.ReportEvent;
 import static GenericLib.DataDriven.SearchColumnText;
 
@@ -82,18 +80,19 @@ public class RegionApprovalWorkflowPage {
             //li[@class='select2-results__option'][contains(text(),'Distribution quoting WF')]
 
             if (SizeOfTheElement(driver, SalesOfcWFDrpd) > 0) {
+
                 clickOnElement(driver, SalesOfcWFDrpd);
                 Thread.sleep(5000);
                 By DropDownValus = By.xpath("//li[@class='select2-results__option'][contains(text(),'" + SearchColumnText("SalesOfcWFName") + "')]");
                 //selectDropDown(driver,SalesOfcWFDrpd).selectByVisibleText(SearchColumnText("SalesOfcWFName"));
                 clickOnElement(driver, DropDownValus);
-                ReportEvent("Pass", "Verify that provided sales office name is available in the dropdown or not ?", "Required workflow set from available options for the respective dropdown");
+                ReportEvent("Pass", "Verify that provided sales office name is available in the dropdown or not ?", "Required workflow '"+SearchColumnText("SalesOfcWFName")+"' set from available options for the respective dropdown");
             } else {
                 ReportEvent("Fail", "Verify that provided sales office name is available in the dropdown or not ?", "required work flow rule not available from respective dropdown for selection on sales offices page ");
             }
             clickOnElement(driver, SalesOfcsWorkflowUpdateBtn);
             Thread.sleep(5000);
-
+            //---
             By SalesOfficeWorkFlow = By.xpath("//label[contains(text(),'"+ SalesOfficeAdd +"')]/following-sibling::div/div/div/label[contains(text(),'"+ SalesOfficeWF +"')]/following-sibling::div/is-xeditable/a[contains(text(),'" + SearchColumnText("SalesOfcWFName") + "')]");
             if (SizeOfTheElement(driver, SalesOfficeWorkFlow) > 0) {
                 ReportEvent("Pass", "Verify that sales office Workflow updated or not ?", "Required workflow set successfully");
