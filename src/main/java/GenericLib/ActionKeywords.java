@@ -69,4 +69,9 @@ public class ActionKeywords {
         WebElement element = driver.findElement(object);
         return element;
     }
+
+    public static WebElement GetBreadcrumbLink(WebDriver driver,String BreadcrumbsName){
+        WebElement Breadcrumbs = driver.findElement(By.xpath("//td[@id='Breadcrumbs']/a[contains(text(),'"+BreadcrumbsName+"')]"));
+        return Breadcrumbs;
+    }
 }

@@ -76,6 +76,7 @@ public class RegionUpdatePage {
 
 
     public static boolean ClickOnApprovalWorkflowLink(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Navigate to Approval Workflow page");
         boolean Status = false;
         if (SizeOfTheElement(driver,ApprovalWorkflowLink) > 0) {
             //Click on Approval workflow link
