@@ -5,6 +5,7 @@ import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
 import PageObject.BuyerDetailsPackage.BuyerUpdatePage;
 import PageObject.BuyerDetailsPackage.CustomerCatalogAndPricingPage;
+import PageObject.BuyerDetailsPackage.MaintenanceServicesSetUpPage;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
 import PageObject.RegionPackage.RegionApprovalWorkflowPage;
@@ -76,6 +77,20 @@ public class SmokeSuiteTC extends Browser {
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }
     }
+    @Test
+    public void SC_004() throws IOException, InterruptedException, WriteException, BiffException {
+        try {
+            if (DataDriven.CheckingFlag("SC_004")==true) {
+                LogInPage.LogInFunctionality(driver);
+                HomePage.VerifyHomePageAssert(driver);
+                Thread.sleep(5000);
+                BuyerUpdatePage.BuyerSearchAndEdit(driver);
+                MaintenanceServicesSetUpPage.ClickOnUptimeContractLink(driver);
 
+
+            }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }
+    }
 
 }
