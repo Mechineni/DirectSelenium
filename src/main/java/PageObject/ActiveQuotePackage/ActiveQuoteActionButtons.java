@@ -10,11 +10,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import static GenericLib.ActionKeywords.*;
-import static GenericLib.ActionKeywords.GetPageTitle;
-import static GenericLib.ActionKeywords.clickOnElementFromMultipleElements;
-import static GenericLib.DataDriven.ActualLable;
-import static GenericLib.DataDriven.ExpectedLable;
-import static GenericLib.DataDriven.SearchColumnText;
+import static GenericLib.DataDriven.*;
 
 /**
  * Created by Mamata.Mechineni on 31-May-17.
@@ -27,23 +23,30 @@ public class ActiveQuoteActionButtons {
     static private By ShopperAssert = By.xpath("//select[@name='cbToRole2']");
     static private By SubmitRouteDocumentAssert = By.xpath("//input[@id='SUBMIT1'][@type='SUBMIT']");
     static private By FinalizeButton = By.xpath("//input[@id='SUBMIT5'][@type='SUBMIT']");
-    //Active Quote Action buttons
-    static private By QuoteSubmitButton = By.xpath("//input[@value='Submit'][@type='SUBMIT']");
-    static private By QuoteConvertToPoButton = By.xpath("//input[@value='Convert to PO'][@type='SUBMIT']");
-    static private By QuoteSaveButton = By.xpath("//input[@value='Save'][@type='SUBMIT']");
-    static private By QuoteRevalidateButton = By.xpath("//input[@value='Re-Validate Quote'][@type='SUBMIT']");
-    static private By QuoteRefreshButton = By.xpath("//input[@value='Refresh Price'][@type='SUBMIT']");
-    static private By QuoteViewDetailsButton = By.xpath("//input[@value='View Detail'][@type='SUBMIT']");
-    static private By QuoteUpdateButton = By.xpath("//input[@value='Update'][@type='SUBMIT']");
+    //---Active Quote Action buttons
+    static private By QuoteSubmitBtn = By.xpath("//input[@value='Submit'][@type='SUBMIT']");
+    static private By QuoteConvertToPoBtn = By.xpath("//input[@value='Convert to PO'][@type='SUBMIT']");
+    static private By QuoteSaveBtn = By.xpath("//input[@value='Save'][@type='SUBMIT']");
+    static private By QuoteRevalidateBtn = By.xpath("//input[@value='Re-Validate Quote'][@type='SUBMIT']");
+    static private By QuoteRefreshBtn = By.xpath("//input[@value='Refresh Price'][@type='SUBMIT']");
+    static private By QuoteViewDetailsBtn = By.xpath("//input[@value='View Detail'][@type='SUBMIT']");
+    static private By QuoteUpdateBtn = By.xpath("//input[@value='Update'][@type='SUBMIT']");
+
+    static private By QuoteCancelBtn = By.xpath("//input[@value='Cancel'][@type='SUBMIT']");
+    static private By QuoteCancelPopup = By.xpath("//td[@id='dialogTitle'][contains(text(),'CANCEL')]");
+    static private By QuoteCancelPopupOk = By.xpath("//input[@id='0'][@value='OK'][@type='SUBMIT']");
 
     static private By SaveQuotePopup = By.xpath("//input[@value='Update'][@type='SUBMIT']");
     static private By SaveQuotePopupSave = By.xpath("//input[@id='0'][@value='Save'][@type='SUBMIT']");
 
+    static private By ActiveQuotePage = By.xpath("//td[@id='ItemHeaderNew']");
+
+
     public static void SubmitQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteSubmitButton)>0) {
+        if(SizeOfTheElement(driver,QuoteSubmitBtn)>0) {
             ActualLable("quote is ready to submit ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteSubmitButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1);
             Thread.sleep(10000);
             ExpectedLable("Verify that User gets navigated to route document page or not?");
             String RouteDocumentPageTitle = GetPageTitle(driver);
@@ -75,9 +78,9 @@ public class ActiveQuoteActionButtons {
 
     public static void SaveQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Save' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteSaveButton)>0) {
+        if(SizeOfTheElement(driver,QuoteSaveBtn)>0) {
             ActualLable("quote is ready to save ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteSaveButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteSaveBtn,1);
             ExpectedLable("Verify that save quote popup opened or not?");
             if (SizeOfTheElement(driver, SaveQuotePopup) > 0) {
                 ActualLable("Save quote popup opened", "Pass");
@@ -94,9 +97,9 @@ public class ActiveQuoteActionButtons {
 
     public static void UpdateQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteUpdateButton)>0) {
+        if(SizeOfTheElement(driver,QuoteUpdateBtn)>0) {
             ActualLable("quote is ready to update ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteUpdateButton,2);
+            clickOnElementFromMultipleElements(driver,QuoteUpdateBtn,2);
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -104,9 +107,9 @@ public class ActiveQuoteActionButtons {
 
     public static void ViewDetailsOnQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteViewDetailsButton)>0) {
+        if(SizeOfTheElement(driver,QuoteViewDetailsBtn)>0) {
             ActualLable("quote is ready to view details ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteViewDetailsButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteViewDetailsBtn,1);
             ExpectedLable("Verify that User gets navigated to view details page or not?");
             String ViewDetailsPageTitle = GetPageTitle(driver);
             if (ViewDetailsPageTitle.contentEquals("Quote Details")) {
@@ -117,9 +120,9 @@ public class ActiveQuoteActionButtons {
 
     public static void RefreshQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteRefreshButton)>0) {
+        if(SizeOfTheElement(driver,QuoteRefreshBtn)>0) {
             ActualLable("quote is ready to Refresh ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteRefreshButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteRefreshBtn,1);
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -127,9 +130,9 @@ public class ActiveQuoteActionButtons {
 
     public static void ConvertToPoQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteConvertToPoButton)>0) {
+        if(SizeOfTheElement(driver,QuoteConvertToPoBtn)>0) {
             ActualLable("quote is ready to be converted to PO ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteConvertToPoButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteConvertToPoBtn,1);
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -137,12 +140,27 @@ public class ActiveQuoteActionButtons {
 
     public static void RevalidateQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
-        if(SizeOfTheElement(driver,QuoteRevalidateButton)>0) {
+        if(SizeOfTheElement(driver,QuoteRevalidateBtn)>0) {
             ActualLable("quote is ready to Revalidate ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteRevalidateButton,1);
+            clickOnElementFromMultipleElements(driver,QuoteRevalidateBtn,1);
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
+    }
+
+    public static void CancelQuote(WebDriver driver) throws IOException, WriteException, BiffException, InterruptedException {
+        if (SizeOfTheElement(driver, ActiveQuotePage) > 0) {
+            ReportEvent("Pass","Verify that active order opened or not?","Active quote is open");
+            clickOnElement(driver, QuoteCancelBtn);
+            Thread.sleep(10000);
+            ExpectedLable("Verify that cancel popup opened or not?");
+            if (SizeOfTheElement(driver, QuoteCancelPopup) > 0) {
+                ActualLable("Cancel popup opened", "Pass");
+                clickOnElement(driver, QuoteCancelPopupOk);
+            }else {ActualLable("error in opening Cancel popup", "Fail");}
+        } else {
+            ActualLable("Opened new quote", "Pass");
+        }
     }
 
 }
