@@ -27,9 +27,8 @@ public class RegionUpdatePage {
     static private By ApprovalWorkflowLink=By.xpath("//a[contains(text(),'Approval Workflow')]");
 
 
-
-
     public static boolean VerifyRegionsPageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
+        StepLable("Verifying Region page");
         boolean Status = false;
         if (GetElementText(driver,RegionsAssert).contentEquals("REGIONS")) {
             String PageTitle = GetPageTitle(driver);
@@ -46,6 +45,7 @@ public class RegionUpdatePage {
     }
 
     public static boolean RegionSearchAndEdit(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Region serach and edit");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
         clickOnElement(driver,SiteAdminLink);

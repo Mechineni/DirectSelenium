@@ -47,10 +47,12 @@ public class RegionApprovalWorkflowPage {
     //Routing Roles section
     static private By RoutingRoleCreateLink= By.xpath("//tr/td[2]/a/b[contains (text(), 'Create')]");
     static private By RoutingRoleUpdateBtn= By.xpath("//td/input[@name='ACTION']");
-
-    //Routing Roles Create section
     static private By RoutingRoleNameTxt= By.xpath("//input[@name='LevelName']");
     static private By RoutingRoleCreateBtn= By.xpath("//input[@name='ACTION']");
+    static private By RoutingRolesList= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[3]");
+    static private By RoutingRoleDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By RoutingRoleDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
+
 
     //Workflow Rules section
     static private By WorkflowRulesCreateLink= By.xpath("//tr/td[2]/a/b[contains (text(), 'Create')]");
@@ -72,16 +74,19 @@ public class RegionApprovalWorkflowPage {
     static private By RuleExpressionsSection= By.xpath("//b[contains(text(),'Rule Expressions:')]");
     static private By AddNewLink= By.xpath("//a[contains(text(),'Add New')]");
     static private By RulesSaveBtn= By.xpath("//td/input[@name='Save']");
+    static private By WorkflowDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By WorkflowDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
+
 
     //Quoting Workflow section
     static private By QuotingWorkflowCreateLink= By.xpath("//a/b[contains(text(),'Create')]");
     static private By QuotingWorkflowNameTxt= By.xpath("//input[@name='nm']");
     static private By QuotingWorkflowCreateBtn= By.xpath("//input[@name='ACTION']");
     static private By WorkflowSelectingDrpd= By.xpath("//select[@id='select1']");
+    static private By QuotingWorkflowList= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[2]");
+    static private By QuotingWorkflowDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By QuotingWorkflowDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
 
-
-    //label[contains(text(),'HAR-HYD :')]/following-sibling::div/div/div/label[contains(text(),'Submit Quote Workflow')]/following-sibling::div/is-xeditable/a
-    //label[contains(text(),'HAR-HYD :')]/following-sibling::div/div/div/label[contains(text(),'Submit Quote Workflow')]/following-sibling::div/is-xeditable/span/div[2]/div/div[1]/is-select/span/span/span
 
      public static void AssignSalesOfcWF(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
          StepLable("Assiging sales offices workflow under sale offices section");
@@ -98,7 +103,7 @@ public class RegionApprovalWorkflowPage {
             By SalesOfcsWF = By.xpath("//label[contains(text(),'" + SalesOfficeAdd + "')]/following-sibling::div/div/div/label[contains(text(),'" + SalesOfficeWF + "')]/following-sibling::div/is-xeditable/a");
             clickOnElement(driver, SalesOfcsWF);
             Thread.sleep(5000);
-            //---Selecting workflow rule for provided workflow path (submit/re submit/convert to po/post to erp)////li[@class='select2-results__option'][contains(text(),'Distribution quoting WF')]
+            //---Selecting workflow rule for provided workflow path (submit/re submit/convert to po/post to erp)
             By SalesOfcWFDrpd = By.xpath("//span[@class='select2-selection select2-selection--single']");
             if (SizeOfTheElement(driver, SalesOfcWFDrpd) > 0) {
                 ReportEvent("Pass", "Verify that provided sales office name is available in the dropdown or not ?", "Required workflow '" + SearchColumnText("QuotingWFCreateName") + "' set from available options for the respective dropdown");
@@ -350,9 +355,111 @@ public class RegionApprovalWorkflowPage {
         }
 
     }
+    public static void DeleteQuotingWorkflow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting Quoting workflow setup");
+        //---Click on Quoting workflow link
+        clickOnElement(driver,QuotingWorkflowLink);
+        Thread.sleep(1000);
+        //---Delete Quoting Workflow setup
+        int NoOfResultQuotingWorkflowlist = SizeOfTheElement(driver, QuotingWorkflowList);
+        for (int i = 0; i <= NoOfResultQuotingWorkflowlist-1; i++) {
+            if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
+                //---Required workflow name found, click on edit button
+                GetMultipleElementList(driver, QuotingWorkflowDeleteBtn).get(i - 1).click();
+                Thread.sleep(2000);
+                //---Verify quote workflow delete page and click on confirm
+                String QuotingWorkflowPageTitle = GetPageTitle(driver);
+                if (QuotingWorkflowPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Quoting Workflow delete page","Quoting workflow delete page opened successfully ");
+                    clickOnElement(driver,QuotingWorkflowDeleteConfirmBtn);
+                }else {
+                    ReportEvent("Fail","Verify Quoting Workflow delete page"," Assert verification failed for Quoting Workflow delete Page ");
+                }
+            }
+            break;
+        }
+        //---Verify selected Quoting workflow deleted or not
+        for (int i = 0; i <= NoOfResultQuotingWorkflowlist-1; i++) {
+            if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
+                ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
+            } else {
+                ReportEvent("Fail", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
+            }
+            break;
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
 
+    }
 
+    public static void DeleteWorkflowRule(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting workflow rule setup");
+        //---Click on workflow rules link
+        clickOnElement(driver,WorkflowRulesLink);
+        Thread.sleep(1000);
+        //---Delete Quoting Workflow setup
+        int NoOfResultWorkflowRuleslist = SizeOfTheElement(driver, WorkflowList);
+        for (int i = 0; i <= NoOfResultWorkflowRuleslist-1; i++) {
+            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
+                //---Required workflow name found, click on edit button
+                GetMultipleElementList(driver, WorkflowDeleteBtn).get(i - 1).click();
+                Thread.sleep(2000);
+                //---Verify workflow rules delete page and click on confirm
+                String WorkflowRulesPageTitle = GetPageTitle(driver);
+                if (WorkflowRulesPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Workflow rules delete page","Workflow rules delete page opened successfully ");
+                    clickOnElement(driver,WorkflowDeleteConfirmBtn);
+                }else {
+                    ReportEvent("Fail","Verify Workflow rules delete page"," Assert verification failed for Workflow rules delete Page ");
+                }
+            }
+            break;
+        }
+        //---Verify selected workflow rules deleted or not
+        for (int i = 0; i <= NoOfResultWorkflowRuleslist-1; i++) {
+            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
+                ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
+            } else {
+                ReportEvent("Fail", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
+            }
+            break;
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
+    }
 
+    public static void DeleteRoutingRole(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting Routing role setup");
+        //---Click on workflow rules link
+        clickOnElement(driver,RoutingRolesLink);
+        Thread.sleep(1000);
+        //---Delete Routing roles setup
+        int NoOfResultRoutingRoleslist = SizeOfTheElement(driver, RoutingRolesList);
+        for (int i = 0; i <= NoOfResultRoutingRoleslist-1; i++) {
+            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("WorkflowRuleCreateTxt"))) {
+                //---Required workflow name found, click on edit button
+                GetMultipleElementList(driver, RoutingRoleDeleteBtn).get(i-1).click();
+                Thread.sleep(2000);
+                //---Verify delete routing roles page and confirm
+                String RoutingRolesPageTitle = GetPageTitle(driver);
+                if (RoutingRolesPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Routing role delete page","Routing role delete page opened successfully ");
+                    clickOnElement(driver,RoutingRoleDeleteConfirmBtn);
+                }else {
+                    ReportEvent("Fail","Verify Routing role delete page"," Assert verification failed for Routing role delete Page ");
+                }
+            }
+            break;
+        }
+        //---Verify selected routing role deleted or not
+        for (int i = 0; i <= NoOfResultRoutingRoleslist-1; i++) {
+            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
+                ReportEvent("Fail", "Verify Routing role page", "Routing role '" + SearchColumnText("WorkflowRuleCreateTxt") + "' not deleted ");
+            } else {
+                ReportEvent("Fail", "Verify Routing role page", " Routing role '" + SearchColumnText("WorkflowRuleCreateTxt") + "' deleted successfully ");
+            }
+            break;
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
+    }
 
 
 
