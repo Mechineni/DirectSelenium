@@ -45,7 +45,7 @@ public class RegionUpdatePage {
     }
 
     public static boolean RegionSearchAndEdit(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
-        StepLable("Region serach and edit");
+        StepLable("Region search and edit");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
         clickOnElement(driver,SiteAdminLink);

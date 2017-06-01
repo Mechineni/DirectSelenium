@@ -364,7 +364,7 @@ public class RegionApprovalWorkflowPage {
         int NoOfResultQuotingWorkflowlist = SizeOfTheElement(driver, QuotingWorkflowList);
         for (int i = 0; i <= NoOfResultQuotingWorkflowlist-1; i++) {
             if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
-                //---Required workflow name found, click on edit button
+                //---Required quoting workflow name found, click on edit button
                 GetMultipleElementList(driver, QuotingWorkflowDeleteBtn).get(i - 1).click();
                 Thread.sleep(2000);
                 //---Verify quote workflow delete page and click on confirm
@@ -375,19 +375,25 @@ public class RegionApprovalWorkflowPage {
                 }else {
                     ReportEvent("Fail","Verify Quoting Workflow delete page"," Assert verification failed for Quoting Workflow delete Page ");
                 }
+                break;
             }
-            break;
         }
         //---Verify selected Quoting workflow deleted or not
-        for (int i = 0; i <= NoOfResultQuotingWorkflowlist-1; i++) {
+        boolean result = false;
+        int NoOfResultAfterDeleteQuotingWFlist = SizeOfTheElement(driver, QuotingWorkflowList);
+        for (int i = 0; i <= NoOfResultAfterDeleteQuotingWFlist-1; i++) {
             if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
-                ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
-            } else {
-                ReportEvent("Fail", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
+                result=true;
+                break;
             }
-            break;
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Quoting Workflow update page", "Quoting Workflow '" + SearchColumnText("QuotingWFCreateName") + "' not deleted ");
+        }else {
+            ReportEvent("Pass", "Verify Quoting Workflow update page", " Quoting Workflow '" + SearchColumnText("QuotingWFCreateName") + "' deleted successfully ");
         }
         GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
 
     }
 
@@ -411,20 +417,28 @@ public class RegionApprovalWorkflowPage {
                 }else {
                     ReportEvent("Fail","Verify Workflow rules delete page"," Assert verification failed for Workflow rules delete Page ");
                 }
+                break;
             }
-            break;
         }
         //---Verify selected workflow rules deleted or not
-        for (int i = 0; i <= NoOfResultWorkflowRuleslist-1; i++) {
+        boolean result = false;
+        int NoOfResultAfterDeleteWorkflowRuleslist = SizeOfTheElement(driver, WorkflowList);
+        for (int i = 0; i <= NoOfResultAfterDeleteWorkflowRuleslist-1; i++) {
             if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
-                ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
-            } else {
-                ReportEvent("Fail", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
+                result=true;
+                break;
             }
-            break;
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
+        }else {
+            ReportEvent("Pass", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
         }
         GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
     }
+
+
 
     public static void DeleteRoutingRole(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Deleting Routing role setup");
@@ -434,8 +448,8 @@ public class RegionApprovalWorkflowPage {
         //---Delete Routing roles setup
         int NoOfResultRoutingRoleslist = SizeOfTheElement(driver, RoutingRolesList);
         for (int i = 0; i <= NoOfResultRoutingRoleslist-1; i++) {
-            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("WorkflowRuleCreateTxt"))) {
-                //---Required workflow name found, click on edit button
+            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("RoutingRoleName"))) {
+                //---Required routing role found, click on edit button
                 GetMultipleElementList(driver, RoutingRoleDeleteBtn).get(i-1).click();
                 Thread.sleep(2000);
                 //---Verify delete routing roles page and confirm
@@ -443,22 +457,29 @@ public class RegionApprovalWorkflowPage {
                 if (RoutingRolesPageTitle.contentEquals("Delete")){
                     ReportEvent("Pass","Verify Routing role delete page","Routing role delete page opened successfully ");
                     clickOnElement(driver,RoutingRoleDeleteConfirmBtn);
+                    Thread.sleep(2000);
                 }else {
-                    ReportEvent("Fail","Verify Routing role delete page"," Assert verification failed for Routing role delete Page ");
+                    ReportEvent("Fail","Verify Routing role delete  page"," Assert verification failed for Routing role delete Page ");
                 }
+                break;
             }
-            break;
         }
+        boolean result = false;
         //---Verify selected routing role deleted or not
-        for (int i = 0; i <= NoOfResultRoutingRoleslist-1; i++) {
-            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
-                ReportEvent("Fail", "Verify Routing role page", "Routing role '" + SearchColumnText("WorkflowRuleCreateTxt") + "' not deleted ");
-            } else {
-                ReportEvent("Fail", "Verify Routing role page", " Routing role '" + SearchColumnText("WorkflowRuleCreateTxt") + "' deleted successfully ");
+        int NoOfResultAfterDeleteRoutingRoleslist = SizeOfTheElement(driver, RoutingRolesList);
+        for (int i = 0; i <= NoOfResultAfterDeleteRoutingRoleslist-1; i++) {
+            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("RoutingRoleName"))) {
+                result=true;
+                break;
             }
-            break;
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Routing role page", " Routing role '" + SearchColumnText("RoutingRoleName") + "' deleted successfully ");
+        }else {
+            ReportEvent("Pass", "Verify Routing role page", " Routing role '" + SearchColumnText("RoutingRoleName") + "' deleted successfully ");
         }
         GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
     }
 
 
