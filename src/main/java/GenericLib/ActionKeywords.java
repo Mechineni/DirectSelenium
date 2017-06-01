@@ -20,6 +20,9 @@ public class ActionKeywords {
     public static void clickOnElement(WebDriver driver,By object) {
         driver.findElement(object).click();
     }
+    public static void ClearAField(WebDriver driver,By object) {
+        driver.findElement(object).clear();
+    }
 
     public static Select selectDropDown(WebDriver driver,By object){
         Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
