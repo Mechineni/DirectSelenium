@@ -6,8 +6,10 @@ import GenericLib.ObjectRepository;
 import PageObject.BuyerDetailsPackage.BuyerUpdatePage;
 import PageObject.BuyerDetailsPackage.CustomerCatalogAndPricingPage;
 import PageObject.BuyerDetailsPackage.MaintenanceServicesSetUpPage;
+import PageObject.ActiveQuotePackage.ActiveQuoteOrderDetails;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
+import PageObject.QuotesPackage.CreateQuotePage;
 import PageObject.RegionPackage.RegionApprovalWorkflowPage;
 import PageObject.RegionPackage.RegionUpdatePage;
 import jxl.read.biff.BiffException;
@@ -53,11 +55,17 @@ public class SmokeSuiteTC extends Browser {
                 LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
-                BuyerUpdatePage.BuyerSearchAndEdit(driver);
-                BuyerUpdatePage.ClickOnCustomerCatalogAndPricingLink(driver);
-                CustomerCatalogAndPricingPage.AssignCatalogsToBuyer(driver);
-                //CreateQuotePage.CreateQuote(driver);
-                //CreateQuotePage.SubmitQuote(driver);
+//                BuyerUpdatePage.BuyerSearchAndEdit(driver);
+//                BuyerUpdatePage.ClickOnCustomerCatalogAndPricingLink(driver);
+//                CustomerCatalogAndPricingPage.AssignCatalogsToBuyer(driver);
+//                CustomerCatalogAndPricingPage.SetValuesToPriceScheme(driver);
+//                CustomerCatalogAndPricingPage.SetZeroPriceAndExpediteBYCustomerOption(driver);
+//                CustomerCatalogAndPricingPage.SetValuesToOurCost(driver);
+//                CustomerCatalogAndPricingPage.UpdateCustomerCatalogsAndPricing(driver);
+//                CustomerCatalogAndPricingPage.SetCostFactors(driver);
+                CreateQuotePage.CreateQuote(driver);
+                CreateQuotePage.SelectCountries(driver);
+                ActiveQuoteOrderDetails.ClearItemsOnActiveQuote(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();ReportEvent("Fail","Exception Found",error); }
@@ -71,8 +79,10 @@ public class SmokeSuiteTC extends Browser {
                 Thread.sleep(5000);
                 RegionUpdatePage.RegionSearchAndEdit(driver);
                 RegionUpdatePage.ClickOnApprovalWorkflowLink(driver);
+                RegionApprovalWorkflowPage.CreateAndUpdateRoutingRole(driver);
+                RegionApprovalWorkflowPage.CreateWorkFlowRuleAndUpdate(driver);
+                RegionApprovalWorkflowPage.CreateAndUpdateQuotingWorkflow(driver);
                 RegionApprovalWorkflowPage.AssignSalesOfcWF(driver);
-                //RegionApprovalWorkflowPage.CreateAndUpdateRoutingRole(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }
