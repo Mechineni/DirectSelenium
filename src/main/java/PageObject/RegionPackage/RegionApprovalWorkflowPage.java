@@ -5,15 +5,11 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
 import static GenericLib.ActionKeywords.*;
-import static GenericLib.ActionKeywords.clickOnElement;
-import static GenericLib.DataDriven.ReportEvent;
-import static GenericLib.DataDriven.SearchColumnText;
-import static GenericLib.DataDriven.StepLable;
+import static GenericLib.DataDriven.*;
 
 /**
  * Created by Mamata.Mechineni on 18-May-17.
@@ -350,9 +346,6 @@ public class RegionApprovalWorkflowPage {
         }
 
     }
-
-
-
 
 
 
