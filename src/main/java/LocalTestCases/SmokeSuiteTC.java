@@ -74,9 +74,10 @@ public class SmokeSuiteTC extends Browser {
                 RegionApprovalWorkflowPage.CreateWorkFlowRuleAndUpdate(driver);
                 RegionApprovalWorkflowPage.CreateAndUpdateQuotingWorkflow(driver);
                 RegionApprovalWorkflowPage.AssignSalesOfcWF(driver);
-                RegionApprovalWorkflowPage.DeleteQuotingWorkflow(driver);
-                RegionApprovalWorkflowPage.DeleteWorkflowRule(driver);
-                RegionApprovalWorkflowPage.DeleteRoutingRole(driver);
+                RegionApprovalWorkflowPage.SelectApprovalWorkflow(driver);
+                //RegionApprovalWorkflowPage.DeleteQuotingWorkflow(driver);
+                //RegionApprovalWorkflowPage.DeleteWorkflowRule(driver);
+                //RegionApprovalWorkflowPage.DeleteRoutingRole(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }

@@ -355,6 +355,7 @@ public class RegionApprovalWorkflowPage {
         }
 
     }
+
     public static void DeleteQuotingWorkflow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Deleting Quoting workflow setup");
         //---Click on Quoting workflow link
@@ -482,6 +483,34 @@ public class RegionApprovalWorkflowPage {
         Thread.sleep(2000);
     }
 
+    public static void SelectApprovalWorkflow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Select Approval workflow");
+        String ApprovalWorkflow=SearchColumnText("SalesOfcWF");
+        if (ApprovalWorkflow.contentEquals("Submit Quote Workflow")){
+            //---Select 'Submit Quote Workflow'
+            selectDropDown(driver,SubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Re-Submit Quote Workflow")){
+            //---Select 'Re-Submit Quote Workflow'
+            selectDropDown(driver,ReSubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Re-Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Convert to PO Workflow")){
+            //---Select 'Convert to PO Workflow'
+            selectDropDown(driver,ConvertToPoWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Convert to PO Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Post to ERP Workflow")){
+            //---Select 'Post to ERP Workflow'
+            selectDropDown(driver,PostToErpWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Post to ERP Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else {
+            ReportEvent("Fail", "Verify that required workflow selected successfully or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' not set");
+        }
+        Thread.sleep(2000);
 
+    }
 
 }
