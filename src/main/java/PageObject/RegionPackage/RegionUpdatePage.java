@@ -51,8 +51,17 @@ public class RegionUpdatePage {
         clickOnElement(driver,SiteAdminLink);
         clickOnElement(driver,RegionLink);
         Thread.sleep(1000);
+        if (GetElementText(driver,RegionsAssert).contentEquals("REGIONS")) {
+            String PageTitle = GetPageTitle(driver);
+            if (PageTitle.contentEquals("Regions")){
+                ReportEvent("Pass","Verify that Regions page is opened or not ?","Assert- Regions Page is opened successfully");
+            } else {
+                ReportEvent("Fail","Verify that Regions page is opened or not ?","Assert- Regions Page is not opened ");
+            }
+        } else {
+            ReportEvent("Fail","Verify that Regions page is opened or not ?","Assert- Regions page is not loaded Properly");
+        }
         //---Search required region on Region list page
-        if(VerifyRegionsPageAssert(driver)==true) {
             int NoOfResult = SizeOfTheElement(driver, RegionsListPage);
             for (int i = 0; i <= NoOfResult-1; i++) {
 
@@ -70,7 +79,6 @@ public class RegionUpdatePage {
                     break;
                 }
             }
-        }
         return Status;
     }
 

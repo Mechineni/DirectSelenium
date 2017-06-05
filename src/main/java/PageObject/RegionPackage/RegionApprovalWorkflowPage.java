@@ -322,7 +322,7 @@ public class RegionApprovalWorkflowPage {
                 ReportEvent("Pass","Verify that Quoting Workflow create page is opened or not ?","Assert- Quoting Workflow create Page is opened successfully");
 
                 sendInputData(driver, QuotingWorkflowNameTxt).sendKeys(SearchColumnText("QuotingWFCreateName"));
-                By ApproverDrpd= By.xpath("//td/b[contains(text(),'"+SearchColumnText("CCReceipents")+"')]/parent::td/following-sibling::td/select");
+                By ApproverDrpd= By.xpath("//td/b[contains(text(),'"+SearchColumnText("RoutingRoleName")+"')]/parent::td/following-sibling::td/select");
                 selectDropDown(driver,WorkflowSelectingDrpd).selectByVisibleText(SearchColumnText("WFCreateName"));
                 selectDropDown(driver,ApproverDrpd).selectByVisibleText(SearchColumnText("Approver"));
                 clickOnElement(driver,QuotingWorkflowCreateBtn);
