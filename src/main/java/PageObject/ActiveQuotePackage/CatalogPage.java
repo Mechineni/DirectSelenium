@@ -52,7 +52,7 @@ public class CatalogPage {
                 int NoOfResult = SizeOfTheElement(driver, CatalogsList);
                 for (int i = 0; i <= NoOfResult - 1; i++) {
                     int index = i + 1;
-                    if (GetMultipleElementList(driver, CatalogsList).get(i).getText().contentEquals(SearchColumnText("catalogName"))) {
+                    if (GetMultipleElementList(driver, CatalogsList).get(i).getText().contentEquals(SearchColumnText("CatalogName"))) {
                         ActualLable("Required catalog listed in assigned catalogs ", "Pass");
                         status = true;
                         GetMultipleElementList(driver, CatalogsList).get(i).click();
@@ -67,7 +67,7 @@ public class CatalogPage {
                     Thread.sleep(5000);
                     if (SizeOfTheElement(driver, ProductNarrowSearch) > 0) {
                         ActualLable("product narrow search section opened successfully", "Pass");
-                        sendInputData(driver, ProductNarrowSearch).sendKeys(SearchColumnText("mfrPart"));
+                        sendInputData(driver, ProductNarrowSearch).sendKeys(SearchColumnText("MfrPart"));
                         clickOnElement(driver, ProductNarrowSearchButton);
                         Thread.sleep(5000);
                         AlertHandle.acceptAlert(driver);
