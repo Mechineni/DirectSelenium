@@ -128,9 +128,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from sales offices page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from sales offices page");
             }
 
         } else {
@@ -172,9 +172,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Routing roles page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Routing roles page");
             }
 
         } else {
@@ -273,7 +273,7 @@ public class RegionApprovalWorkflowPage {
             }
 
             String AddNewPageTitle=GetPageTitle(driver);
-            //---Verify Add new rule page
+            //---Open rules page and add new rules to workflow
             if(AddNewPageTitle.contentEquals("Rule")){
                 ReportEvent("Pass","Verify that Add new Rules page opened or not","Add new Rules page opened successfully");
                 By SelectRule = By.xpath("//b[contains(text(),'"+SearchColumnText("Rule")+"')]/preceding-sibling::input[@name='RuleType']");
@@ -295,9 +295,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Workflow rules page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Workflow rules page");
             }
         } else {
             ReportEvent("Fail","Verify that Workflow rules page is opened or not ?","Assert- Workflow rules Page is not opened ");
@@ -345,9 +345,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Quoting workflow page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Quoting workflow page");
             }
 
         } else {
