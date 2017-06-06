@@ -264,7 +264,7 @@ public class RegionApprovalWorkflowPage {
             }
 
             String AddNewPageTitle=GetPageTitle(driver);
-            //---Verify Add new rule page
+            //--- Add new rule page
             if(AddNewPageTitle.contentEquals("Rule")){
                 ReportEvent("Pass","Verify that Add new Rules page opened or not","Add new Rules page opened successfully");
                 By SelectRule = By.xpath("//b[contains(text(),'"+SearchColumnText("Rule")+"')]/preceding-sibling::input[@name='RuleType']");
