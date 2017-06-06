@@ -26,14 +26,14 @@ public class LogInPage {
 
     public static boolean VerifyLogInPageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
         boolean Status=false;
-        ExpectedLable("Verify that Landing page is opened or not ?");
+        ExpectedLable("Verify that Direct Home page is opened or not ?");
         if(SizeOfTheElement(driver,LoginIdField)>0) {
             String PageTitle = GetPageTitle(driver);
             if(PageTitle.contentEquals("User Authentication")){
                 Status=true;
-                ActualLable("successfully verified Assert for Landing Page ","Pass");
-            }else{ActualLable(" Assert verification failed for Landing Page ","Fail");}
-        }else{ActualLable("Landing page is not Loaded Properly","Fail");}
+                ActualLable("successfully verified Assert for Direct Home Page ","Pass");
+            }else{ActualLable(" Assert verification failed for Direct Home Page ","Fail");}
+        }else{ActualLable("Direct Home page is not Loaded Properly","Fail");}
         return Status;
     }
 
@@ -45,7 +45,7 @@ public class LogInPage {
             ExpectedLable("Provide User name in Email id field");
             sendInputData(driver,EmailIdField).sendKeys(SearchColumnText("UserName"));
             ActualLable("User name entered successfully, Email id is : "+obje.obj.getProperty("email"),"Pass");
-            ExpectedLable("Provide Password in Password field");
+            ExpectedLable("Provide valid Password in Password field");
             sendInputData(driver,PasswordField).sendKeys(SearchColumnText("PassWord"));
             ActualLable("Password entered successfully, Password is : " +obje.obj.getProperty("Password"),"Pass");
             Thread.sleep(1000);

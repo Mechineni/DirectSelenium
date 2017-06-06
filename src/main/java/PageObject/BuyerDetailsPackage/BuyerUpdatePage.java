@@ -5,6 +5,7 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
@@ -28,6 +29,8 @@ public class BuyerUpdatePage {
     static private By BuyerLink=By.xpath("//ul[@id='cssmenu1']/li[3]/ul/li[1]/a[contains(text(),'Buyers')]");
     //OtherHyperlinks
     static private By CustomerCatalogAndPricingLink=By.xpath("//a[contains(text(),'Customer Catalogs and Pricing')]");
+    static private By MaintenanceServicesSetUp=By.xpath("//a[contains(text(),'Maintenance Services Set Up')]");
+
 
 
     public static boolean VerifyBuyersPageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
@@ -110,5 +113,25 @@ public class BuyerUpdatePage {
         return Status;
     }
 
+    public static boolean ClickOnMaintenanceServicesSetUpLink(WebDriver driver) throws IOException, WriteException, InterruptedException {
+        StepLable("Navigate to Maintenance Services Set Up page");
+        boolean Status = false;
+        if(SizeOfTheElement(driver,MaintenanceServicesSetUp)>0) {
+            ReportEvent("Pass", "Verify existence of Maintenance Services Set Up Link", "Maintenance Services Set Up Link is available on Buyer details page");
+            //---Click on Customer Catalog And Pricing Link
+            clickOnElement(driver, MaintenanceServicesSetUp);
+            Thread.sleep(2000);
+            String MaintenanceServicesSetUpPageTitle = GetPageTitle(driver);
+            if (MaintenanceServicesSetUpPageTitle.contentEquals("Maintenance Services Set Up")) {
+                ReportEvent("Pass", "Verify that Maintenance Services Set Up page opened", "Maintenance Services Set Up page opened successfully ");
+                Status = true;
+            }else {
+                ReportEvent("Fail", "Verify that Maintenance Services Set Up page opened", "Maintenance Services Set Up page not opened");
+            }
+        }else {
+            ReportEvent("Fail", "Verify existence of Maintenance Services Set Up Link", "Maintenance Services Set Up link is not available on Buyer details page");
+        }
+        return Status;
+    }
 
 }
