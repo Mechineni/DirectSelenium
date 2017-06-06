@@ -48,37 +48,29 @@ public class RegionUpdatePage {
         StepLable("Region search and edit");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
-        clickOnElement(driver,SiteAdminLink);
-        clickOnElement(driver,RegionLink);
+        clickOnElement(driver, SiteAdminLink);
+        clickOnElement(driver, RegionLink);
         Thread.sleep(1000);
-        if (GetElementText(driver,RegionsAssert).contentEquals("REGIONS")) {
-            String PageTitle = GetPageTitle(driver);
-            if (PageTitle.contentEquals("Regions")){
-                ReportEvent("Pass","Verify that Regions page is opened or not ?","Assert- Regions Page is opened successfully");
-            } else {
-                ReportEvent("Fail","Verify that Regions page is opened or not ?","Assert- Regions Page is not opened ");
-            }
-        } else {
-            ReportEvent("Fail","Verify that Regions page is opened or not ?","Assert- Regions page is not loaded Properly");
-        }
         //---Search required region on Region list page
+        if (VerifyRegionsPageAssert(driver)==true) {
             int NoOfResult = SizeOfTheElement(driver, RegionsListPage);
-            for (int i = 0; i <= NoOfResult-1; i++) {
+            for (int i = 0; i <= NoOfResult - 1; i++) {
 
-                if (GetMultipleElementList(driver,RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
+                if (GetMultipleElementList(driver, RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
                     //---Required region name found, click on edit button
-                    GetMultipleElementList(driver,RegionEditBtn).get(i-1).click();
+                    GetMultipleElementList(driver, RegionEditBtn).get(i - 1).click();
                     Thread.sleep(2000);
                     String PageTitle = GetPageTitle(driver);
-                    if (PageTitle.contentEquals("Update")){
+                    if (PageTitle.contentEquals("Update")) {
                         Status = true;
-                        ReportEvent("Pass","Verify Region update page","Region details update page opened successfully ");
-                    }else {
-                        ReportEvent("Fail","Verify Region update page"," Assert verification failed for Region details update Page ");
+                        ReportEvent("Pass", "Verify Region update page", "Region details update page opened successfully ");
+                    } else {
+                        ReportEvent("Fail", "Verify Region update page", " Assert verification failed for Region details update Page ");
                     }
                     break;
                 }
             }
+        }
         return Status;
     }
 
