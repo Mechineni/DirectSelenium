@@ -443,7 +443,7 @@ public class RegionApprovalWorkflowPage {
 
     public static void DeleteRoutingRole(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Deleting Routing role setup");
-        //---Click on workflow rules link
+        //---Click on Routing roles link
         clickOnElement(driver,RoutingRolesLink);
         Thread.sleep(1000);
         //---Delete Routing roles setup

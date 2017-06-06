@@ -3,6 +3,8 @@ package LocalTestCases;
 import GenericLib.Browser;
 import GenericLib.DataDriven;
 import GenericLib.ObjectRepository;
+import PageObject.ActiveQuotePackage.ActiveQuoteActionButtons;
+import PageObject.ActiveQuotePackage.CatalogPage;
 import PageObject.BuyerDetailsPackage.BuyerUpdatePage;
 import PageObject.BuyerDetailsPackage.CustomerCatalogAndPricingPage;
 import PageObject.BuyerDetailsPackage.MaintenanceServicesSetUpPage;
@@ -74,19 +76,33 @@ public class SmokeSuiteTC extends Browser {
     public void SC_003() throws IOException, InterruptedException, WriteException, BiffException {
         try {
             if (DataDriven.CheckingFlag("SC_003")==true) {
+                //---Login to application
                 LogInPage.LogInFunctionality(driver);
                 HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
+                //---Navigate to region page, and then to approval workflow page of testing region
                 RegionUpdatePage.RegionSearchAndEdit(driver);
                 RegionUpdatePage.ClickOnApprovalWorkflowLink(driver);
+                //---Create routing role, workflow rule and quoting workflow
                 RegionApprovalWorkflowPage.CreateAndUpdateRoutingRole(driver);
                 RegionApprovalWorkflowPage.CreateWorkFlowRuleAndUpdate(driver);
                 RegionApprovalWorkflowPage.CreateAndUpdateQuotingWorkflow(driver);
+                //---Assign sales offices
                 RegionApprovalWorkflowPage.AssignSalesOfcWF(driver);
+                //---Select approval workflow
                 RegionApprovalWorkflowPage.SelectApprovalWorkflow(driver);
-                //RegionApprovalWorkflowPage.DeleteQuotingWorkflow(driver);
-                //RegionApprovalWorkflowPage.DeleteWorkflowRule(driver);
-                //RegionApprovalWorkflowPage.DeleteRoutingRole(driver);
+                //--Create quote and submit for approval
+                CreateQuotePage.CreateQuote(driver);
+                CreateQuotePage.SelectCountries(driver);
+                ActiveQuoteOrderDetails.ClearItemsOnActiveQuote(driver);
+                CatalogPage.AddProductsToQuote(driver);
+                ActiveQuoteActionButtons.SubmitQuoteForApproval(driver);
+                //---Again navigate to region and delete created Quoting workflow, workflow rules and routing role
+                RegionUpdatePage.RegionSearchAndEdit(driver);
+                RegionUpdatePage.ClickOnApprovalWorkflowLink(driver);
+                RegionApprovalWorkflowPage.DeleteQuotingWorkflow(driver);
+                RegionApprovalWorkflowPage.DeleteWorkflowRule(driver);
+                RegionApprovalWorkflowPage.DeleteRoutingRole(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }

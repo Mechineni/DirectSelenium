@@ -41,6 +41,11 @@ public class ActiveQuoteActionButtons {
 
     static private By ActiveQuotePage = By.xpath("//td[@id='ItemHeaderNew']");
 
+    //---Approval routing page
+    static private By QuoteNameTxt = By.xpath("//input[@id='qn']");
+    static private By SubmitBtn = By.xpath("//input[@value='Submit']");
+
+
 
     public static void SubmitQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
@@ -73,6 +78,34 @@ public class ActiveQuoteActionButtons {
                 }else {ActualLable("Review and finalize page not opened ", "Fail");}
             } else {ActualLable(" Error in opening route document page after submit action", "Fail");}
         }else {ActualLable("Errors on the quote","Fail"); }
+
+    }
+
+    public static void SubmitQuoteForApproval(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Submit quote for approval");
+        //---Click on submit button
+        clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1);
+        Thread.sleep(10000);
+        //---Verify approval routing page opened or not
+        String ApprovalRoutingPageTitle = GetPageTitle(driver);
+        if (ApprovalRoutingPageTitle.contentEquals("Approval Routing")) {
+            ReportEvent("Pass", "Verify that User gets navigated to APPROVAL ROUTING page or not?", " APPROVAL ROUTING page opened successfully");
+            sendInputData(driver, QuoteNameTxt).sendKeys(SearchColumnText("QuoteName"));
+            clickOnElement(driver,SubmitBtn);
+            Thread.sleep(2000);
+        }else if(ApprovalRoutingPageTitle.contentEquals("Step 1: Route Document")) {
+            ReportEvent("Fail", "Verify that User gets navigated to APPROVAL ROUTING page or not?", " Workflow not triggered");
+        }else {
+            ReportEvent("Fail", "Verify that User gets navigated to APPROVAL ROUTING page or not?", " Error in opening APPROVAL ROUTING page");
+        }
+
+        String SubmittedPageTitle = GetPageTitle(driver);
+        if (SubmittedPageTitle.contentEquals("Submitted")) {
+            ReportEvent("Pass", "Verify that Quote submitted for approval or not?", "Quote submitted successfully for approval");
+        }else {
+            ReportEvent("Fail", "Verify that Quote submitted for approval or not?", "Error in submitting Quote for approval");
+        }
+
 
     }
 
