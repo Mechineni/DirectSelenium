@@ -57,7 +57,7 @@ public class CreateQuotePage {
             if (SizeOfTheElement(driver, BuyerNameTxtBx) > 0) {
                 ReportEvent("Pass","Verify that Create Quote page opened or not ?","Create quote page opened");
                 sendInputData(driver, BuyerNameTxtBx).sendKeys(SearchColumnText("BuyerName"));
-                selectDropDown(driver,RegionDrpd).selectByVisibleText(SearchColumnText("RegionName"));
+                selectDropDown(driver, RegionDrpd).selectByVisibleText(SearchColumnText("RegionName"));
                 clickOnElement(driver, SearchBtn);
                 //---Buyer name displayed on search results page
                 if (SizeOfTheElement(driver, BuyerNameLinks) > 0) {

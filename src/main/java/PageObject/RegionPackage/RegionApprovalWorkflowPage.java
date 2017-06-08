@@ -47,10 +47,12 @@ public class RegionApprovalWorkflowPage {
     //Routing Roles section
     static private By RoutingRoleCreateLink= By.xpath("//tr/td[2]/a/b[contains (text(), 'Create')]");
     static private By RoutingRoleUpdateBtn= By.xpath("//td/input[@name='ACTION']");
-
-    //Routing Roles Create section
     static private By RoutingRoleNameTxt= By.xpath("//input[@name='LevelName']");
     static private By RoutingRoleCreateBtn= By.xpath("//input[@name='ACTION']");
+    static private By RoutingRolesList= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[3]");
+    static private By RoutingRoleDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By RoutingRoleDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
+
 
     //Workflow Rules section
     static private By WorkflowRulesCreateLink= By.xpath("//tr/td[2]/a/b[contains (text(), 'Create')]");
@@ -72,16 +74,19 @@ public class RegionApprovalWorkflowPage {
     static private By RuleExpressionsSection= By.xpath("//b[contains(text(),'Rule Expressions:')]");
     static private By AddNewLink= By.xpath("//a[contains(text(),'Add New')]");
     static private By RulesSaveBtn= By.xpath("//td/input[@name='Save']");
+    static private By WorkflowDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By WorkflowDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
+
 
     //Quoting Workflow section
     static private By QuotingWorkflowCreateLink= By.xpath("//a/b[contains(text(),'Create')]");
     static private By QuotingWorkflowNameTxt= By.xpath("//input[@name='nm']");
     static private By QuotingWorkflowCreateBtn= By.xpath("//input[@name='ACTION']");
     static private By WorkflowSelectingDrpd= By.xpath("//select[@id='select1']");
+    static private By QuotingWorkflowList= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[2]");
+    static private By QuotingWorkflowDeleteBtn= By.xpath("//td[@class='ListBorder']/table/tbody/tr/td[1]/a[2]");
+    static private By QuotingWorkflowDeleteConfirmBtn= By.xpath("//input[@value='Confirm']");
 
-
-    //label[contains(text(),'HAR-HYD :')]/following-sibling::div/div/div/label[contains(text(),'Submit Quote Workflow')]/following-sibling::div/is-xeditable/a
-    //label[contains(text(),'HAR-HYD :')]/following-sibling::div/div/div/label[contains(text(),'Submit Quote Workflow')]/following-sibling::div/is-xeditable/span/div[2]/div/div[1]/is-select/span/span/span
 
      public static void AssignSalesOfcWF(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
          StepLable("Assiging sales offices workflow under sale offices section");
@@ -98,7 +103,7 @@ public class RegionApprovalWorkflowPage {
             By SalesOfcsWF = By.xpath("//label[contains(text(),'" + SalesOfficeAdd + "')]/following-sibling::div/div/div/label[contains(text(),'" + SalesOfficeWF + "')]/following-sibling::div/is-xeditable/a");
             clickOnElement(driver, SalesOfcsWF);
             Thread.sleep(5000);
-            //---Selecting workflow rule for provided workflow path (submit/re submit/convert to po/post to erp)////li[@class='select2-results__option'][contains(text(),'Distribution quoting WF')]
+            //---Selecting workflow rule for provided workflow path (submit/re submit/convert to po/post to erp)
             By SalesOfcWFDrpd = By.xpath("//span[@class='select2-selection select2-selection--single']");
             if (SizeOfTheElement(driver, SalesOfcWFDrpd) > 0) {
                 ReportEvent("Pass", "Verify that provided sales office name is available in the dropdown or not ?", "Required workflow '" + SearchColumnText("QuotingWFCreateName") + "' set from available options for the respective dropdown");
@@ -123,9 +128,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from sales offices page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from sales offices page");
             }
 
         } else {
@@ -167,9 +172,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Routing roles page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Routing roles page");
             }
 
         } else {
@@ -268,7 +273,7 @@ public class RegionApprovalWorkflowPage {
             }
 
             String AddNewPageTitle=GetPageTitle(driver);
-            //---Verify Add new rule page
+            //---Open rules page and add new rules to workflow
             if(AddNewPageTitle.contentEquals("Rule")){
                 ReportEvent("Pass","Verify that Add new Rules page opened or not","Add new Rules page opened successfully");
                 By SelectRule = By.xpath("//b[contains(text(),'"+SearchColumnText("Rule")+"')]/preceding-sibling::input[@name='RuleType']");
@@ -290,9 +295,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Workflow rules page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Workflow rules page");
             }
         } else {
             ReportEvent("Fail","Verify that Workflow rules page is opened or not ?","Assert- Workflow rules Page is not opened ");
@@ -317,7 +322,7 @@ public class RegionApprovalWorkflowPage {
                 ReportEvent("Pass","Verify that Quoting Workflow create page is opened or not ?","Assert- Quoting Workflow create Page is opened successfully");
 
                 sendInputData(driver, QuotingWorkflowNameTxt).sendKeys(SearchColumnText("QuotingWFCreateName"));
-                By ApproverDrpd= By.xpath("//td/b[contains(text(),'"+SearchColumnText("CCReceipents")+"')]/parent::td/following-sibling::td/select");
+                By ApproverDrpd= By.xpath("//td/b[contains(text(),'"+SearchColumnText("RoutingRoleName")+"')]/parent::td/following-sibling::td/select");
                 selectDropDown(driver,WorkflowSelectingDrpd).selectByVisibleText(SearchColumnText("WFCreateName"));
                 selectDropDown(driver,ApproverDrpd).selectByVisibleText(SearchColumnText("Approver"));
                 clickOnElement(driver,QuotingWorkflowCreateBtn);
@@ -340,9 +345,9 @@ public class RegionApprovalWorkflowPage {
             Thread.sleep(5000);
             String ApprovalWorkflowPageTitle = GetPageTitle(driver);
             if (ApprovalWorkflowPageTitle.contentEquals("Approval Workflow")){
-                ReportEvent("Pass","Verify Approval Workflow page","Approval Workflow setup page opened successfully ");
+                ReportEvent("Pass","Verify Approval Workflow page","Navigated back to Approval Workflow page from Quoting workflow page");
             }else {
-                ReportEvent("Fail","Verify Approval Workflowpage"," Assert verification failed for Approval Workflow Page ");
+                ReportEvent("Fail","Verify Approval Workflow page"," Error in navigating back to Approval workflow page from Quoting workflow page");
             }
 
         } else {
@@ -351,9 +356,161 @@ public class RegionApprovalWorkflowPage {
 
     }
 
+    public static void DeleteQuotingWorkflow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting Quoting workflow setup");
+        //---Click on Quoting workflow link
+        clickOnElement(driver,QuotingWorkflowLink);
+        Thread.sleep(1000);
+        //---Delete Quoting Workflow setup
+        int NoOfResultQuotingWorkflowlist = SizeOfTheElement(driver, QuotingWorkflowList);
+        for (int i = 0; i <= NoOfResultQuotingWorkflowlist-1; i++) {
+            if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
+                //---Required quoting workflow name found, click on edit button
+                GetMultipleElementList(driver, QuotingWorkflowDeleteBtn).get(i - 1).click();
+                Thread.sleep(2000);
+                //---Verify quote workflow delete page and click on confirm
+                String QuotingWorkflowPageTitle = GetPageTitle(driver);
+                if (QuotingWorkflowPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Quoting Workflow delete page","Quoting workflow delete page opened successfully ");
+                    clickOnElement(driver,QuotingWorkflowDeleteConfirmBtn);
+                }else {
+                    ReportEvent("Fail","Verify Quoting Workflow delete page"," Assert verification failed for Quoting Workflow delete Page ");
+                }
+                break;
+            }
+        }
+        //---Verify selected Quoting workflow deleted or not
+        boolean result = false;
+        int NoOfResultAfterDeleteQuotingWFlist = SizeOfTheElement(driver, QuotingWorkflowList);
+        for (int i = 0; i <= NoOfResultAfterDeleteQuotingWFlist-1; i++) {
+            if (GetMultipleElementList(driver, QuotingWorkflowList).get(i).getText().contentEquals(SearchColumnText("QuotingWFCreateName"))) {
+                result=true;
+                break;
+            }
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Quoting Workflow update page", "Quoting Workflow '" + SearchColumnText("QuotingWFCreateName") + "' not deleted ");
+        }else {
+            ReportEvent("Pass", "Verify Quoting Workflow update page", " Quoting Workflow '" + SearchColumnText("QuotingWFCreateName") + "' deleted successfully ");
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
+
+    }
+
+    public static void DeleteWorkflowRule(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting workflow rule setup");
+        //---Click on workflow rules link
+        clickOnElement(driver,WorkflowRulesLink);
+        Thread.sleep(1000);
+        //---Delete Quoting Workflow setup
+        int NoOfResultWorkflowRuleslist = SizeOfTheElement(driver, WorkflowList);
+        for (int i = 0; i <= NoOfResultWorkflowRuleslist-1; i++) {
+            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
+                //---Required workflow name found, click on edit button
+                GetMultipleElementList(driver, WorkflowDeleteBtn).get(i - 1).click();
+                Thread.sleep(2000);
+                //---Verify workflow rules delete page and click on confirm
+                String WorkflowRulesPageTitle = GetPageTitle(driver);
+                if (WorkflowRulesPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Workflow rules delete page","Workflow rules delete page opened successfully ");
+                    clickOnElement(driver,WorkflowDeleteConfirmBtn);
+                }else {
+                    ReportEvent("Fail","Verify Workflow rules delete page"," Assert verification failed for Workflow rules delete Page ");
+                }
+                break;
+            }
+        }
+        //---Verify selected workflow rules deleted or not
+        boolean result = false;
+        int NoOfResultAfterDeleteWorkflowRuleslist = SizeOfTheElement(driver, WorkflowList);
+        for (int i = 0; i <= NoOfResultAfterDeleteWorkflowRuleslist-1; i++) {
+            if (GetMultipleElementList(driver, WorkflowList).get(i).getText().contentEquals(SearchColumnText("WFCreateName"))) {
+                result=true;
+                break;
+            }
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Workflow update page", "Workflow '" + SearchColumnText("WFCreateName") + "' not deleted ");
+        }else {
+            ReportEvent("Pass", "Verify Workflow update page", " Workflow '" + SearchColumnText("WFCreateName") + "' deleted successfully ");
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
+    }
 
 
 
+    public static void DeleteRoutingRole(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Deleting Routing role setup");
+        //---Click on Routing roles link
+        clickOnElement(driver,RoutingRolesLink);
+        Thread.sleep(1000);
+        //---Delete Routing roles setup
+        int NoOfResultRoutingRoleslist = SizeOfTheElement(driver, RoutingRolesList);
+        for (int i = 0; i <= NoOfResultRoutingRoleslist-1; i++) {
+            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("RoutingRoleName"))) {
+                //---Required routing role found, click on edit button
+                GetMultipleElementList(driver, RoutingRoleDeleteBtn).get(i-1).click();
+                Thread.sleep(2000);
+                //---Verify delete routing roles page and confirm
+                String RoutingRolesPageTitle = GetPageTitle(driver);
+                if (RoutingRolesPageTitle.contentEquals("Delete")){
+                    ReportEvent("Pass","Verify Routing role delete page","Routing role delete page opened successfully ");
+                    clickOnElement(driver,RoutingRoleDeleteConfirmBtn);
+                    Thread.sleep(2000);
+                }else {
+                    ReportEvent("Fail","Verify Routing role delete  page"," Assert verification failed for Routing role delete Page ");
+                }
+                break;
+            }
+        }
+        boolean result = false;
+        //---Verify selected routing role deleted or not
+        int NoOfResultAfterDeleteRoutingRoleslist = SizeOfTheElement(driver, RoutingRolesList);
+        for (int i = 0; i <= NoOfResultAfterDeleteRoutingRoleslist-1; i++) {
+            if (GetMultipleElementList(driver, RoutingRolesList).get(i).getText().contentEquals(SearchColumnText("RoutingRoleName"))) {
+                result=true;
+                break;
+            }
+        }
+        if(result==true) {
+            ReportEvent("Fail", "Verify Routing role page", " Routing role '" + SearchColumnText("RoutingRoleName") + "' deleted successfully ");
+        }else {
+            ReportEvent("Pass", "Verify Routing role page", " Routing role '" + SearchColumnText("RoutingRoleName") + "' deleted successfully ");
+        }
+        GetBreadcrumbLink(driver,"Approval Workflow").click();
+        Thread.sleep(2000);
+    }
 
+    public static void SelectApprovalWorkflow(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Select Approval workflow");
+        String ApprovalWorkflow=SearchColumnText("SalesOfcWF");
+        if (ApprovalWorkflow.contentEquals("Submit Quote Workflow")){
+            //---Select 'Submit Quote Workflow'
+            selectDropDown(driver,SubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Re-Submit Quote Workflow")){
+            //---Select 'Re-Submit Quote Workflow'
+            selectDropDown(driver,ReSubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Re-Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Convert to PO Workflow")){
+            //---Select 'Convert to PO Workflow'
+            selectDropDown(driver,ConvertToPoWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Convert to PO Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else if (ApprovalWorkflow.contentEquals("Post to ERP Workflow")){
+            //---Select 'Post to ERP Workflow'
+            selectDropDown(driver,PostToErpWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            clickOnElement(driver,UpdateBtn);
+            ReportEvent("Pass", "Verify that required workflow selected for 'Post to ERP Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
+        }else {
+            ReportEvent("Fail", "Verify that required workflow selected successfully or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' not set");
+        }
+        Thread.sleep(2000);
+
+    }
 
 }

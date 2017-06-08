@@ -27,9 +27,8 @@ public class RegionUpdatePage {
     static private By ApprovalWorkflowLink=By.xpath("//a[contains(text(),'Approval Workflow')]");
 
 
-
-
     public static boolean VerifyRegionsPageAssert(WebDriver driver) throws InterruptedException, IOException, WriteException {
+        StepLable("Verifying Region page");
         boolean Status = false;
         if (GetElementText(driver,RegionsAssert).contentEquals("REGIONS")) {
             String PageTitle = GetPageTitle(driver);
@@ -46,26 +45,27 @@ public class RegionUpdatePage {
     }
 
     public static boolean RegionSearchAndEdit(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
+        StepLable("Region search and edit");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
-        clickOnElement(driver,SiteAdminLink);
-        clickOnElement(driver,RegionLink);
+        clickOnElement(driver, SiteAdminLink);
+        clickOnElement(driver, RegionLink);
         Thread.sleep(1000);
         //---Search required region on Region list page
-        if(VerifyRegionsPageAssert(driver)==true) {
+        if (VerifyRegionsPageAssert(driver)==true) {
             int NoOfResult = SizeOfTheElement(driver, RegionsListPage);
-            for (int i = 0; i <= NoOfResult-1; i++) {
+            for (int i = 0; i <= NoOfResult - 1; i++) {
 
-                if (GetMultipleElementList(driver,RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
+                if (GetMultipleElementList(driver, RegionsListPage).get(i).getText().contentEquals(SearchColumnText("RegionName"))) {
                     //---Required region name found, click on edit button
-                    GetMultipleElementList(driver,RegionEditBtn).get(i-1).click();
+                    GetMultipleElementList(driver, RegionEditBtn).get(i - 1).click();
                     Thread.sleep(2000);
                     String PageTitle = GetPageTitle(driver);
-                    if (PageTitle.contentEquals("Update")){
+                    if (PageTitle.contentEquals("Update")) {
                         Status = true;
-                        ReportEvent("Pass","Verify Region update page","Region details update page opened successfully ");
-                    }else {
-                        ReportEvent("Fail","Verify Region update page"," Assert verification failed for Region details update Page ");
+                        ReportEvent("Pass", "Verify Region update page", "Region details update page opened successfully ");
+                    } else {
+                        ReportEvent("Fail", "Verify Region update page", " Assert verification failed for Region details update Page ");
                     }
                     break;
                 }

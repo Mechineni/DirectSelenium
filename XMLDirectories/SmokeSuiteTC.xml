@@ -5,10 +5,9 @@
         <classes>
             <class name="LocalTestCases.SmokeSuiteTC">
             <methods>
-                <!--<include name="SC_001"/>
+                <!--<include name="SC_001"/>-->
                 <include name="SC_002"/>
-                <include name="SC_003"/>-->
-                <include name="SC_004"/>
+                <!--<include name="SC_003"/>-->
             </methods>
             </class>
         </classes>
