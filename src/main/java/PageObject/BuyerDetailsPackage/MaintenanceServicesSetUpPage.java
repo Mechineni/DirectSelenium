@@ -310,7 +310,7 @@ public class MaintenanceServicesSetUpPage {
         clickOnElement(driver,CostAndPriceTab);
         ReportEvent("Pass", " Click on 'Cost And Price' Tab", " Successfully clicked 'Cost And Price' Tab ");
         Thread.sleep(2000);
-        selectDropDown(driver,CurrencyDropDown).selectByVisibleText(SearchColumnText("Currency"));
+        selectDropDown(driver,CurrencyDropDown).selectByVisibleText(SearchColumnText("UMVCurrency"));
         ReportEvent("Pass", " Select 'Currency' for Umv Contract", " 'Currency' is selected Successfully, i.e "+SearchColumnText("Currency"));
 
         selectDropDown(driver,CostMethodDropdown).selectByVisibleText(SearchColumnText("CostMethod"));
