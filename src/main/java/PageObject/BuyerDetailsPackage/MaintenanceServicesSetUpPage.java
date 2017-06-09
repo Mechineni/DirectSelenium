@@ -234,9 +234,7 @@ public class MaintenanceServicesSetUpPage {
         }else if(SearchColumnText("SolutionTypes").contentEquals("Specific")){
             clickOnElement(driver,SpecificSolutionTypes,"Specific Solution Types");
         }
-
         //Assign SLAs
-
         GetMultipleElementList(driver, By.xpath("//td[contains(text(),'"+SearchColumnText("NameOfSLA")+"')]/preceding-sibling::td[2]/input[1]")).get(0).click();
         ReportEvent("Pass", " Select SLAs for UMV ", "successfully selected SLA with ERP Part# : "+SearchColumnText("NameOfSLA"));
 
@@ -266,7 +264,7 @@ public class MaintenanceServicesSetUpPage {
         }else{ ReportEvent("Pass", " Check any 'Ordering country' are assigned ?", " Verified, no 'Ordering country' are assigned. "); }
         //Assign
         if(SizeOfTheElement(driver,AvCountries)>1){
-            String st = SearchColumnText("OrderingCountries");
+            String st = SearchColumnText("UMVOrderingCountries");
             String[] OrderingCountries = st.split(",");
             for(int i=0;i<OrderingCountries.length;i++) {
                 clickElement(driver, By.xpath("//*[@id='AvCountries']/option[contains(text(),'" + OrderingCountries[i] + "')]"));
@@ -285,12 +283,12 @@ public class MaintenanceServicesSetUpPage {
         clickOnElement(driver,InstallCountriesTab,"Install Countries Tab");
         Thread.sleep(2000);
         ReportEvent("Pass", " Select ' Install country tab ' ", " Successfully selected  ' Install country tab '");
-        String st = SearchColumnText("InstallCountry");
+        String st = SearchColumnText("UMVInstallCountry");
         String[] OrderingCountries = st.split(",");
-        selectDropDown(driver,By.xpath("//b[contains(text(),'"+OrderingCountries[0]+"')]/parent::td/following-sibling::td/select[@id='Band_au']")).selectByVisibleText(""+OrderingCountries[1]+"");
+        selectDropDown(driver,By.xpath("//b[contains(text(),'"+OrderingCountries[0]+"')]/parent::td/following-sibling::td/select")).selectByVisibleText(""+OrderingCountries[1]+"");
         ReportEvent("Pass", " Select ' Install country, and select band value ' ", " Successfully selected  ' Install country ' as :' "+OrderingCountries[0]+"' and Band As : '"+OrderingCountries[1]+"'");
         clickOnElement(driver,UpdateInstallCountryTab,"Update button for Install Country Tab");
-        ReportEvent("Pass", " Now click on ' update button' to update Install country detail ", " Successfully clicked on ' update button' ");
+
     }
 
     public static void CostAndPriceTabUnderUMVContract(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {

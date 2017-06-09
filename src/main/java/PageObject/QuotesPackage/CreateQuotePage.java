@@ -51,15 +51,15 @@ public class CreateQuotePage {
         //---Click on Create quote link from main menu options
         if (SizeOfTheElement(driver, CreateQuoteLink) > 0) {
             ReportEvent("Pass","Verify that Create Quote link available or not ?","Create Quote link available");
-            clickOnElement(driver, CreateQuoteLink);
+            clickOnElement(driver, CreateQuoteLink,"Create Quote Link");
             Thread.sleep(2000);
             //---Search for the buyer to create quote
             if (SizeOfTheElement(driver, BuyerNameTxtBx) > 0) {
                 ReportEvent("Pass","Verify that Create Quote page opened or not ?","Create quote page opened");
-                sendInputData(driver, BuyerNameTxtBx).sendKeys(SearchColumnText("BuyerName"));
+                sendInputData(driver, BuyerNameTxtBx,SearchColumnText("BuyerName"),"Buyer Name");
                 ReportEvent("Pass","Provide the buyer name in buyer name Blank","Successfully entered Byer name, i.e :"+SearchColumnText("BuyerName"));
                 selectDropDown(driver, RegionDrpd).selectByVisibleText(SearchColumnText("RegionName"));
-                clickOnElement(driver, SearchBtn);
+                clickOnElement(driver, SearchBtn,"Search Btn");
                 //---Buyer name displayed on search results page
                 if (SizeOfTheElement(driver, BuyerNameLinks) > 0) {
                     ReportEvent("Pass","Verify that Buyers search success or not?","Buyer names displayed on search result page");
@@ -100,7 +100,7 @@ public class CreateQuotePage {
             selectDropDown(driver, CurrencyDrpd).selectByVisibleText(SearchColumnText("Currency"));
             selectDropDown(driver, ExchangeRateLevelDrpd).selectByVisibleText("Spot");
             //---Click on Continue Button
-            clickOnElement(driver, ContinueBtn);
+            clickOnElement(driver, ContinueBtn, "Continue Button");
             Thread.sleep(1000);
             AlertHandle.acceptAlert(driver);
             //---Verify that user navigated to active quote
