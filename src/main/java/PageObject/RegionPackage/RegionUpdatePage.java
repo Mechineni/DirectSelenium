@@ -48,8 +48,8 @@ public class RegionUpdatePage {
         StepLable("Region search and edit");
         boolean Status = false;
         //---Click on SiteAdmin > Region Link on menu option
-        clickOnElement(driver, SiteAdminLink);
-        clickOnElement(driver, RegionLink);
+        clickOnElement(driver, SiteAdminLink,"'Site Admin menu' on home page");
+        clickOnElement(driver, RegionLink,"'Region Link' under Site admin menu");
         Thread.sleep(1000);
         //---Search required region on Region list page
         if (VerifyRegionsPageAssert(driver)==true) {
@@ -80,7 +80,7 @@ public class RegionUpdatePage {
         boolean Status = false;
         if (SizeOfTheElement(driver,ApprovalWorkflowLink) > 0) {
             //Click on Approval workflow link
-            clickOnElement(driver, ApprovalWorkflowLink);
+            clickOnElement(driver, ApprovalWorkflowLink,"Approval Workflow Link");
             Thread.sleep(2000);
             String PageTitle = GetPageTitle(driver);
             if (PageTitle.contentEquals("Approval Workflow")){

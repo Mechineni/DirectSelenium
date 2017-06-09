@@ -41,7 +41,7 @@ public class CatalogPage {
             ActualLable("Opened an active quote", "Fail");
         }else {
             ActualLable("Opened new quote", "Pass");
-            clickOnElement(driver, CatalogOnQuotePage);
+            clickOnElement(driver, CatalogOnQuotePage,"Catalog link on Quote Page");
             Thread.sleep(10000);
             String CatalogPageTitle = GetPageTitle(driver);
             ExpectedLable("Verify that catalogs page opened or not?");
@@ -67,26 +67,26 @@ public class CatalogPage {
                     Thread.sleep(5000);
                     if (SizeOfTheElement(driver, ProductNarrowSearch) > 0) {
                         ActualLable("product narrow search section opened successfully", "Pass");
-                        sendInputData(driver, ProductNarrowSearch).sendKeys(SearchColumnText("MfrPart"));
-                        clickOnElement(driver, ProductNarrowSearchButton);
+                        sendInputData(driver, ProductNarrowSearch,SearchColumnText("MfrPart"),"Product Mfr Part number");
+                        clickOnElement(driver, ProductNarrowSearchButton,"Product Search Button");
                         Thread.sleep(5000);
                         AlertHandle.acceptAlert(driver);
                         ExpectedLable("Verify product search results?");
                         if (SizeOfTheElement(driver, ConfigureButton) > 0) {
                             ActualLable("product narrow search displayed requested details", "Pass");
-                            clickOnElement(driver, ConfigureButton);
+                            clickOnElement(driver, ConfigureButton,"Configure product details Button");
                             Thread.sleep(5000);
                             AlertHandle.acceptAlert(driver);
-                            clickOnElement(driver, DoneButton);
+                            clickOnElement(driver, DoneButton,"Done button on ProductDetails");
                             Thread.sleep(40000);
-                            clickOnElement(driver, AddToCartButton);
+                            clickOnElement(driver, AddToCartButton,"Add To Cart Button");
                         }else if(SizeOfTheElement(driver, DetailsButton) > 0) {
                             ActualLable("product narrow search displayed requested details", "Pass");
-                            clickOnElement(driver, DetailsButton);
+                            clickOnElement(driver, DetailsButton,"Product Details Button");
                             Thread.sleep(20000);
                             AlertHandle.acceptAlert(driver);
                             Thread.sleep(5000);
-                            clickOnElement(driver, AddToCartButton);
+                            clickOnElement(driver, AddToCartButton,"Add To Cart Button");
                         }else{{ActualLable("No product search results displayed", "Fail");}}
                         Thread.sleep(5000);
                         ExpectedLable("Verify product added to quote or not?");

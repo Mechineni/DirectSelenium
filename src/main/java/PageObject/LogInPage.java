@@ -42,16 +42,10 @@ public class LogInPage {
         StepLable("Log in to the application");
         obje.repository(driver);
         if(VerifyLogInPageAssert(driver)==true) {
-            ExpectedLable("Provide User name in Email id field");
-            sendInputData(driver,EmailIdField).sendKeys(SearchColumnText("UserName"));
-            ActualLable("User name entered successfully, Email id is : "+obje.obj.getProperty("email"),"Pass");
-            ExpectedLable("Provide valid Password in Password field");
-            sendInputData(driver,PasswordField).sendKeys(SearchColumnText("PassWord"));
-            ActualLable("Password entered successfully, Password is : " +obje.obj.getProperty("Password"),"Pass");
+            sendInputData(driver,EmailIdField,SearchColumnText("UserName"),"'User Name' field");
+            sendInputData(driver,PasswordField,SearchColumnText("PassWord"),"PassWord field");
             Thread.sleep(1000);
-            ExpectedLable("Now Click on Login button");
-            clickOnElement(driver,LogInButton);
-            ActualLable("Successfully clicked on Log in button","Pass");
+            clickOnElement(driver,LogInButton,"LogIn Button");
         }else{ActualLable("Failed to load Landing page","Fail");}
     }
 

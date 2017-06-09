@@ -51,7 +51,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteSubmitBtn)>0) {
             ActualLable("quote is ready to submit ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1,"Quote Submit Button");
             Thread.sleep(10000);
             ExpectedLable("Verify that User gets navigated to route document page or not?");
             String RouteDocumentPageTitle = GetPageTitle(driver);
@@ -61,15 +61,15 @@ public class ActiveQuoteActionButtons {
                 Random rand = new Random();
                 int Refe = rand.nextInt(999)+1000;
                 String  Quote_Number = "AutoQuote"+Refe;
-                sendInputData(driver, QuoteNumberAssert).sendKeys(Quote_Number);
+                sendInputData(driver, QuoteNumberAssert,Quote_Number,"Quote Number");
                 selectDropDown(driver,ShopperAssert).selectByVisibleText(SearchColumnText("Shopper"));
-                clickOnElement(driver,SubmitRouteDocumentAssert);
+                clickOnElement(driver,SubmitRouteDocumentAssert,"SubmitRouteDocumentAssert Button");
                 Thread.sleep(5000);
                 ExpectedLable("Verify that User gets navigated to review and finalize page or not?");
                 String ReviewAndFinalizePageTitle = GetPageTitle(driver);
                 if (ReviewAndFinalizePageTitle.contentEquals("Step 2: Review and Finalize")) {
                     ActualLable("Review and finalize page opened successfully ", "Pass");
-                    clickOnElementFromMultipleElements(driver,FinalizeButton,1);
+                    clickOnElementFromMultipleElements(driver,FinalizeButton,1,"Finalize Button");
                     ExpectedLable("Verify that quote submitted successfully or not?");
                     String ConfirmationPageTitle = GetPageTitle(driver);
                     if (ConfirmationPageTitle.contentEquals("Step 3: Confirmation")) {
@@ -84,14 +84,14 @@ public class ActiveQuoteActionButtons {
     public static void SubmitQuoteForApproval(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Submit quote for approval");
         //---Click on submit button
-        clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1);
+        clickOnElementFromMultipleElements(driver,QuoteSubmitBtn,1,"Quote Submit Button");
         Thread.sleep(10000);
         //---Verify approval routing page opened or not
         String ApprovalRoutingPageTitle = GetPageTitle(driver);
         if (ApprovalRoutingPageTitle.contentEquals("Approval Routing")) {
             ReportEvent("Pass", "Verify that User gets navigated to APPROVAL ROUTING page or not?", " APPROVAL ROUTING page opened successfully");
-            sendInputData(driver, QuoteNameTxt).sendKeys(SearchColumnText("QuoteName"));
-            clickOnElement(driver,SubmitBtn);
+            sendInputData(driver, QuoteNameTxt,SearchColumnText("QuoteName"),"Quote Name");
+            clickOnElement(driver,SubmitBtn,"Submit Approval Btn");
             Thread.sleep(2000);
         }else if(ApprovalRoutingPageTitle.contentEquals("Step 1: Route Document")) {
             ReportEvent("Fail", "Verify that User gets navigated to APPROVAL ROUTING page or not?", " Workflow not triggered");
@@ -113,11 +113,11 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Save' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteSaveBtn)>0) {
             ActualLable("quote is ready to save ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteSaveBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteSaveBtn,1,"Save Quote Button");
             ExpectedLable("Verify that save quote popup opened or not?");
             if (SizeOfTheElement(driver, SaveQuotePopup) > 0) {
                 ActualLable("Save quote popup opened", "Pass");
-                clickOnElement(driver, SaveQuotePopupSave);
+                clickOnElement(driver, SaveQuotePopupSave,"Save Quote on Popup");
                 ExpectedLable("Verify that User gets navigated to home page after quote getting saved?");
                 String HomePageTitle = GetPageTitle(driver);
                 if (HomePageTitle.contentEquals("Home")) {
@@ -132,7 +132,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteUpdateBtn)>0) {
             ActualLable("quote is ready to update ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteUpdateBtn,2);
+            clickOnElementFromMultipleElements(driver,QuoteUpdateBtn,2,"Quote Update Button");
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -142,7 +142,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteViewDetailsBtn)>0) {
             ActualLable("quote is ready to view details ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteViewDetailsBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteViewDetailsBtn,1,"Quote View Details Btn");
             ExpectedLable("Verify that User gets navigated to view details page or not?");
             String ViewDetailsPageTitle = GetPageTitle(driver);
             if (ViewDetailsPageTitle.contentEquals("Quote Details")) {
@@ -155,7 +155,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteRefreshBtn)>0) {
             ActualLable("quote is ready to Refresh ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteRefreshBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteRefreshBtn,1,"Quote Refresh Button");
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -165,7 +165,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteConvertToPoBtn)>0) {
             ActualLable("quote is ready to be converted to PO ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteConvertToPoBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteConvertToPoBtn,1,"Quote Convert To Button");
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -175,7 +175,7 @@ public class ActiveQuoteActionButtons {
         ExpectedLable("Verify that 'Submit' button on Quote page is enabled or not ?");
         if(SizeOfTheElement(driver,QuoteRevalidateBtn)>0) {
             ActualLable("quote is ready to Revalidate ","Pass");
-            clickOnElementFromMultipleElements(driver,QuoteRevalidateBtn,1);
+            clickOnElementFromMultipleElements(driver,QuoteRevalidateBtn,1,"Quote Revalidate Button");
 
         }else {ActualLable("Errors on the quote","Fail"); }
 
@@ -184,12 +184,12 @@ public class ActiveQuoteActionButtons {
     public static void CancelQuote(WebDriver driver) throws IOException, WriteException, BiffException, InterruptedException {
         if (SizeOfTheElement(driver, ActiveQuotePage) > 0) {
             ReportEvent("Pass","Verify that active order opened or not?","Active quote is open");
-            clickOnElement(driver, QuoteCancelBtn);
+            clickOnElement(driver, QuoteCancelBtn,"Cancel Quote Button");
             Thread.sleep(10000);
             ExpectedLable("Verify that cancel popup opened or not?");
             if (SizeOfTheElement(driver, QuoteCancelPopup) > 0) {
                 ActualLable("Cancel popup opened", "Pass");
-                clickOnElement(driver, QuoteCancelPopupOk);
+                clickOnElement(driver, QuoteCancelPopupOk,"Ok button on Quote Cancel Popup");
             }else {ActualLable("error in opening Cancel popup", "Fail");}
         } else {
             ActualLable("Opened new quote", "Pass");
