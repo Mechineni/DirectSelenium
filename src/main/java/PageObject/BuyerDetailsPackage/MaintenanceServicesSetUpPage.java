@@ -5,17 +5,12 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.ClickAction;
 
-import javax.xml.transform.sax.TemplatesHandler;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 import static GenericLib.ActionKeywords.*;
-import static GenericLib.DataDriven.ReportEvent;
-import static GenericLib.DataDriven.SearchColumnText;
-import static GenericLib.DataDriven.StepLable;
+import static GenericLib.DataDriven.*;
 
 /**
  * Created by Mamata.Mechineni on 18-May-17.
@@ -54,9 +49,6 @@ public class MaintenanceServicesSetUpPage {
     static private By UnAssignSymbol  =By.id("UNASSIGN");
     static private By AssignSymbol  =By.id("ASSIGN");
     static private By UpdateInstallCountryTab  =By.id("UPDATEBAND");
-
-
-
 
 
     public static void SetupUptimeContractMultiVendor(WebDriver driver){
