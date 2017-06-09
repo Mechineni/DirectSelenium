@@ -5,15 +5,12 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.ClickAction;
 
-import javax.xml.transform.sax.TemplatesHandler;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 import static GenericLib.ActionKeywords.*;
-import static GenericLib.ActionKeywords.selectDropDown;
+import static GenericLib.ActionKeywords.selectDropDownByVisibletxt;
 import static GenericLib.DataDriven.ReportEvent;
 import static GenericLib.DataDriven.SearchColumnText;
 import static GenericLib.DataDriven.StepLable;
@@ -135,9 +132,8 @@ public class MaintenanceServicesSetUpPage {
             ReportEvent("Pass", "Verify existence of ' Uptime Contract Number ' blank", "' Uptime Contract Number ' blank is available ");
             sendInputData(driver,UMVContractNumber,UMVContractNumberSt,"UMV Contract Number");
             Thread.sleep(1000);
-            selectDropDown(driver,UMVManufacturer).selectByVisibleText(SearchColumnText("UMVManufacturer"));
+            selectDropDownByVisibletxt(driver,UMVManufacturer,SearchColumnText("UMVManufacturer"),"UMV Manufacturer");
             Thread.sleep(1000);
-            ReportEvent("Pass", " Select UMV Manufacturer ", " Successfully selected UMV Manufacturer, i.e "+SearchColumnText("UMVManufacturer"));
             clickOnElement(driver,CreateButtonUMVContract,"Create Button for UMVContract");
             MainTabUnderUMVContract(driver);
             OrderingCountriesTabUnderUMVContract(driver);
@@ -297,11 +293,9 @@ public class MaintenanceServicesSetUpPage {
         //click on install countries tab
         clickOnElement(driver,CostAndPriceTab,"Cost And Price Tab");
         Thread.sleep(2000);
-        selectDropDown(driver,CurrencyDropDown).selectByVisibleText(SearchColumnText("UMVCurrency"));
-        ReportEvent("Pass", " Select 'Currency' for Umv Contract", " 'Currency' is selected Successfully, i.e "+SearchColumnText("Currency"));
+        selectDropDownByVisibletxt(driver,CurrencyDropDown,SearchColumnText("UMVCurrency"),"UMV Currency");
 
-        selectDropDown(driver,CostMethodDropdown).selectByVisibleText(SearchColumnText("CostMethod"));
-        ReportEvent("Pass", " Select 'CostMethod ' for Umv Contract", " 'CostMethod ' is selected Successfully, i.e "+SearchColumnText("CostMethod"));
+        selectDropDownByVisibletxt(driver,CostMethodDropdown,SearchColumnText("CostMethod"),"Cost Method");
 
         //Select multiple options
         String[] MultipleOptions ={"MultiplePercent","MultipleCostFactor","RollupBackoutCost","DoNotAllow"};
@@ -330,8 +324,7 @@ public class MaintenanceServicesSetUpPage {
         String[] XpathSellMethod ={"AllowMultiBackout_1","MultiBackOutDiscount_1","MultiBackOutUplift_1","AddBackoutPrice_1","OverrideBUSLA1"};
 
         //Select sell method
-        selectDropDown(driver,By.id("PriceScheme_1")).selectByVisibleText(SearchColumnText("SellMethod"));
-        ReportEvent("Pass","Select 'Sell Method' from drop down list","Successfully selected 'Sell Method': "+SearchColumnText("SellMethod"));
+        selectDropDownByVisibletxt(driver,By.id("PriceScheme_1"),SearchColumnText("SellMethod"),"Sell Method");
 
         for (int i = 0; i <= 4; i++) {
             if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("Yes")) {

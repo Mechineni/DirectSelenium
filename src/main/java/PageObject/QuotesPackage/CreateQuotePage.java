@@ -58,7 +58,7 @@ public class CreateQuotePage {
                 ReportEvent("Pass","Verify that Create Quote page opened or not ?","Create quote page opened");
                 sendInputData(driver, BuyerNameTxtBx,SearchColumnText("BuyerName"),"Buyer Name");
                 ReportEvent("Pass","Provide the buyer name in buyer name Blank","Successfully entered Byer name, i.e :"+SearchColumnText("BuyerName"));
-                selectDropDown(driver, RegionDrpd).selectByVisibleText(SearchColumnText("RegionName"));
+                selectDropDownByVisibletxt(driver, RegionDrpd,SearchColumnText("RegionName"),"Region Name");
                 clickOnElement(driver, SearchBtn,"Search Btn");
                 //---Buyer name displayed on search results page
                 if (SizeOfTheElement(driver, BuyerNameLinks) > 0) {
@@ -94,11 +94,11 @@ public class CreateQuotePage {
         //---Select countries on quote estimate page
         if (SizeOfTheElement(driver, OrderingCountryDrpd) > 0) {
             ReportEvent("Pass","Verify that countries selection page opened or not?","Countries selection page opened successfully");
-            selectDropDown(driver, OrderingCountryDrpd).selectByVisibleText(SearchColumnText("OrderCountry"));
-            selectDropDown(driver, DeliveryCountryDrpd).selectByVisibleText(SearchColumnText("DeliveryCountry"));
-            selectDropDown(driver, InstallCountryDrpd).selectByVisibleText(SearchColumnText("InstallCountry"));
-            selectDropDown(driver, CurrencyDrpd).selectByVisibleText(SearchColumnText("Currency"));
-            selectDropDown(driver, ExchangeRateLevelDrpd).selectByVisibleText("Spot");
+            selectDropDownByVisibletxt(driver, OrderingCountryDrpd,SearchColumnText("OrderCountry"),"Order Country");
+            selectDropDownByVisibletxt(driver, DeliveryCountryDrpd,SearchColumnText("DeliveryCountry"),"Delivery Country");
+            selectDropDownByVisibletxt(driver, InstallCountryDrpd,SearchColumnText("InstallCountry"),"Install Country");
+            selectDropDownByVisibletxt(driver, CurrencyDrpd,SearchColumnText("Currency"),"Currency");
+            selectDropDownByVisibletxt(driver, ExchangeRateLevelDrpd,"Spot","Exchange Rate Level");
             //---Click on Continue Button
             clickOnElement(driver, ContinueBtn, "Continue Button");
             Thread.sleep(1000);

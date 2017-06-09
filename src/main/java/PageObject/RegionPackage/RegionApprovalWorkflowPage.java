@@ -5,7 +5,6 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
@@ -198,7 +197,7 @@ public class RegionApprovalWorkflowPage {
             if (CreatePageTitle.contentEquals("Create")) {
                 ReportEvent("Pass","Verify that Workflow rule create page is opened or not ?","Assert- Workflow rule create Page is opened successfully");
                 sendInputData(driver, WorkflowRuleCreateTxt,SearchColumnText("WFCreateName"),"Workflow Name");
-                selectDropDown(driver, CurrencyDrpd).selectByVisibleText(SearchColumnText("Currency"));
+                selectDropDownByVisibletxt(driver, CurrencyDrpd,SearchColumnText("Currency"),"Currency");
                 clickOnElement(driver,WorkFlowRuleCreateBtn,"Create WorkFlow Rule Button");
             } else {
                 ReportEvent("Fail","Verify that Workflow rule create page is opened or not ?","Assert- Workflow rule create Page is not opened ");
@@ -323,8 +322,8 @@ public class RegionApprovalWorkflowPage {
 
                 sendInputData(driver, QuotingWorkflowNameTxt,SearchColumnText("QuotingWFCreateName"),"'New Quoting WorkFlow' Name");
                 By ApproverDrpd= By.xpath("//td/b[contains(text(),'"+SearchColumnText("RoutingRoleName")+"')]/parent::td/following-sibling::td/select");
-                selectDropDown(driver,WorkflowSelectingDrpd).selectByVisibleText(SearchColumnText("WFCreateName"));
-                selectDropDown(driver,ApproverDrpd).selectByVisibleText(SearchColumnText("Approver"));
+                selectDropDownByVisibletxt(driver,WorkflowSelectingDrpd,SearchColumnText("WFCreateName"),"Work Flow Name");
+                selectDropDownByVisibletxt(driver,ApproverDrpd,SearchColumnText("Approver"),"Approver");
                 clickOnElement(driver,QuotingWorkflowCreateBtn,"Create Quoting Workflow Button");
                 Thread.sleep(2000);
 
@@ -486,22 +485,22 @@ public class RegionApprovalWorkflowPage {
         String ApprovalWorkflow=SearchColumnText("SalesOfcWF");
         if (ApprovalWorkflow.contentEquals("Submit Quote Workflow")){
             //---Select 'Submit Quote Workflow'
-            selectDropDown(driver,SubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            selectDropDownByVisibletxt(driver,SubmitQuoteWFDrpd,SearchColumnText("QuotingWFCreateName"),"Quoting Working Flow Name");
             clickOnElement(driver,UpdateBtn,"Update Button");
             ReportEvent("Pass", "Verify that required workflow selected for 'Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
         }else if (ApprovalWorkflow.contentEquals("Re-Submit Quote Workflow")){
             //---Select 'Re-Submit Quote Workflow'
-            selectDropDown(driver,ReSubmitQuoteWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            selectDropDownByVisibletxt(driver,ReSubmitQuoteWFDrpd,SearchColumnText("QuotingWFCreateName"),"Quoting Working Flow Name");
             clickOnElement(driver,UpdateBtn,"Update Button");
             ReportEvent("Pass", "Verify that required workflow selected for 'Re-Submit Quote Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
         }else if (ApprovalWorkflow.contentEquals("Convert to PO Workflow")){
             //---Select 'Convert to PO Workflow'
-            selectDropDown(driver,ConvertToPoWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            selectDropDownByVisibletxt(driver,ConvertToPoWFDrpd,SearchColumnText("QuotingWFCreateName"),"Quoting Working Flow Name");
             clickOnElement(driver,UpdateBtn,"Update Button");
             ReportEvent("Pass", "Verify that required workflow selected for 'Convert to PO Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
         }else if (ApprovalWorkflow.contentEquals("Post to ERP Workflow")){
             //---Select 'Post to ERP Workflow'
-            selectDropDown(driver,PostToErpWFDrpd).selectByVisibleText(SearchColumnText("QuotingWFCreateName"));
+            selectDropDownByVisibletxt(driver,PostToErpWFDrpd,SearchColumnText("QuotingWFCreateName"),"Quoting Working Flow Name");
             clickOnElement(driver,UpdateBtn,"Update Button");
             ReportEvent("Pass", "Verify that required workflow selected for 'Post to ERP Workflow' or not", " Workflow '" + SearchColumnText("QuotingWFCreateName") + "' set successfully ");
         }else {

@@ -33,9 +33,10 @@ public class ActionKeywords {
         driver.findElement(object).clear();
     }
 
-    public static Select selectDropDown(WebDriver driver,By object){
+    public static void selectDropDownByVisibletxt(WebDriver driver, By object,String VisibleTxt, String ElmtName) throws IOException, WriteException {
         Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
-        return dropdown;
+        dropdown.selectByVisibleText(VisibleTxt);
+        ReportEvent("Pass","Select  '"+VisibleTxt+"' from ' "+ElmtName+" ' drop down"," Successfully selected  '"+VisibleTxt+"' from ' "+ElmtName+" ' drop down");
     }
     /*public static WebElement sendInputData(WebDriver driver,By object){
         WebElement elementNam = driver.findElement(object);
@@ -47,6 +48,10 @@ public class ActionKeywords {
         ReportEvent("Pass","Provide '"+ElmtName+"' in the input field.","Successfully entered '"+ElmtName+"' i.e : '"+InputTxt+"'" );
     }
 
+    public static Select selectDropDown(WebDriver driver,By object){
+        Select dropdown = new Select(driver.findElement(object));
+        return dropdown;
+    }
     public static Select selectDropDownFromMultipleElements(WebDriver driver,By object,int i){
         Select dropdown = new Select(driver.findElements(object).get(i));
         return dropdown;

@@ -62,7 +62,7 @@ public class ActiveQuoteActionButtons {
                 int Refe = rand.nextInt(999)+1000;
                 String  Quote_Number = "AutoQuote"+Refe;
                 sendInputData(driver, QuoteNumberAssert,Quote_Number,"Quote Number");
-                selectDropDown(driver,ShopperAssert).selectByVisibleText(SearchColumnText("Shopper"));
+                selectDropDownByVisibletxt(driver,ShopperAssert,SearchColumnText("Shopper"),"Shopper");
                 clickOnElement(driver,SubmitRouteDocumentAssert,"SubmitRouteDocumentAssert Button");
                 Thread.sleep(5000);
                 ExpectedLable("Verify that User gets navigated to review and finalize page or not?");
