@@ -86,8 +86,8 @@ public class CustomerCatalogAndPricingPage {
                     String ExpCatName = GetElementText(driver, AssignedCatalog);
                     if (ExpCatName.contentEquals(CatalogName)) {
                         ReportEvent("Pass", "Verify that required catalog available or not?", "Required catalog '"+CatalogName+"' is already assigned ");
-                        clickOnElement(driver, AssignedCatalog);
-                        clickOnElement(driver, UnAssignBtn);
+                        clickElement(driver, AssignedCatalog);
+                        clickElement(driver, UnAssignBtn);
                         Thread.sleep(2000);
                         ExpCatName = GetElementText(driver, AvailableCatalog);
                         if (ExpCatName.contentEquals(CatalogName)) {
@@ -98,8 +98,8 @@ public class CustomerCatalogAndPricingPage {
                 //--- Now Assign the required catalog to the assigned catalog list
                 String ExpectedCateName = GetElementText(driver, AvailableCatalog);
                 if (ExpectedCateName.contentEquals(CatalogName)) {
-                    clickOnElement(driver, AvailableCatalog);
-                    clickOnElement(driver, AssignBtn);
+                    clickElement(driver, AvailableCatalog);
+                    clickElement(driver, AssignBtn);
                     String ExpCatName = GetElementText(driver, AssignedCatalog);
                     if (ExpCatName.contentEquals(CatalogName)) {
                         ReportEvent("Pass", "Verify that catalog '" + CatalogName + "'  is assigned", "Mentioned Catalog '" + CatalogName + "' is assigned to buyer successfully");
@@ -149,7 +149,7 @@ public class CustomerCatalogAndPricingPage {
                 //---Checking ' Expedite value ' is provided or not if yes provide % of expedite value
                 if (SizeOfTheElement(driver, ExpediteOptionUnderPriceScheme) > 0) {
                     if (SearchColumnText("ExpediteOption").contentEquals("Yes")) {
-                        clickOnElement(driver, ExpediteOptionUnderPriceScheme);
+                        clickOnElement(driver, ExpediteOptionUnderPriceScheme,"Expedite Option Under PriceScheme");
                         GetMultipleElementList(driver, ExpediteValueUnderPriceScheme).get(indexOfCatelog).clear();
                         GetMultipleElementList(driver, ExpediteValueUnderPriceScheme).get(indexOfCatelog).sendKeys(SearchColumnText("ExpediteValue"));
                         ReportEvent("Pass", "Expedite Option is checked and value is set", "Expedite option is checked and value is set as ' " + SearchColumnText("ExpediteValue"));
@@ -189,6 +189,7 @@ public class CustomerCatalogAndPricingPage {
         String enableExpediteOption = SearchColumnText("CustomerExpediteOption");
         String[] ExtraOptions = {ZeroPriceLineItems, enableExpediteOption};
         By[] ExtraOptionsXpath = {ZeroPrizeLineItems, ExpediteByCustomer};
+        String[] ExtraOptionsSt = {"Zero Price LineItems check box", "enable Expedite Option check box"};
         String[] ExtraOptionsText = {"Zero Price Line Items", "enable Expedite Option"};
         for (int i = 0; i <= 1; i++) {
             ExpectedLable("Check that ' "+ExtraOptionsText[i]+" ' settings check box need to select or not ?");
@@ -197,9 +198,7 @@ public class CustomerCatalogAndPricingPage {
                 ExpectedLable("Check that ' "+ExtraOptionsText[i]+" ' settings check box is selected or not ?");
                 if (GetElement(driver, ExtraOptionsXpath[i]).isSelected()) {
                     ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is already selected", "Pass");
-                    ExpectedLable("Now un select the check box for ' "+ExtraOptionsText[i]+" '");
-                    clickOnElement(driver, ExtraOptionsXpath[i]);
-                    ActualLable("Successfully un selected the check box for ' "+ExtraOptionsText[i]+" '", "Pass");
+                    clickOnElement(driver, ExtraOptionsXpath[i],ExtraOptionsSt[i]);
                 } else {
                     ActualLable("' "+ExtraOptionsText[i]+" ' settings check box is not selected", "Pass");
                 }
@@ -210,15 +209,11 @@ public class CustomerCatalogAndPricingPage {
                     ActualLable("'"+ExtraOptionsText[i]+"' settings check box is already selected", "Pass");
                 } else {
                     ActualLable("'"+ExtraOptionsText[i]+"' settings check box is not selected", "Pass");
-                    ExpectedLable("Now select the check box for '"+ExtraOptionsText[i]+"' ");
-                    clickOnElement(driver, ExtraOptionsXpath[i]);
-                    ActualLable("Successfully selected the check box for ' "+ExtraOptionsText[i]+" '", "Pass");
+                    clickOnElement(driver, ExtraOptionsXpath[i],ExtraOptionsSt[i]);
                 }
                 if (i == 0) {
-                    ExpectedLable("Enter Value in  ' "+ExtraOptionsText[i]+"' as"+SearchColumnText("ZeroPriceOptionValue"));
                     GetElement(driver, ZeroPrizeLineItemsTextBox).clear();
-                    sendInputData(driver, ZeroPrizeLineItemsTextBox).sendKeys(SearchColumnText("ZeroPriceOptionValue"));
-                    ActualLable("Successfully entered value in to  ' "+ExtraOptionsText[i]+"' as"+SearchColumnText("ZeroPriceOptionValue"), "Pass");
+                    sendInputData(driver, ZeroPrizeLineItemsTextBox,SearchColumnText("ZeroPriceOptionValue"),ExtraOptionsSt[i]);
                 }
             }
         }
@@ -283,7 +278,7 @@ public class CustomerCatalogAndPricingPage {
         //SetValuesToOurCost(driver);
         //---Click on Update button on customer catalog page
         if(SizeOfTheElement(driver,UpdateCatalogAndPricing)>0){
-            clickOnElement(driver,UpdateCatalogAndPricing);
+            clickOnElement(driver,UpdateCatalogAndPricing,"Update Catalog And Pricing button");
             updateDetails=true;
             ReportEvent("Pass","Click on Update button to save Customer catalog and pricing details"," Successfully clicked on update button for Customer catalog and pricing page");
             //SetCostFactors(driver);
@@ -294,7 +289,7 @@ public class CustomerCatalogAndPricingPage {
         StepLable("Set values under Cost Factors Section");
         if (SizeOfTheElement(driver, CostFactorsLink) > 0) {
             ReportEvent("Pass","Verify existance of Cost Factors link","Cost Factors Link found on the page");
-            clickOnElement(driver, CostFactorsLink);
+            clickOnElement(driver, CostFactorsLink,"Cost Factors Link");
             Thread.sleep(1000);
         }else{
             ReportEvent("Fail","Verify existance of Cost Factors link","Cost Factors link is not available on page");
@@ -310,10 +305,9 @@ public class CustomerCatalogAndPricingPage {
             if (RegionConfig.contentEquals("No")){
                 ReportEvent("Pass","Verify the 'Use regional setting option'","Use regional setting options is '"+RegionConfig+"' as per test data.");
                 if(GetElement(driver,RegionConfigurationCheckBox).isSelected()){
-                    clickOnElement(driver,RegionConfigurationCheckBox);
-                    ReportEvent("Pass","Use regional setting check box is unchecked","Successfully unchecked the use regional settings check box");
+                    clickOnElement(driver,RegionConfigurationCheckBox,"Region Configuration CheckBox");
                     //---Click on update button on cost factors page
-                    clickOnElement(driver,UpdateCostFactorsButton);
+                    clickOnElement(driver,UpdateCostFactorsButton,"Update Cost factors Button");
                 }else{
                     ReportEvent("Pass","Verify use regional setting check box","Regional settings check box is already unchecked");
                 }
@@ -323,8 +317,8 @@ public class CustomerCatalogAndPricingPage {
                     ReportEvent("Pass","Verify use regional setting check box","Regional settings check box is already checked");
                 }else{
                     //---Select use region config checkbox (checked)
-                    clickOnElement(driver,RegionConfigurationCheckBox);
-                    clickOnElement(driver,UpdateCostFactorsButton);
+                    clickOnElement(driver,RegionConfigurationCheckBox,"Region Configuration CheckBox");
+                    clickOnElement(driver,UpdateCostFactorsButton,"Update Cost factors Button");
                     ActualLable("Successfully clicked on update button","Pass");
                     Thread.sleep(1000);
                     //---Navigate to region page and search for the region and click edit button
@@ -332,7 +326,7 @@ public class CustomerCatalogAndPricingPage {
                     //---Click on Cost factors link on Region update page
                     if (SizeOfTheElement(driver, RegionCostFactorsLink) > 0) {
                         ReportEvent("Pass","Verify existence of Cost Factors link on Region update page","Cost Factors Link found on Region update page");
-                        clickOnElement(driver, RegionCostFactorsLink);
+                        clickOnElement(driver, RegionCostFactorsLink,"Region Cost Factors Link");
                         Thread.sleep(1000);
 
                     }
@@ -385,13 +379,11 @@ public class CustomerCatalogAndPricingPage {
                             if (ExpectedStatusOfRule.contentEquals("Yes")) {
                                 if (SizeOfTheElement(driver, RulesXpaths[i]) > 0) {
                                     ActualLable("' "+RulesTexts[i]+" ' is applied", "Pass");
-                                    clickOnElementFromMultipleElements(driver, RulesXpaths[i], indexOfCatelog);
+                                    clickOnElementFromMultipleElements(driver, RulesXpaths[i], indexOfCatelog,RulesTexts[i]);
                                 } else {   ActualLable(""+RulesTexts[i]+" link is not available ", "Fail");     }
                             } else {  ActualLable(" ' "+RulesTexts[i]+" ' is not applied", "Pass");   }
                         }
-                        ExpectedLable("Now Click on Update ");
-                        clickOnElement(driver,UpdateCostFactorsButton);
-                        ActualLable("Successfully clicked on update button","Pass");
+                        clickOnElement(driver,UpdateCostFactorsButton,"Update Cost Factors Button");
                     }
             }else{ReportEvent("Fail","Verify Catalog existence on Cost Factors page", "Catalog not found on cost factor page");}
         }else{ReportEvent("Fail","Verify that Cost Factors page is opened","Cost factors page not opened");;}

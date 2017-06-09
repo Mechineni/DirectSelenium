@@ -83,7 +83,7 @@ public class MaintenanceServicesSetUpPage {
             SetupUptimeContractMultiVendor(driver);
         }else{
             ReportEvent("Pass", "Verify Uptime Contract Multi Vendor Link is enabled ?", "Uptime Contract Multi Vendor Link is enabled.");
-            clickOnElement(driver, UptimeContractMultiVendor);
+            clickOnElement(driver, UptimeContractMultiVendor,"Uptime Contract MultiVendor Link");
             Thread.sleep(2000);
             String UMVPageTitle = GetPageTitle(driver);
             if (UMVPageTitle.contentEquals("Uptime (Multi-Vendor) Contracts")) {
@@ -102,7 +102,7 @@ public class MaintenanceServicesSetUpPage {
         if(SizeOfTheElement(driver,AddNewUMVContract)>0) {
             ReportEvent("Pass", "Verify existence of ' Add New UMV Contract ' Link", "' Add New UMV Contract ' Link is available ");
             //---Click on Add New UMV Contract Link
-            clickOnElement(driver, AddNewUMVContract);
+            clickOnElement(driver, AddNewUMVContract,"Add New UMV Contract Button");
             Thread.sleep(2000);
             String MaintenanceServicesSetUpPageTitle = GetPageTitle(driver);
             if (MaintenanceServicesSetUpPageTitle.contentEquals("Setup")) {
@@ -126,21 +126,19 @@ public class MaintenanceServicesSetUpPage {
         String UMVContractNumberSt = "UMV"+ReferenceNumberString;
         //Will this be a PACE contract?
         if(SearchColumnText("PACEContract?").contentEquals("Yes")){
-            clickOnElement(driver,YesForPACEContract);
+            clickOnElement(driver,YesForPACEContract, "Yes option For PACEContract");
         }else if(SearchColumnText("PACEContract?").contentEquals("No")){
-            clickOnElement(driver,NoForPACEContract);
+            clickOnElement(driver,NoForPACEContract,"No option For PACEContract");
         }
         //Uptime Contract Number
         if(SizeOfTheElement(driver,UMVContractNumber)>0) {
             ReportEvent("Pass", "Verify existence of ' Uptime Contract Number ' blank", "' Uptime Contract Number ' blank is available ");
-            sendInputData(driver,UMVContractNumber).sendKeys(UMVContractNumberSt);
-            ReportEvent("Pass", " Provide UMV Contract number. ", " Successfully provided UMV Contract number, i.e "+UMVContractNumberSt);
+            sendInputData(driver,UMVContractNumber,UMVContractNumberSt,"UMV Contract Number");
             Thread.sleep(1000);
             selectDropDown(driver,UMVManufacturer).selectByVisibleText(SearchColumnText("UMVManufacturer"));
             Thread.sleep(1000);
             ReportEvent("Pass", " Select UMV Manufacturer ", " Successfully selected UMV Manufacturer, i.e "+SearchColumnText("UMVManufacturer"));
-            clickOnElement(driver,CreateButtonUMVContract);
-            ReportEvent("Pass", " Click on submit button to create UMV Contract ", " Successfully Clicked on Create button to complete UMV Contract");
+            clickOnElement(driver,CreateButtonUMVContract,"Create Button for UMVContract");
             MainTabUnderUMVContract(driver);
             OrderingCountriesTabUnderUMVContract(driver);
             InstallCountriesTabUnderUMVContract(driver);
@@ -154,34 +152,31 @@ public class MaintenanceServicesSetUpPage {
         StepLable("Fill/Edit details unde main section");
 
         //UMV Name
-        sendInputData(driver,UMVContractName).sendKeys(SearchColumnText("UMVContractName"));
+        sendInputData(driver,UMVContractName,SearchColumnText("UMVContractName"),"UMV Contract Name");
         ReportEvent("Pass", "Provide ' UMV Contract Name'  ", " UMV Contract name provided, and the name is : "+SearchColumnText("UMVContractName"));
         //Is this contract available in Self-Service
         if(SearchColumnText("SelfServiceAvailable").contentEquals("Yes")){
-            clickOnElement(driver,YesForSelfServiceAvailable);
+            clickOnElement(driver,YesForSelfServiceAvailable,"Yes option For Self Service Available");
             ReportEvent("Pass", " Is the ' UMV contract available in Self-Service ' ? ", " 'Yes' the UMV contract available in Self-Service.");
         }else if(SearchColumnText("SelfServiceAvailable").contentEquals("No")){
-            clickOnElement(driver,NoForSelfServiceAvailable);
+            clickOnElement(driver,NoForSelfServiceAvailable,"No option For Self Service Available");
             ReportEvent("Pass", " Is the ' UMV contract available in Self-Service ' ? ", " 'No' the UMV contract will not be available in Self-Service.");
         }
         //How would you like to price Uptime:
-        clickOnElement(driver,By.xpath("//td[contains(text(),'"+SearchColumnText("PriceUptime")+"')]/input[@id='PriceType']"));
+        clickElement(driver,By.xpath("//td[contains(text(),'"+SearchColumnText("PriceUptime")+"')]/input[@id='PriceType']"));
         ReportEvent("Pass", "Select option for ' How would you like to price Uptime ?' ", "' "+SearchColumnText("PriceUptime")+" ' is selected for price Uptime. ");
         //UMV Expiration Date
         if(!(SearchColumnText("PriceUptime").contentEquals("Annual"))){
-            sendInputData(driver,UMVExpireDate).sendKeys(SearchColumnText("UMVExpireDate"));
-            ReportEvent("Pass", "provide' Uptime Contract Expiration Date ' ", "' "+SearchColumnText("UMVExpireDate")+" ' is the ' Uptime Contract Expiration Date ' ");
+            sendInputData(driver,UMVExpireDate,SearchColumnText("UMVExpireDate"),"UMV Expire Date");
         }
         //How would you like to cost Backout:
-        clickOnElement(driver,By.xpath("//td[contains(text(),'"+SearchColumnText("CostBackout")+"')]/input[@name='BackoutCostType']"));
+        clickElement(driver,By.xpath("//td[contains(text(),'"+SearchColumnText("CostBackout")+"')]/input[@name='BackoutCostType']"));
         ReportEvent("Pass", "Select option for ' How would you like to cost Backout ?' ", "' "+SearchColumnText("CostBackout")+" ' is selected for cost Backout. ");
         //Is Backout Pro-Rated in Self-Service:
         if(SearchColumnText("ProRateBackoutForSelfSrv").contentEquals("Yes")){
-            clickOnElement(driver,YesForProRateBackoutForSelfSrv);
-            ReportEvent("Pass", " Is ' Backout Pro-Rated' in Self-Service ? ", " 'Yes' the ' Backout Pro-Rated ' in Self-Service.");
+            clickOnElement(driver,YesForProRateBackoutForSelfSrv,"Yes For ProRate Backout For Self Service");
         }else if(SearchColumnText("ProRateBackoutForSelfSrv").contentEquals("No")){
-            clickOnElement(driver,NoForProRateBackoutForSelfSrv);
-            ReportEvent("Pass", " Is ' Backout Pro-Rated' in Self-Service ?", " 'No' the ' Backout Pro-Rated ' will not be available in Self-Service.");
+            clickOnElement(driver,NoForProRateBackoutForSelfSrv,"No For ProRate Backout For Self Service");
         }
         String[] Years ={"YearOne","YearTwo","YearThree","YearFour","YearFive","YearSix"};
         String[] YearsDiscounts ={"YearTwoDis","YearThreeDis","YearFourDis","YearFiveDis","YearSixDis"};
@@ -231,16 +226,13 @@ public class MaintenanceServicesSetUpPage {
         //An additional year will be added if the number of days to the end date is less than
         if(!(SearchColumnText("PriceUptime").contentEquals("Annual"))){
             ClearAField(driver,AdditionalDays);
-            sendInputData(driver,AdditionalDays).sendKeys(SearchColumnText("AdditionalYearDays"));
-            ReportEvent("Pass", "Provide no of days for field ' An additional year will be added if the number of days to the end date is less than '  ","No of days are : "+SearchColumnText("AdditionalYearDays"));
+            sendInputData(driver,AdditionalDays,SearchColumnText("AdditionalYearDays"),"Additional Year Days");
         }
         //Solution Types:
         if(SearchColumnText("SolutionTypes").contentEquals("All")){
-            clickOnElement(driver,AllSolutionTypes);
-            ReportEvent("Pass", " Select Solution Types  ", " ' All ' Solution types selected.");
+            clickOnElement(driver,AllSolutionTypes,"All Solution Types Checkbox");
         }else if(SearchColumnText("SolutionTypes").contentEquals("Specific")){
-            clickOnElement(driver,SpecificSolutionTypes);
-            ReportEvent("Pass", " Select Solution Types ", " ' Specific ' Solution types selected.");
+            clickOnElement(driver,SpecificSolutionTypes,"Specific Solution Types");
         }
 
         //Assign SLAs
@@ -249,19 +241,17 @@ public class MaintenanceServicesSetUpPage {
         ReportEvent("Pass", " Select SLAs for UMV ", "successfully selected SLA with ERP Part# : "+SearchColumnText("NameOfSLA"));
 
         //Update UMV Page
-        clickOnElement(driver,UpdateMainUMVPage);
-        ReportEvent("Pass", " complete all the details and Submit UMV Setup page ", " Successfully completed all the details and submitted form.");
+        clickOnElement(driver,UpdateMainUMVPage,"Update Main UMVPage button");
     }
 
-    public static void ExcludedFamiliesTabUnderUMVContract(WebDriver driver) throws InterruptedException {
+    public static void ExcludedFamiliesTabUnderUMVContract(WebDriver driver) throws InterruptedException, IOException, WriteException {
         Thread.sleep(3000);
-        clickOnElement(driver,ExcludedFamiliesTab);
+        clickOnElement(driver,ExcludedFamiliesTab,"Excluded Families Tab");
     }
     public static void OrderingCountriesTabUnderUMVContract(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Update Ordering Countries tab details");
         Thread.sleep(3000);
-        clickOnElement(driver,OrderingCountriesTab);
-        ReportEvent("Pass", " Select ' Ordering country ' tab ", " Successfully selected ' Ordering country ' tab");
+        clickOnElement(driver,OrderingCountriesTab,"Ordering Countries Tab");
         Thread.sleep(3000);
         //Check if any assign countries are available.
         if(SizeOfTheElement(driver,AsnCountries)>1){
@@ -269,7 +259,7 @@ public class MaintenanceServicesSetUpPage {
             for(int i=1; i<=NoFAssigned;i++) {
                 GetMultipleElementList(driver, AsnCountries).get(i).click();
                 Thread.sleep(1000);
-                clickOnElement(driver,UnAssignSymbol);
+                clickElement(driver,UnAssignSymbol);
                 Thread.sleep(2000);
             }
             ReportEvent("Pass", " Check any 'Ordering country' are assigned ?", " Verified, and Un-Assigned all Ordering countries. ");
@@ -279,9 +269,9 @@ public class MaintenanceServicesSetUpPage {
             String st = SearchColumnText("OrderingCountries");
             String[] OrderingCountries = st.split(",");
             for(int i=0;i<OrderingCountries.length;i++) {
-                clickOnElement(driver, By.xpath("//*[@id='AvCountries']/option[contains(text(),'" + OrderingCountries[i] + "')]"));
+                clickElement(driver, By.xpath("//*[@id='AvCountries']/option[contains(text(),'" + OrderingCountries[i] + "')]"));
                 Thread.sleep(1000);
-                clickOnElement(driver, AssignSymbol);
+                clickElement(driver, AssignSymbol);
                 Thread.sleep(3000);
             }
             ReportEvent("Pass", " Assign Ordering countries ", " Successfully assigned, Assigned Ordering countries are : "+SearchColumnText("OrderingCountries"));
@@ -292,14 +282,14 @@ public class MaintenanceServicesSetUpPage {
         StepLable("Update Install Countries tab details");
         Thread.sleep(3000);
         //click on install countries tab
-        clickOnElement(driver,InstallCountriesTab);
+        clickOnElement(driver,InstallCountriesTab,"Install Countries Tab");
         Thread.sleep(2000);
         ReportEvent("Pass", " Select ' Install country tab ' ", " Successfully selected  ' Install country tab '");
         String st = SearchColumnText("InstallCountry");
         String[] OrderingCountries = st.split(",");
         selectDropDown(driver,By.xpath("//b[contains(text(),'"+OrderingCountries[0]+"')]/parent::td/following-sibling::td/select[@id='Band_au']")).selectByVisibleText(""+OrderingCountries[1]+"");
         ReportEvent("Pass", " Select ' Install country, and select band value ' ", " Successfully selected  ' Install country ' as :' "+OrderingCountries[0]+"' and Band As : '"+OrderingCountries[1]+"'");
-        clickOnElement(driver,UpdateInstallCountryTab);
+        clickOnElement(driver,UpdateInstallCountryTab,"Update button for Install Country Tab");
         ReportEvent("Pass", " Now click on ' update button' to update Install country detail ", " Successfully clicked on ' update button' ");
     }
 
@@ -307,8 +297,7 @@ public class MaintenanceServicesSetUpPage {
         StepLable("Update Cost and Price tab details");
         Thread.sleep(3000);
         //click on install countries tab
-        clickOnElement(driver,CostAndPriceTab);
-        ReportEvent("Pass", " Click on 'Cost And Price' Tab", " Successfully clicked 'Cost And Price' Tab ");
+        clickOnElement(driver,CostAndPriceTab,"Cost And Price Tab");
         Thread.sleep(2000);
         selectDropDown(driver,CurrencyDropDown).selectByVisibleText(SearchColumnText("UMVCurrency"));
         ReportEvent("Pass", " Select 'Currency' for Umv Contract", " 'Currency' is selected Successfully, i.e "+SearchColumnText("Currency"));
@@ -321,7 +310,7 @@ public class MaintenanceServicesSetUpPage {
         String[] Xpath ={"IsMultiCMPerent","IsMultiCostFacctor","AddBackoutCost","nochangebackout"};
         for(int i=0;i<=3;i++){
             if(SearchColumnText(MultipleOptions[i]).contentEquals("Yes")){
-                clickOnElement(driver,By.id(Xpath[i]));
+                clickElement(driver,By.id(Xpath[i]));
                 ReportEvent("Pass", " is '"+MultipleOptions[i]+"' need to configure for Umv Contract", " '"+MultipleOptions[i]+"' is configured Successfully");
             }else if(SearchColumnText(MultipleOptions[i]).contentEquals("No")){
                 ReportEvent("Pass", " is '"+MultipleOptions[i]+"' need to configure for Umv Contract", " '"+MultipleOptions[i]+"' is configured Successfully");
@@ -330,14 +319,12 @@ public class MaintenanceServicesSetUpPage {
         //Provide default percentage
         if(GetElement(driver,DefaultPercent).isEnabled()) {
             ClearAField(driver, DefaultPercent);
-            sendInputData(driver, DefaultPercent).sendKeys(SearchColumnText("DefaultPercent"));
-            ReportEvent("Pass","Provide 'Default Discount/Margin' in blank","Successfully entered 'Default Discount/Margin', i.e "+SearchColumnText("DefaultPercent"));
+            sendInputData(driver, DefaultPercent,SearchColumnText("DefaultPercent"),"Default Percent");
         }
         //Provide default percentage
         if(GetElement(driver,DefaultCostFactor).isEnabled()) {
             ClearAField(driver, DefaultCostFactor);
-            sendInputData(driver, DefaultCostFactor).sendKeys(SearchColumnText("DefaultCostFactor"));
-            ReportEvent("Pass","Provide 'Default Cost Factor' in blank","Successfully entered 'Default Cost Factor', i.e "+SearchColumnText("DefaultCostFactor"));
+            sendInputData(driver, DefaultCostFactor,SearchColumnText("DefaultCostFactor"),"Default Cost Factor");
         }
 
         //Select multiple options
@@ -350,7 +337,7 @@ public class MaintenanceServicesSetUpPage {
 
         for (int i = 0; i <= 4; i++) {
             if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("Yes")) {
-                clickOnElement(driver, By.id(XpathSellMethod[i]));
+                clickElement(driver, By.id(XpathSellMethod[i]));
                 ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is configured Successfully");
             } else if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("No")) {
                 ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is configured Successfully");
@@ -359,16 +346,15 @@ public class MaintenanceServicesSetUpPage {
         String SellFactorType=SearchColumnText("SellFactor");
         if(SellFactorType.contentEquals("SellDefaultValue")){
             ClearAField(driver, SellDefaultPercent);
-            sendInputData(driver,SellDefaultPercent).sendKeys(SearchColumnText("SellValue"));
+            sendInputData(driver,SellDefaultPercent,SearchColumnText("SellValue")," Default Sell Value");
         }else if(SellFactorType.contentEquals("MinValue")){
             ClearAField(driver, MinValueBlank);
-            sendInputData(driver,MinValueBlank).sendKeys(SearchColumnText("SellValue"));
+            sendInputData(driver,MinValueBlank,SearchColumnText("SellValue"),"Minimum Value  Blank");
         }
         ReportEvent("Pass","Provide 'Sell factor' type and Percentage","Successfully entered data, selected Factor is : "+SellFactorType+" and Percentage is : "+SearchColumnText("SellValue"));
 
         //Update the details.
-        clickOnElement(driver,UpdateButtonCostAndPrice);
-        ReportEvent("Pass", " Click on 'Update' button and save the details", " Successfully updated all Cost and Price details ");
+        clickOnElement(driver,UpdateButtonCostAndPrice,"Cost And Price Update Button");
 
     }
 

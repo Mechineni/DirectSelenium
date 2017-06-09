@@ -54,15 +54,15 @@ public class BuyerUpdatePage {
         StepLable("Search for the required buyer on BUYER search page");
         //---Navigate to Buyer Admin > Buyer
         Thread.sleep(2000);
-        clickOnElement(driver,BuyerAdminLink);
-        clickOnElement(driver,BuyerLink);
+        clickOnElement(driver,BuyerAdminLink,"Buyer Admin link on Home page");
+        clickOnElement(driver,BuyerLink,"Buyer option under Buyer Admin");
         Thread.sleep(2000);
         //---If buyers search page is opened then search for the buyer name
         if(VerifyBuyersPageAssert(driver)==true) {
             if(SizeOfTheElement(driver,BuyerNameTxt) > 0){
                 ReportEvent("Pass","Verify Buyer Name text box existance","Buyer name text box displayed on the buyers page");
-                sendInputData(driver, BuyerNameTxt).sendKeys(SearchColumnText("BuyerName"));
-                clickOnElement(driver,BuyerSearchGoBtn);
+                sendInputData(driver, BuyerNameTxt,SearchColumnText("BuyerName"),"Search Buyer name blank");
+                clickOnElement(driver,BuyerSearchGoBtn,"Search Buyer button");
             }
             Thread.sleep(1000);
             //---Verify buyer name link on search results page
@@ -100,7 +100,7 @@ public class BuyerUpdatePage {
         if(SizeOfTheElement(driver,CustomerCatalogAndPricingLink)>0) {
             ReportEvent("Pass", "Verify existance of Customer Catalog And Pricing Link", "Customer Catalog And Pricing Link is available on Buyer details page");
             //---Click on Customer Catalog And Pricing Link
-            clickOnElement(driver, CustomerCatalogAndPricingLink);
+            clickOnElement(driver, CustomerCatalogAndPricingLink,"Customer Catalog And Pricing Link");
             //---Verify that Customer Catalog and Pricing page opened
             String CustomerCatalogPageTitle = GetPageTitle(driver);
             if (CustomerCatalogPageTitle.contentEquals("Customer Catalogs and Pricing")) {
@@ -119,7 +119,7 @@ public class BuyerUpdatePage {
         if(SizeOfTheElement(driver,MaintenanceServicesSetUp)>0) {
             ReportEvent("Pass", "Verify existence of Maintenance Services Set Up Link", "Maintenance Services Set Up Link is available on Buyer details page");
             //---Click on Customer Catalog And Pricing Link
-            clickOnElement(driver, MaintenanceServicesSetUp);
+            clickOnElement(driver, MaintenanceServicesSetUp,"Maintenance Services SetUp link");
             Thread.sleep(2000);
             String MaintenanceServicesSetUpPageTitle = GetPageTitle(driver);
             if (MaintenanceServicesSetUpPageTitle.contentEquals("Maintenance Services Set Up")) {

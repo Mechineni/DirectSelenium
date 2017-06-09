@@ -48,13 +48,11 @@ public class HomePage {
                 By OptionsQuotesMenu = By.xpath("//td[@id='DirectMenus']/ul/li["+i+"]/ul/li[" + j + "]");
 
                 Thread.sleep(1000);
-                clickOnElement(driver, QuotesMenu);
+                clickElement(driver, QuotesMenu);
                 //waitForOneSec();
                 String Opti = GetElementText(driver, OptionsQuotesMenu);
-                ExpectedLable("Click on ' " + Opti + " ' under Quote menu");
                 Thread.sleep(1000);
-                clickOnElement(driver, OptionsQuotesMenu);
-                ActualLable("successfully Clicked on ' " + Opti + " ' under Quote menu", "Pass");
+                clickOnElement(driver, OptionsQuotesMenu,"on ' " + Opti + " ' under Quote menu");
                 //MouseHoverActionPerform(driver,QuotesMenu,OptionsQuotesMenu);
                 /*if (j == 1) {
                     CreateQuotePage.VerifyCreateQuotePageAssert(driver);
@@ -80,13 +78,12 @@ public class HomePage {
         for(int j=1;j<=4;j++) {
             By OrdersMenu =  By.xpath("//td[@id='DirectMenus']/ul/li[2]/a");
             By OptionsOrdersMenu = By.xpath("//td[@id='DirectMenus']/ul/li[2]/ul/li["+j+"]");
-            clickOnElement(driver,OrdersMenu);
+            clickElement(driver,OrdersMenu);
             Thread.sleep(1000);
             String Opti = GetElementText(driver,OptionsOrdersMenu);
-            ExpectedLable("Click on ' "+Opti+" ' under Quote menu");
             Thread.sleep(1000);
-            clickOnElement(driver,OptionsOrdersMenu);
-            ActualLable("successfully Clicked on ' "+Opti+" ' under Quote menu","Pass");
+            clickOnElement(driver,OptionsOrdersMenu,"on ' "+Opti+" ' under Quote menu");
+
             //MouseHoverActionPerform(driver,OrdersMenu,OptionsOrdersMenu);
             if(j==1){   OrdersDocumentSearchPage.VerifyOrdersDocumentSearchPageAssert(driver); }
             if(j==2){   ViewShipmentStatusDetailsPage.VerifyViewShipmentPageAssert(driver);    }
@@ -149,14 +146,12 @@ public class HomePage {
                     for(int i=0;i<=LengthBeforeSplitname-1;i++){
                         String BeforeSplitnameStr = BeforeSplitname.get(i);
                         if(i==0){
-                            ExpectedLable("Click On ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                             Thread.sleep(1000);
-                            clickOnElement(driver,MenuOptionXpath);
-                            ActualLable("successfully Clicked on ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page ","Pass");
+                            clickOnElement(driver,MenuOptionXpath,MenuMenuListArray.get(NoOfMenu));
                             ExpectedLable("Click On ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                             if(SizeOfTheElement(driver,MainMenuOptionXpath)>0){
                                 Thread.sleep(1000);
-                                clickOnElement(driver,MainMenuOptionXpath);
+                                clickElement(driver,MainMenuOptionXpath);
                                 ActualLable("successfully Clicked on ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page","Pass");
                             }else{ActualLable("Element not found for ' "+MainMenuOptions+" '","Fail");}
                         }else {
@@ -172,43 +167,39 @@ public class HomePage {
                                     SubLinks = AfterSplitEquelSym.get(0);
                                     SubSubLinks = AfterSplitEquelSym.get(k);
                                     if (k == 0) {
-                                        ExpectedLable("Click On ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page");
                                         Thread.sleep(1000);
-                                        clickOnElement(driver, MenuOptionXpath);
-                                        ActualLable("successfully Clicked on ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page ", "Pass");
+                                        clickOnElement(driver, MenuOptionXpath,MenuMenuListArray.get(NoOfMenu));
                                         ExpectedLable("Click On ' " + MainMenuOptions + " ' under ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page");
                                         if (SizeOfTheElement(driver, MainMenuOptionXpath) > 0) {
                                             Thread.sleep(1000);
-                                            clickOnElement(driver, MainMenuOptionXpath);
+                                            clickElement(driver, MainMenuOptionXpath);
                                             ActualLable("successfully Clicked on ' " + MainMenuOptions + " ' under ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page", "Pass");
                                             By SubMenuXpath = By.xpath("//tbody/tr/td/a[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/a/b[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/b/a[contains(text(),'"+ SubLinks +"')]");
                                             ExpectedLable("Click On ' " + SubLinks + " ' under ' " + MainMenuOptions + " ' on Page");
                                             if (SizeOfTheElement(driver, SubMenuXpath) > 0) {
                                                 Thread.sleep(1000);
-                                                clickOnElement(driver, SubMenuXpath);
+                                                clickElement(driver, SubMenuXpath);
                                                 ActualLable("successfully Clicked on ' " + SubLinks + " ' under ' " + MainMenuOptions + " 'on Page", "Pass");
                                             } else {   ActualLable("Element not found for ' " + SubLinks + " '", "Fail");    }
                                         } else {     ActualLable("Element not found for ' " + MainMenuOptions + " '", "Fail"); }
                                     } else {
-                                        ExpectedLable("Click On ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page");
                                         Thread.sleep(1000);
-                                        clickOnElement(driver, MenuOptionXpath);
-                                        ActualLable("successfully Clicked on ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page ", "Pass");
+                                        clickOnElement(driver, MenuOptionXpath, MenuMenuListArray.get(NoOfMenu));
                                         ExpectedLable("Click On ' " + MainMenuOptions + " ' under ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page");
                                         if (SizeOfTheElement(driver, MainMenuOptionXpath) > 0) {
                                             Thread.sleep(1000);
-                                            clickOnElement(driver, MainMenuOptionXpath);
+                                            clickElement(driver, MainMenuOptionXpath);
                                             ActualLable("successfully Clicked on ' " + MainMenuOptions + " ' under ' " + MenuMenuListArray.get(NoOfMenu) + " ' on Home Page", "Pass");
                                             By SubMenuXpath = By.xpath("//tbody/tr/td/a[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/a/b[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/b/a[contains(text(),'"+ SubLinks +"')]");
                                             ExpectedLable("Click On ' " + SubLinks + " ' under ' " + MainMenuOptions + " ' Page");
                                             if (SizeOfTheElement(driver, SubMenuXpath) > 0) {
                                                 Thread.sleep(1000);
-                                                clickOnElement(driver, SubMenuXpath);
+                                                clickElement(driver, SubMenuXpath);
                                                 ActualLable("successfully Clicked on ' " + SubLinks + " ' under ' " + MainMenuOptions + " ' Page", "Pass");
                                                 By SubSubMenuXpath = By.xpath("//tbody/tr/td/a[contains(text(),'"+ SubSubLinks +"')]|//tbody/tr/td/a/b[contains(text(),'"+ SubSubLinks +"')]|//tbody/tr/td/b/a[contains(text(),'"+ SubSubLinks +"')]");
                                                 ExpectedLable("Click On ' " + SubSubLinks + " ' under ' " + SubLinks + " ' Page");
                                                 if (SizeOfTheElement(driver, SubSubMenuXpath) > 0) {
-                                                    clickOnElement(driver, SubSubMenuXpath);
+                                                    clickElement(driver, SubSubMenuXpath);
                                                     ActualLable("successfully Clicked on ' " + SubSubLinks + " ' under ' " + SubLinks + " 'on Page", "Pass");
                                                 } else {    ActualLable("Element not found for ' " + SubSubLinks + " '", "Fail");    }
                                             } else { ActualLable("Element not found for ' " + SubLinks + " '", "Fail");                                          }
@@ -217,25 +208,23 @@ public class HomePage {
                                 }
                             } else {
                                 SubLinks=BeforeSplitnameStr;
-                                ExpectedLable("Click On ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                                 Thread.sleep(1000);
-                                clickOnElement(driver,MenuOptionXpath);
-                                ActualLable("successfully Clicked on ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page ","Pass");
+                                clickOnElement(driver,MenuOptionXpath,"' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                                 ExpectedLable("Click On ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                                 if(SizeOfTheElement(driver,MainMenuOptionXpath)>0){
                                     Thread.sleep(1000);
-                                    clickOnElement(driver,MainMenuOptionXpath);
+                                    clickElement(driver,MainMenuOptionXpath);
                                     ActualLable("successfully Clicked on ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page","Pass");
                                     By SubMenuXpath = By.xpath("//tbody/tr/td/a[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/a/b[contains(text(),'"+ SubLinks +"')]|//tbody/tr/td/b/a[contains(text(),'"+ SubLinks +"')]");
                                     ExpectedLable("Click On ' "+SubLinks+" ' under ' "+MainMenuOptions+" ' on Page");
                                     if(SizeOfTheElement(driver,SubMenuXpath)>0) {
-                                        clickOnElement(driver, SubMenuXpath);
+                                        clickElement(driver, SubMenuXpath);
                                         ActualLable("successfully Clicked on ' " + NoOfMenu + " ' under ' " + MainMenuOptions + " 'on Page","Pass");
                                         if(i==1&&NoOfMenu==5&&SubLinks.contentEquals("Add")){
                                             Thread.sleep(2000);
                                             By PopUpXp = By.xpath("//table[@id='dialog']/tbody/tr/td/input[@id='1']");
                                             if(SizeOfTheElement(driver,PopUpXp)>0) {
-                                                clickOnElement(driver, PopUpXp);}
+                                                clickElement(driver, PopUpXp);}
                                         }
                                     }else{ActualLable("Element not found for ' "+SubLinks+" '","Fail");}
                                 }else{ActualLable("Element not found for ' "+MainMenuOptions+" '","Fail");}
@@ -243,14 +232,12 @@ public class HomePage {
                         }
                     }
                 }else{MainMenuOptions=MenuName;
-                    ExpectedLable("Click On ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                     Thread.sleep(1000);
-                    clickOnElement(driver,MenuOptionXpath);
-                    ActualLable("successfully Clicked on ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page ","Pass");
+                    clickOnElement(driver,MenuOptionXpath,"' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                     ExpectedLable("Click On ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page");
                     if(SizeOfTheElement(driver,MainMenuOptionXpath)>0){
                         Thread.sleep(1000);
-                        clickOnElement(driver,MainMenuOptionXpath);
+                        clickElement(driver,MainMenuOptionXpath);
                         ActualLable("successfully Clicked on ' "+MainMenuOptions+" ' under ' "+MenuMenuListArray.get(NoOfMenu)+" ' on Home Page","Pass");
                     }else{ActualLable("Element not found for ' "+MainMenuOptions+" '","Fail");}
                 }

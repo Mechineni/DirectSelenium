@@ -1,12 +1,16 @@
 package GenericLib;
 
+import jxl.write.WriteException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.IOException;
 import java.util.List;
+
+import static GenericLib.DataDriven.ReportEvent;
 
 /**
  * Created by t.mirasipally on 14-Feb-17.
@@ -17,8 +21,13 @@ public class ActionKeywords {
         driver.navigate().to(url);
     }
 
-    public static void clickOnElement(WebDriver driver,By object) {
+    public static void clickOnElement(WebDriver driver,By object, String ElmtName) throws IOException, WriteException {
         driver.findElement(object).click();
+        ReportEvent("Pass","Click on '"+ElmtName+"' "," Successfully Clicked on '"+ElmtName+"'");
+    }
+    public static void clickElement(WebDriver driver,By object){
+        driver.findElement(object).click();
+
     }
     public static void ClearAField(WebDriver driver,By object) {
         driver.findElement(object).clear();
@@ -28,16 +37,23 @@ public class ActionKeywords {
         Select dropdown = new Select(driver.findElement(object));//WebDriver driver,
         return dropdown;
     }
-    public static WebElement sendInputData(WebDriver driver,By object){
+    /*public static WebElement sendInputData(WebDriver driver,By object){
         WebElement elementNam = driver.findElement(object);
         return elementNam;
+    }*/
+    public static void sendInputData(WebDriver driver,By object, String InputTxt, String ElmtName) throws IOException, WriteException {
+        WebElement elementNam = driver.findElement(object);
+        elementNam.sendKeys(InputTxt);
+        ReportEvent("Pass","Provide '"+ElmtName+"' in the input field.","Successfully entered '"+ElmtName+"' i.e : '"+InputTxt+"'" );
     }
+
     public static Select selectDropDownFromMultipleElements(WebDriver driver,By object,int i){
-        Select dropdown = new Select(driver.findElements(object).get(i));//WebDriver driver,
+        Select dropdown = new Select(driver.findElements(object).get(i));
         return dropdown;
     }
-    public static void clickOnElementFromMultipleElements(WebDriver driver,By object,int i) {
+    public static void clickOnElementFromMultipleElements(WebDriver driver,By object,int i,String ElmtName) throws IOException, WriteException {
         driver.findElements(object).get(i).click();
+        ReportEvent("Pass","Click on '"+ElmtName+"' "," Successfully Clicked on '"+ElmtName+"'");
     }
 
     public static List<WebElement> GetMultipleElementList(WebDriver driver,By object){
@@ -76,5 +92,9 @@ public class ActionKeywords {
     public static WebElement GetBreadcrumbLink(WebDriver driver,String BreadcrumbsName){
         WebElement Breadcrumbs = driver.findElement(By.xpath("//td[@id='Breadcrumbs']/a[contains(text(),'"+BreadcrumbsName+"')]"));
         return Breadcrumbs;
+    }
+    public static void ClickOnBreadcrumbLink(WebDriver driver,String BreadcrumbsName,String ElmtName) throws IOException, WriteException {
+        WebElement Breadcrumbs = driver.findElement(By.xpath("//td[@id='Breadcrumbs']/a[contains(text(),'"+BreadcrumbsName+"')]"));
+        ReportEvent("Pass","Click on '"+ElmtName+"' "," Successfully Clicked on '"+ElmtName+"'");
     }
 }

@@ -34,13 +34,13 @@ public class ActiveQuoteOrderDetails {
         StepLable("Delete all items from the active quote");
         if (SizeOfTheElement(driver,MfrPartNumber)>0) {
             ReportEvent("Pass", "Items are available on active quote", "Active quote includes items which needs to be deleted");
-            clickOnElement(driver, SelectAllCheckBox);
-            clickOnElement(driver, DeleteItemsLink);
+            clickOnElement(driver, SelectAllCheckBox,"Select All Checkbox");
+            clickOnElement(driver, DeleteItemsLink,"Delete Items Link on Quote page");
             Thread.sleep(2000);
             //--- Click on OK button on Delete items Pop up
             if (SizeOfTheElement(driver,DeleteItemsPopUpOKBtn)>0) {
                 ReportEvent("Pass", "Delete items pop up dialog displayed", "Delete pop up displayed successfully");
-                clickOnElement(driver, DeleteItemsPopUpOKBtn);
+                clickOnElement(driver, DeleteItemsPopUpOKBtn,"Ok Button on Delete Items PopUp");
                 Thread.sleep(20000);
             }else {
                 ReportEvent("Fail", "Delete items pop up dialog displayed", "Delete pop up not displayed");
