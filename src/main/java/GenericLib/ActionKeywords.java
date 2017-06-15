@@ -17,6 +17,14 @@ import static GenericLib.DataDriven.ReportEvent;
  */
 public class ActionKeywords {
     private static WebDriver driver;
+
+
+    //Generic Objects
+    public static String UMVContractNumberString;
+
+
+
+
     public static void navigateTo(WebDriver driver,String url){
         driver.navigate().to(url);
     }
@@ -102,4 +110,10 @@ public class ActionKeywords {
         WebElement Breadcrumbs = driver.findElement(By.xpath("//td[@id='Breadcrumbs']/a[contains(text(),'"+BreadcrumbsName+"')]"));
         ReportEvent("Pass","Click on '"+ElmtName+"' "," Successfully Clicked on '"+ElmtName+"'");
     }
+
+    public static String GetValueAttribute(WebDriver driver, By object) {
+        String ElementText=driver.findElement(object).getAttribute("Value");
+        return ElementText;
+    }
+
 }

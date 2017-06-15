@@ -2,6 +2,9 @@ package PageObject.QuotesPackage;
 
 import GenericLib.AlertHandle;
 import GenericLib.ObjectRepository;
+import PageObject.ActiveQuotePackage.ActiveQuoteActionButtons;
+import PageObject.ActiveQuotePackage.ActiveQuoteOrderDetails;
+import PageObject.ActiveQuotePackage.CatalogPage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
@@ -45,7 +48,13 @@ public class CreateQuotePage {
         }else{ActualLable("Create Quote page is not Loaded Properly","Fail");}
         return Status;
     }
-
+    public static void CreateQuoteForUMV(WebDriver driver) throws WriteException, BiffException, InterruptedException, IOException {
+        CreateQuote(driver);
+        CreateQuotePage.SelectCountries(driver);
+        ActiveQuoteOrderDetails.ClearItemsOnActiveQuote(driver);
+        CatalogPage.AddProductsToQuote(driver);
+        //ActiveQuoteActionButtons.SubmitQuote(driver);
+    }
     public static void CreateQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Creating quote from quotes main menu");
         //---Click on Create quote link from main menu options
@@ -57,7 +66,6 @@ public class CreateQuotePage {
             if (SizeOfTheElement(driver, BuyerNameTxtBx) > 0) {
                 ReportEvent("Pass","Verify that Create Quote page opened or not ?","Create quote page opened");
                 sendInputData(driver, BuyerNameTxtBx,SearchColumnText("BuyerName"),"Buyer Name");
-                ReportEvent("Pass","Provide the buyer name in buyer name Blank","Successfully entered Byer name, i.e :"+SearchColumnText("BuyerName"));
                 selectDropDownByVisibletxt(driver, RegionDrpd,SearchColumnText("RegionName"),"Region Name");
                 clickOnElement(driver, SearchBtn,"Search Btn");
                 //---Buyer name displayed on search results page

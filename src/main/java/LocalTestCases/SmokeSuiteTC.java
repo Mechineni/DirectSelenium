@@ -11,6 +11,7 @@ import PageObject.BuyerDetailsPackage.MaintenanceServicesSetUpPage;
 import PageObject.ActiveQuotePackage.ActiveQuoteOrderDetails;
 import PageObject.HomePagePackage.HomePage;
 import PageObject.LogInPage;
+import PageObject.PricingCalculation;
 import PageObject.QuotesPackage.CreateQuotePage;
 import PageObject.RegionPackage.RegionApprovalWorkflowPage;
 import PageObject.RegionPackage.RegionUpdatePage;
@@ -44,7 +45,6 @@ public class SmokeSuiteTC extends Browser {
         try {
             if (DataDriven.CheckingFlag("SC_001")==true) {
                 LogInPage.LogInFunctionality(driver);
-                HomePage.VerifyHomePageAssert(driver);
                 HomePage.CheckAllTheLinks(driver);
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
@@ -55,7 +55,6 @@ public class SmokeSuiteTC extends Browser {
         try {
             if (DataDriven.CheckingFlag("SC_002")==true) {
                 LogInPage.LogInFunctionality(driver);
-                HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
 //                BuyerUpdatePage.BuyerSearchAndEdit(driver);
 //                BuyerUpdatePage.ClickOnCustomerCatalogAndPricingLink(driver);
@@ -78,7 +77,6 @@ public class SmokeSuiteTC extends Browser {
             if (DataDriven.CheckingFlag("SC_003")==true) {
                 //---Login to application
                 LogInPage.LogInFunctionality(driver);
-                HomePage.VerifyHomePageAssert(driver);
                 Thread.sleep(5000);
                 //---Navigate to region page, and then to approval workflow page of testing region
                 RegionUpdatePage.RegionSearchAndEdit(driver);
@@ -112,12 +110,26 @@ public class SmokeSuiteTC extends Browser {
         try {
             if (DataDriven.CheckingFlag("SC_004")==true) {
                 LogInPage.LogInFunctionality(driver);
-                HomePage.VerifyHomePageAssert(driver);
-                Thread.sleep(5000);
+                Thread.sleep(3000);
                 BuyerUpdatePage.BuyerSearchAndEdit(driver);
                 MaintenanceServicesSetUpPage.ClickOnUptimeContractLink(driver);
+                CreateQuotePage.CreateQuoteForUMV(driver);
+                PricingCalculation.UMVCalculationsVerification(driver);
+            }
+        }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
+        catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }
+    }
 
-
+    @Test
+    public void SC_005() throws IOException, InterruptedException, WriteException, BiffException {
+        try {
+            if (DataDriven.CheckingFlag("SC_005")==true) {
+                LogInPage.LogInFunctionality(driver);
+                Thread.sleep(3000);
+                BuyerUpdatePage.BuyerSearchAndEdit(driver);
+                MaintenanceServicesSetUpPage.ClickOnUptimeContractLink(driver);
+                /*CreateQuotePage.CreateQuoteForUMV(driver);
+                PricingCalculation.UMVCalculationsVerification(driver);*/
             }
         }catch (AssertionError e){ String error ="Exception : " +  e.getClass().getSimpleName();	ReportEvent("Fail","Exception Found",error);}
         catch (Exception e){ String error ="Exception : " +  e.getClass().getSimpleName();  ReportEvent("Fail","Exception Found",error); }

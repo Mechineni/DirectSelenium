@@ -12,9 +12,7 @@ import java.io.IOException;
 import static GenericLib.ActionKeywords.*;
 import static GenericLib.ActionKeywords.SizeOfTheElement;
 import static GenericLib.ActionKeywords.clickOnElement;
-import static GenericLib.DataDriven.ActualLable;
-import static GenericLib.DataDriven.ExpectedLable;
-import static GenericLib.DataDriven.SearchColumnText;
+import static GenericLib.DataDriven.*;
 
 /**
  * Created by Mamata.Mechineni on 18-May-17.
@@ -33,6 +31,9 @@ public class CatalogPage {
     static private By DetailsButton = By.xpath("//input[@value='Details'][@class='SubmitButton']");
     //---Product Spec Page
     static private By DoneButton = By.id("Done");
+    static private By MaintenanceServiceDDw = By.id("ServiceID0");
+    static private By NumberOfMonths = By.id("ServiceItemQty0");
+    static private By ServiceLevelAgreement = By.id("ServiceItemID0");
     static private By AddToCartButton = By.id("ADDCART");
 
     public static void AddProductsToQuote(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
@@ -86,6 +87,21 @@ public class CatalogPage {
                             Thread.sleep(20000);
                             AlertHandle.acceptAlert(driver);
                             Thread.sleep(5000);
+                            //For UMV Calculation
+                            if(TestCaseNumber=="SC_004"){
+                                if(SizeOfTheElement(driver,MaintenanceServiceDDw)>0){
+                                    //UMV Contract name dropdown
+                                    String UMVContractNumberStringExt = UMVContractNumberString+" - Automation";
+                                    selectDropDownByVisibletxt(driver,MaintenanceServiceDDw, UMVContractNumberStringExt,"UMV Contract name");
+                                    //Number Of Months dropdown
+                                    Thread.sleep(3000);
+                                    selectDropDownByVisibletxt(driver,NumberOfMonths,SearchColumnText("UMVNumberOfMonths"),"UMV Contract period");
+                                    //SLA Name Dropdown
+                                    Thread.sleep(3000);
+                                    selectDropDown(driver,ServiceLevelAgreement).selectByIndex(0);
+                                    ReportEvent("Pass", "Select SLA from Drop down", " Successfully selected ' SLA ', i.e"+SearchColumnText("NameOfSLA"));
+                                }
+                            }
                             clickOnElement(driver, AddToCartButton,"Add To Cart Button");
                         }else{{ActualLable("No product search results displayed", "Fail");}}
                         Thread.sleep(5000);

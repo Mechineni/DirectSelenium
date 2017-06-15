@@ -1,6 +1,7 @@
 package PageObject;
 
 import GenericLib.ObjectRepository;
+import PageObject.HomePagePackage.HomePage;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import org.openqa.selenium.By;
@@ -46,6 +47,8 @@ public class LogInPage {
             sendInputData(driver,PasswordField,SearchColumnText("PassWord"),"PassWord field");
             Thread.sleep(1000);
             clickOnElement(driver,LogInButton,"LogIn Button");
+            Thread.sleep(2000);
+            HomePage.VerifyHomePageAssert(driver);
         }else{ActualLable("Failed to load Landing page","Fail");}
     }
 

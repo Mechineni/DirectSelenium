@@ -120,29 +120,33 @@ public class MaintenanceServicesSetUpPage {
         Random rand = new Random();
         int  ReferenceNumbe = rand.nextInt(9999) + 1000;
         String ReferenceNumberString=Integer.toString(ReferenceNumbe);
-        String UMVContractNumberSt = "UMV"+ReferenceNumberString;
+        UMVContractNumberString = "UMV"+ReferenceNumberString;
         //Will this be a PACE contract?
-        if(SearchColumnText("PACEContract?").contentEquals("Yes")){
+        if(SearchColumnText("PACEContract").contentEquals("Yes")){
             clickOnElement(driver,YesForPACEContract, "Yes option For PACEContract");
-        }else if(SearchColumnText("PACEContract?").contentEquals("No")){
+        }else if(SearchColumnText("PACEContract").contentEquals("No")){
             clickOnElement(driver,NoForPACEContract,"No option For PACEContract");
         }
         //Uptime Contract Number
         if(SizeOfTheElement(driver,UMVContractNumber)>0) {
             ReportEvent("Pass", "Verify existence of ' Uptime Contract Number ' blank", "' Uptime Contract Number ' blank is available ");
-            sendInputData(driver,UMVContractNumber,UMVContractNumberSt,"UMV Contract Number");
+            sendInputData(driver,UMVContractNumber, UMVContractNumberString,"UMV Contract Number");
             Thread.sleep(1000);
             selectDropDownByVisibletxt(driver,UMVManufacturer,SearchColumnText("UMVManufacturer"),"UMV Manufacturer");
             Thread.sleep(1000);
             clickOnElement(driver,CreateButtonUMVContract,"Create Button for UMVContract");
+            Thread.sleep(1000);
             MainTabUnderUMVContract(driver);
+            Thread.sleep(1000);
             OrderingCountriesTabUnderUMVContract(driver);
+            Thread.sleep(1000);
             InstallCountriesTabUnderUMVContract(driver);
+            Thread.sleep(1000);
             CostAndPriceTabUnderUMVContract(driver);
             Thread.sleep(5000);
         } else{ReportEvent("Fail", "Verify existence of ' Uptime Contract Number ' blank", "' Uptime Contract Number ' blank is not available ");}
 
-        return UMVContractNumberSt;
+        return UMVContractNumberString;
     }
     public static void MainTabUnderUMVContract(WebDriver driver) throws IOException, WriteException, BiffException {
         StepLable("Fill/Edit details unde main section");
@@ -230,6 +234,26 @@ public class MaintenanceServicesSetUpPage {
         }else if(SearchColumnText("SolutionTypes").contentEquals("Specific")){
             clickOnElement(driver,SpecificSolutionTypes,"Specific Solution Types");
         }
+
+        if(SearchColumnText("PACEContract").contentEquals("Yes")){
+            //What delivery model will be used to service this contract?
+            for(int i=0;i<=4;i++){
+                String Value= GetMultipleElementList(driver,By.id("DeliveryModel")).get(i).getAttribute("Value");
+                if(Value.contentEquals(SearchColumnText("DeliveryModel"))){
+                    String text =GetMultipleElementList(driver,By.xpath("//*[@id='DeliveryModel']/parent::td")).get(i).getText();
+                    GetMultipleElementList(driver,By.id("DeliveryModel")).get(i).click();
+                    ReportEvent("Pass", " Select 'Delivery Model' for PACE Contract ", "successfully selected for 'Delivery Model' for PACE Contract, i.e : "+text);
+                    break;
+                }
+            }
+            for(int i=0;i<=1;i++){
+                String Value= GetMultipleElementList(driver,By.xpath("//*[@id='DelOwner']/td[2]/input")).get(i).getAttribute("Value");
+                if(Value.contentEquals(SearchColumnText("GDC"))){
+                    GetMultipleElementList(driver,By.xpath("//*[@id='DelOwner']/td[2]/input")).get(i).click();
+                    ReportEvent("Pass", " Select 'GDC' for PACE Contract ", "successfully selected for 'GDC' for PACE Contract, i.e "+SearchColumnText("GDC"));
+                }
+            }
+        }
         //Assign SLAs
         GetMultipleElementList(driver, By.xpath("//td[contains(text(),'"+SearchColumnText("NameOfSLA")+"')]/preceding-sibling::td[2]/input[1]")).get(0).click();
         ReportEvent("Pass", " Select SLAs for UMV ", "successfully selected SLA with ERP Part# : "+SearchColumnText("NameOfSLA"));
@@ -244,7 +268,7 @@ public class MaintenanceServicesSetUpPage {
     }
     public static void OrderingCountriesTabUnderUMVContract(WebDriver driver) throws InterruptedException, IOException, WriteException, BiffException {
         StepLable("Update Ordering Countries tab details");
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         clickOnElement(driver,OrderingCountriesTab,"Ordering Countries Tab");
         Thread.sleep(3000);
         //Check if any assign countries are available.
@@ -293,60 +317,106 @@ public class MaintenanceServicesSetUpPage {
         //click on install countries tab
         clickOnElement(driver,CostAndPriceTab,"Cost And Price Tab");
         Thread.sleep(2000);
-        selectDropDownByVisibletxt(driver,CurrencyDropDown,SearchColumnText("UMVCurrency"),"UMV Currency");
-
-        selectDropDownByVisibletxt(driver,CostMethodDropdown,SearchColumnText("CostMethod"),"Cost Method");
-
-        //Select multiple options
-        String[] MultipleOptions ={"MultiplePercent","MultipleCostFactor","RollupBackoutCost","DoNotAllow"};
-        String[] Xpath ={"IsMultiCMPerent","IsMultiCostFacctor","AddBackoutCost","nochangebackout"};
-        for(int i=0;i<=3;i++){
-            if(SearchColumnText(MultipleOptions[i]).contentEquals("Yes")){
-                clickElement(driver,By.id(Xpath[i]));
-                ReportEvent("Pass", " is '"+MultipleOptions[i]+"' need to configure for Umv Contract", " '"+MultipleOptions[i]+"' is configured Successfully");
-            }else if(SearchColumnText(MultipleOptions[i]).contentEquals("No")){
-                ReportEvent("Pass", " is '"+MultipleOptions[i]+"' need to configure for Umv Contract", " '"+MultipleOptions[i]+"' is configured Successfully");
+        if(SearchColumnText("PACEContract").contentEquals("No")) {
+            selectDropDownByVisibletxt(driver, CurrencyDropDown, SearchColumnText("UMVCurrency"), "UMV Currency");
+            selectDropDownByVisibletxt(driver, CostMethodDropdown, SearchColumnText("CostMethod"), "Cost Method");
+            //Select multiple options
+            String[] MultipleOptions = {"MultiplePercent", "MultipleCostFactor", "RollupBackoutCost", "DoNotAllow"};
+            String[] Xpath = {"IsMultiCMPerent", "IsMultiCostFacctor", "AddBackoutCost", "nochangebackout"};
+            for (int i = 0; i <= 3; i++) {
+                if (SearchColumnText(MultipleOptions[i]).contentEquals("Yes")) {
+                    clickElement(driver, By.id(Xpath[i]));
+                    ReportEvent("Pass", " is '" + MultipleOptions[i] + "' need to configure for Umv Contract", " '" + MultipleOptions[i] + "' is configured Successfully");
+                } else if (SearchColumnText(MultipleOptions[i]).contentEquals("No")) {
+                    ReportEvent("Pass", " is '" + MultipleOptions[i] + "' need to configure for Umv Contract", " '" + MultipleOptions[i] + "' is configured Successfully");
+                }
             }
-        }
-        //Provide default percentage
-        if(GetElement(driver,DefaultPercent).isEnabled()) {
-            ClearAField(driver, DefaultPercent);
-            sendInputData(driver, DefaultPercent,SearchColumnText("DefaultPercent"),"Default Percent");
-        }
-        //Provide default percentage
-        if(GetElement(driver,DefaultCostFactor).isEnabled()) {
-            ClearAField(driver, DefaultCostFactor);
-            sendInputData(driver, DefaultCostFactor,SearchColumnText("DefaultCostFactor"),"Default Cost Factor");
-        }
-
-        //Select multiple options
-        String[] MultipleOptionsSellMethod ={"AllowMultipleBackouts","MultiplePercent","MultipleBackoutUplift","RollupBackoutPrice","OverrideBUMapping"};
-        String[] XpathSellMethod ={"AllowMultiBackout_1","MultiBackOutDiscount_1","MultiBackOutUplift_1","AddBackoutPrice_1","OverrideBUSLA1"};
-
-        //Select sell method
-        selectDropDownByVisibletxt(driver,By.id("PriceScheme_1"),SearchColumnText("SellMethod"),"Sell Method");
-
-        for (int i = 0; i <= 4; i++) {
-            if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("Yes")) {
-                clickElement(driver, By.id(XpathSellMethod[i]));
-                ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is configured Successfully");
-            } else if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("No")) {
-                ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is configured Successfully");
+            //Provide default percentage
+            if (GetElement(driver, DefaultPercent).isEnabled()) {
+                ClearAField(driver, DefaultPercent);
+                sendInputData(driver, DefaultPercent, SearchColumnText("DefaultPercent"), "Default Percent");
             }
-        }
-        String SellFactorType=SearchColumnText("SellFactor");
-        if(SellFactorType.contentEquals("SellDefaultValue")){
-            ClearAField(driver, SellDefaultPercent);
-            sendInputData(driver,SellDefaultPercent,SearchColumnText("SellValue")," Default Sell Value");
-        }else if(SellFactorType.contentEquals("MinValue")){
-            ClearAField(driver, MinValueBlank);
-            sendInputData(driver,MinValueBlank,SearchColumnText("SellValue"),"Minimum Value  Blank");
-        }
-        ReportEvent("Pass","Provide 'Sell factor' type and Percentage","Successfully entered data, selected Factor is : "+SellFactorType+" and Percentage is : "+SearchColumnText("SellValue"));
+            //Provide default percentage
+            if (GetElement(driver, DefaultCostFactor).isEnabled()) {
+                ClearAField(driver, DefaultCostFactor);
+                sendInputData(driver, DefaultCostFactor, SearchColumnText("DefaultCostFactor"), "Default Cost Factor");
+            }
 
+            //Select multiple options
+            String[] MultipleOptionsSellMethod = {"AllowMultipleBackouts", "MultiplePercent", "MultipleBackoutUplift", "RollupBackoutPrice", "OverrideBUMapping"};
+            String[] XpathSellMethod = {"AllowMultiBackout_1", "MultiBackOutDiscount_1", "MultiBackOutUplift_1", "AddBackoutPrice_1", "OverrideBUSLA1"};
+
+            //Select sell method
+            selectDropDownByVisibletxt(driver, By.id("PriceScheme_1"), SearchColumnText("SellMethod"), "Sell Method");
+
+            for (int i = 0; i <= 4; i++) {
+                if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("Yes")) {
+                    clickElement(driver, By.id(XpathSellMethod[i]));
+                    ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is configured Successfully");
+                } else if (SearchColumnText(MultipleOptionsSellMethod[i]).contentEquals("No")) {
+                    ReportEvent("Pass", " is '" + MultipleOptionsSellMethod[i] + "' need to configure for Umv Contract", " '" + MultipleOptionsSellMethod[i] + "' is not configured");
+                }
+            }
+            String SellFactorType = SearchColumnText("SellFactor");
+            if (SellFactorType.contentEquals("SellDefaultValue")) {
+                ClearAField(driver, SellDefaultPercent);
+                sendInputData(driver, SellDefaultPercent, SearchColumnText("SellValue"), " Default Sell Value");
+            } else if (SellFactorType.contentEquals("MinValue")) {
+                ClearAField(driver, MinValueBlank);
+                sendInputData(driver, MinValueBlank, SearchColumnText("SellValue"), "Minimum Value  Blank");
+            }
+            ReportEvent("Pass", "Provide 'Sell factor' type and Percentage", "Successfully entered data, selected Factor is : " + SellFactorType + " and Percentage is : " + SearchColumnText("SellValue"));
+        }else if(SearchColumnText("PACEContract").contentEquals("Yes")){
+
+            if (SearchColumnText("DoNotAllow").contentEquals("Yes")) {
+                clickElement(driver, By.id("nochangebackout"));
+                ReportEvent("Pass", " is ' DoNotAllow ' need to configure for Umv Contract", " ' DoNotAllow ' is configured Successfully");
+            } else if (SearchColumnText("DoNotAllow").contentEquals("No")) {
+                ReportEvent("Pass", " is 'DoNotAllow' need to configure for Umv Contract", " 'DoNotAllow' is not configured");
+            }
+            if (SearchColumnText("AllowMultipleBackouts").contentEquals("Yes")) {
+                clickElement(driver, By.id("AllowMultiBackout_1"));
+                ReportEvent("Pass", " is 'Allow Multiple Backouts' need to configure for Umv Contract", " 'Allow Multiple Backouts' is configured Successfully");
+            } else if (SearchColumnText("AllowMultipleBackouts").contentEquals("No")) {
+                ReportEvent("Pass", " is 'Allow Multiple Backouts' need to configure for Umv Contract", " 'Allow Multiple Backouts' is not configured");
+            }
+            //Cost Default Backout
+            ClearAField(driver, By.id("DefaultBackoutSLACost_1_1"));
+            sendInputData(driver, By.id("DefaultBackoutSLACost_1_1"), SearchColumnText("CostDefaultBackout"), " Default Backout Value");
+            //Sell Vendor SLA
+            ClearAField(driver, By.id("VendSLA_1_1"));
+            sendInputData(driver, By.id("VendSLA_1_1"), SearchColumnText("SellVendorSLA"), " Vendor SLA value");
+            //Sell Backout Uplift
+            ClearAField(driver, By.id("Uplift_1_1"));
+            sendInputData(driver, By.id("Uplift_1_1"), SearchColumnText("SellBackoutUplift"), " Backout Uplift value");
+            //Sell Backout Uplift
+            ClearAField(driver, By.id("ChargeValue_1_1"));
+            sendInputData(driver, By.id("ChargeValue_1_1"), SearchColumnText("DefaultDiscount"), " Default Discount value");
+        }
         //Update the details.
         clickOnElement(driver,UpdateButtonCostAndPrice,"Cost And Price Update Button");
+        Thread.sleep(2000);
 
+    }
+
+    public static Double[] GetQuoteValuesForUMVHardware(WebDriver driver) throws WriteException, IOException, BiffException {
+
+        //Price values of product
+        String HardwareListPriceTxt = GetValueAttribute(driver, By.xpath("//b[contains(text(),'Mfr Part #: " + SearchColumnText("MfrPart") + "')]/parent::td/following-sibling::td[3]/input[1]"));
+        String HardwareUnitPriceTxt = GetValueAttribute(driver, By.xpath("//b[contains(text(),'Mfr Part #: " + SearchColumnText("MfrPart") + "')]/parent::td/following-sibling::td[4]/input[1]"));
+        String HardwareCostPriceTxt = GetValueAttribute(driver, By.xpath("//b[contains(text(),'Mfr Part #: " + SearchColumnText("MfrPart") + "')]/parent::td/following-sibling::td[7]/input[1]"));
+
+        Double[] HardWareValues = {Double.parseDouble(HardwareListPriceTxt), Double.parseDouble(HardwareUnitPriceTxt), Double.parseDouble(HardwareCostPriceTxt)};
+
+        return HardWareValues;
+    }
+    public static Double[] GetQuoteValuesForUMVService(WebDriver driver) throws WriteException, IOException, BiffException {
+        //price values of Service
+        String ServiceListPriceTxt = GetValueAttribute(driver,By.xpath("//b[contains(text(),'Hardware Part #: "+SearchColumnText("MfrPart")+"')]/parent::td/following-sibling::td[3]/input[1]"));
+        String ServiceUnitPriceTxt = GetValueAttribute(driver,By.xpath("//b[contains(text(),'Hardware Part #: "+SearchColumnText("MfrPart")+"')]/parent::td/following-sibling::td[4]/input[1]"));
+        String ServiceCostPriceTxt = GetValueAttribute(driver,By.xpath("//b[contains(text(),'Hardware Part #: "+SearchColumnText("MfrPart")+"')]/parent::td/following-sibling::td[7]/input[1]"));
+        Double[] ServiceValues = {Double.parseDouble(ServiceListPriceTxt),Double.parseDouble(ServiceUnitPriceTxt),Double.parseDouble(ServiceCostPriceTxt)};
+        return ServiceValues;
     }
 
 }

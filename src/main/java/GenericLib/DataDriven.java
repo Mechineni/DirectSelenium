@@ -350,6 +350,7 @@ public class DataDriven {
 		return RN;
 	}
 	private static String TestDataSheet;
+	public static String TestCaseNumber;
 	public static boolean CheckingFlag(String TcN) throws IOException, WriteException, BiffException {
 		boolean status = false;
 		int TestCaseNum = GetColumnNumber(TcN);
@@ -359,6 +360,7 @@ public class DataDriven {
 			status= true; DataDriven.ReportStartup(TestCaseNum);
 		}
 		TestDataSheet=TcN;
+		TestCaseNumber =TcN;
 		return status;
 	}
 	public static Sheet TestDataSheet() throws BiffException, IOException, WriteException {
@@ -374,8 +376,8 @@ public class DataDriven {
         Sheet TestCasesheet = TestCaseBook.getSheet(TestDataSheet);
         int totalNoOfColumns = TestCasesheet.getColumns();
         for (int col = 0; col < totalNoOfColumns; col++) {
-            if(TestCasesheet.getCell(col,0).getContents().contentEquals(Parameter)){
-                TestDataValue = TestCasesheet.getCell(col,1).getContents();
+            if(TestCasesheet.getCell(col,1).getContents().contentEquals(Parameter)){
+                TestDataValue = TestCasesheet.getCell(col,2).getContents();
             }
         }
         return TestDataValue;

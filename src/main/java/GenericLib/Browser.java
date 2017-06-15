@@ -71,7 +71,7 @@ public class Browser {
 	@AfterClass
 	public void Close() throws IOException, WriteException {
 		//---Enable belwo line of code when running for batch run and temporarily disabled it
-		//driver.quit();
+		driver.quit();
 	}
 
 	@BeforeSuite
